@@ -31,12 +31,20 @@ from cms_body.views import (
     EditionUpdateView,
     DocumentCreateView,
     AddDocument,
-    DocumentView)
+    DocumentView,
+    DocumentUpdateView,
+    UserLoginView,
+    UserLogoutView,
+    IndexView,)
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^index/', IndexView.as_view(), name='index'),
+    url(r'^user_login/$', UserLoginView.as_view(), name='user-login'),
+    url(r'^logout/$', UserLogoutView.as_view(), name='logout'),
+
 
     url(r'^create_author/$', AuthorCreateView.as_view(), name='create-author'),
     url(r'^update_author/(?P<pk>\d+)/$', AuthorUpdateView.as_view(), name='update-author'),
@@ -51,7 +59,10 @@ urlpatterns = [
     url(r'^editions/$', EditionView.as_view(), name='editions'),
 
     url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
+    url(r'^update_document/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
     url(r'^documents/$', DocumentView.as_view(), name='documents'),
+
+
 
 ]

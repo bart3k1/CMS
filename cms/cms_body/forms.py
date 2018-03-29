@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from cms_body.models import Author, Document, Guest
 from tinymce.widgets import TinyMCE
@@ -17,3 +18,8 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = '__all__'
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=128)
+    password = forms.CharField(widget=forms.PasswordInput)

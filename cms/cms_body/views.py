@@ -1,13 +1,23 @@
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm
+from cms_body.forms import DocumentForm, LoginForm
+
 
 # Create your views here.
 
+
+class IndexView(View):
+    def get(self, request):
+        ctx = {
+            'wydania': Edition.objects.all(),
+
+        }
+        return render(request, "index.html", ctx)
 
 
 class AuthorCreateView(CreateView):
@@ -62,6 +72,40 @@ class EditionDetailView(DetailView):
     model = Edition
 
 
+class UserLoginView(View):
+    def get(self, request):
+        ctx = {
+            'form': LoginForm,
+        }
+        return render(request, 'login_form.html', ctx)
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                url = request.GET.get('next')
+                if url:
+                    return redirect(url)
+                return redirect('editions')
+
+            form.add_error(field=None, error='Zły login lub hasło')
+
+        ctx = {
+            'form': form,
+        }
+        return render(request, 'login_form.html', ctx)
+
+
+class UserLogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponse('Wylogowano')
+
+
 class DocumentCreateView(CreateView):
     model = Document
     fields = '__all__'
@@ -92,3 +136,9 @@ class AddDocument(View):
 
 class DocumentView(ListView):
     model = Document
+
+
+class DocumentUpdateView(UpdateView):
+    model = Document
+    fields = '__all__'
+    success_url = reverse_lazy('documents')

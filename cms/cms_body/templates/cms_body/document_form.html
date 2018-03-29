@@ -4,8 +4,8 @@
 
     <form action="" method="post">
     {% csrf_token %}
-    {{  form }}
-    <input type="submit" value="Dodaj DOKUMENT">
+    {{  form.as_p  }}
+    <input type="submit" value="Dodaj">
     </form>
 
 {% endblock %}

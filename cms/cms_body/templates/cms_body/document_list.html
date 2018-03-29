@@ -6,7 +6,8 @@
        <ul>
             {% for object in object_list %}
             <li>
-            {{  object.topic }} | Autor: {{  object.autor.surname }}
+            <a href="{% url 'update-document' pk=object.id %}">Edytuj {{  object.topic }}</a> | Autor: {{  object.autor.surname }}
+
             </li>
             {% endfor %}
        </ul>

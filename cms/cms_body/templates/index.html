@@ -1,0 +1,14 @@
+{% extends 'base_form.html' %}
+
+{% block content %}
+
+    <p>Wydania</p>
+        <ul>
+            {% for object in wydania %}
+            <li>
+            <a href="{% url 'edition-detail' pk=object.id %}">Edytuj {{ object.date }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+{%  endblock %}
