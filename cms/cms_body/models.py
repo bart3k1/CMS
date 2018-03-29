@@ -7,10 +7,9 @@ class Author(models.Model):
     name = models.CharField(max_length=40, null=False)
     surname = models.CharField(max_length=40, null=False)
     phone = models.CharField(max_length=15, null=False)
-    phone2 = models.CharField(max_length=15, null=False)
 
     def __str__(self):
-        return "Imię: {} Nazwisko: {}".format(self.name, self.surname)
+        return "{} {}".format(self.name, self.surname)
 
 
 class Host(models.Model):
