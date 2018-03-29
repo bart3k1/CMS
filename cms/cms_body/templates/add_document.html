@@ -4,6 +4,16 @@
     <head>
         <meta charset="utf-8">
         {{ form.media }}
+        <script type="text/javascript" src="/admin/jsi18n/"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/widgets.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css"/>
 
 
     </head>
@@ -18,5 +28,9 @@
     <footer>
 
     </footer>
+
+    <script type="text/javascript">
+    addEvent(window, "load", function(e) { SelectFilter.init("id_pricetags", "pricetags", 0, "{{ STATIC_URL }}admin/"); });
+    </script>
     </body>
 </html>

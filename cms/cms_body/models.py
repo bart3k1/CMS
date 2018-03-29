@@ -65,5 +65,6 @@ class Edition(models.Model):
 class Document(models.Model):
         topic = models.CharField(max_length=40, verbose_name='Tytuł')
         content = tinymce_models.HTMLField(verbose_name='Treść')
-        autor = models.ForeignKey(Author, null=True, verbose_name='Autor')
-        wydanie = models.ForeignKey(Edition, null=True, verbose_name='Wydanie')
+        author = models.ForeignKey(Author, null=True, verbose_name='Autor')
+        edition = models.ForeignKey(Edition, null=True, verbose_name='Wydanie')
+        guests = models.ManyToManyField(Guest, related_name='doc_guests', verbose_name='Goście')
