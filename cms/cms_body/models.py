@@ -1,4 +1,9 @@
 from django.db import models
+from tinymce.models import HTMLField
+from tinymce import models as tinymce_models
+
+
+
 
 # Create your models here.
 
@@ -55,3 +60,8 @@ class Edition(models.Model):
     class Meta:
         verbose_name = "Wydanie"
         verbose_name_plural = "Wydania"
+
+
+class Document(models.Model):
+        topic = models.CharField(max_length=40, verbose_name='Tytuł')
+        content = tinymce_models.HTMLField(verbose_name='Treść')

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from cms_body.models import Author, Host, Guest, Edition
+from cms_body.models import Author, Host, Guest, Edition, Document
 
 
 @admin.register(Author)
@@ -22,3 +22,8 @@ class GuestAdmin(admin.ModelAdmin):
 @admin.register(Edition)
 class GuestAdmin(admin.ModelAdmin):
     list_display = ("date",)
+
+
+@admin.register(Document)
+class DocumentAdmin(admin.ModelAdmin):
+    list_display = ("topic",)

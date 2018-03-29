@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
+from django.conf.urls import include
 
 from cms_body.views import (
     AuthorCreateView,
@@ -28,11 +29,14 @@ from cms_body.views import (
     EditionDetailView,
     EditionDeleteView,
     EditionUpdateView,
-)
+    DocumentCreateView,
+    AddDocument,
+    DocumentView)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^tinymce/', include('tinymce.urls')),
 
     url(r'^create_author/$', AuthorCreateView.as_view(), name='create-author'),
     url(r'^update_author/(?P<pk>\d+)/$', AuthorUpdateView.as_view(), name='update-author'),
@@ -45,5 +49,9 @@ urlpatterns = [
     url(r'^delete_edition/(?P<pk>\d+)/$', EditionDeleteView.as_view(), name='delete-edition'),
     url(r'^detail_edition/(?P<pk>\d+)/$', EditionDetailView.as_view(), name='edition-detail'),
     url(r'^editions/$', EditionView.as_view(), name='editions'),
+
+    url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
+    url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
+    url(r'^documents/$', DocumentView.as_view(), name='documents'),
 
 ]

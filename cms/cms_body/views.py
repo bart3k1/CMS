@@ -1,11 +1,13 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from cms_body.models import Author, Host, Guest, Edition
+from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
+from cms_body.forms import DocumentForm
 
 # Create your views here.
+
 
 
 class AuthorCreateView(CreateView):
@@ -58,3 +60,35 @@ class EditionDeleteView(DeleteView):
 
 class EditionDetailView(DetailView):
     model = Edition
+
+
+class DocumentCreateView(CreateView):
+    model = Document
+    fields = '__all__'
+
+
+class AddDocument(View):
+    def get(self, request):
+        ctx = {
+            'form': DocumentForm,
+        }
+        return render(request, "add_document.html", ctx)
+
+    def post(self, request):
+        form = DocumentForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            form.save()
+            # return HttpResponse('Dodano gościa {}'.format(name))
+            return HttpResponseRedirect(reverse('documents'))
+
+
+        # BLEDY ... jesli if nei pojdzie to bledy w formie sie wyswietla
+        ctx = {
+            'form': form,
+        }
+        return render(request, "add_document.html", ctx)
+
+
+class DocumentView(ListView):
+    model = Document
