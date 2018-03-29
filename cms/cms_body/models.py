@@ -66,3 +66,4 @@ class Document(models.Model):
         topic = models.CharField(max_length=40, verbose_name='Tytuł')
         content = tinymce_models.HTMLField(verbose_name='Treść')
         autor = models.ForeignKey(Author, null=True, verbose_name='Autor')
+        wydanie = models.ForeignKey(Edition, null=True, verbose_name='Wydanie')
