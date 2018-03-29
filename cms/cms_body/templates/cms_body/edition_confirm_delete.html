@@ -1,11 +1,10 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-
+<p>USUNĄĆ ??? {{ object }}</p>
     <form action="" method="post">
     {% csrf_token %}
-    {{  form.as_table  }}
-    <input type="submit" value="Dodaj">
+    <input type="submit" value="Usuń">
     </form>
 
 {% endblock %}

@@ -17,16 +17,33 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 
-from cms_body.views import AuthorCreateView, AuthorUpdateView, AuthorDeleteView, AuthorDetailView, AuthorView
+from cms_body.views import (
+    AuthorCreateView,
+    AuthorUpdateView,
+    AuthorDeleteView,
+    AuthorDetailView,
+    AuthorView,
+    EditionCreateView,
+    EditionView,
+    EditionDetailView,
+    EditionDeleteView,
+    EditionUpdateView,
+)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^create_author/$', AuthorCreateView.as_view(), name='create-author'),
     url(r'^update_author/(?P<pk>\d+)/$', AuthorUpdateView.as_view(), name='update-author'),
     url(r'^delete_author/(?P<pk>\d+)/$', AuthorDeleteView.as_view(), name='delete-author'),
     url(r'^detail_author/(?P<pk>\d+)/$', AuthorDetailView.as_view(), name='author-detail'),
     url(r'^authors/$', AuthorView.as_view(), name='authors'),
 
+    url(r'^create_edition/$', EditionCreateView.as_view(), name='create-edition'),
+    url(r'^update_edition/(?P<pk>\d+)/$', EditionUpdateView.as_view(), name='update-edition'),
+    url(r'^delete_edition/(?P<pk>\d+)/$', EditionDeleteView.as_view(), name='delete-edition'),
+    url(r'^detail_edition/(?P<pk>\d+)/$', EditionDetailView.as_view(), name='edition-detail'),
+    url(r'^editions/$', EditionView.as_view(), name='editions'),
 
 ]

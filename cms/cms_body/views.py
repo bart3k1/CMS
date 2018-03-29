@@ -33,3 +33,28 @@ class AuthorDeleteView(DeleteView):
 
 class AuthorDetailView(DetailView):
     model = Author
+
+
+class EditionCreateView(CreateView):
+    model = Edition
+    fields = '__all__'
+    success_url = reverse_lazy('editions')
+
+
+class EditionView(ListView):
+    model = Edition
+
+
+class EditionUpdateView(UpdateView):
+    model = Edition
+    fields = '__all__'
+    success_url = reverse_lazy('editions')
+
+
+class EditionDeleteView(DeleteView):
+    model = Edition
+    success_url = reverse_lazy('editions')
+
+
+class EditionDetailView(DetailView):
+    model = Edition
