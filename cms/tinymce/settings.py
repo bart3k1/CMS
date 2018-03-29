@@ -3,7 +3,12 @@ from django.conf import settings
 from django.contrib.staticfiles import finders
 
 DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
-                         {'theme': "advanced", 'relative_urls': False})
+                         {
+                            'theme': "advanced",
+                            'relative_urls': False,
+                            'width': '75%',
+                            'height': 500
+                          })
 
 USE_SPELLCHECKER = getattr(settings, 'TINYMCE_SPELLCHECKER', False)
 

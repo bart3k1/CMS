@@ -10,7 +10,7 @@ class AuthorForm(forms.ModelForm):
 
 
 class DocumentForm(forms.ModelForm):
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
 
     class Meta:
         model = Document
