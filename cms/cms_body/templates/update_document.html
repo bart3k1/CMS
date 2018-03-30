@@ -22,7 +22,7 @@
     <div class="form-row">
         <form method="post" action=".">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.as_p }}<br>
         <button type="submit" value="submit">Add</button>
     </form>
   </div>

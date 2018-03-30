@@ -13,12 +13,17 @@ class AuthorForm(forms.ModelForm):
 
 
 class DocumentForm(forms.ModelForm):
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
-    guests = forms.ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=forms.CheckboxSelectMultiple)
+    # content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
+    # guests = FilteredSelectMultiple(verbose_name="Goście", is_stacked=True)
 
     class Meta:
         model = Document
         fields = '__all__'
+        widgets = {'guests': FilteredSelectMultiple(verbose_name="Goście", is_stacked=False, )}
+
+    class Media:
+        css = {'all':['admin/css/widgets.css']}
+        js = ['/admin/jsi18n/']
 
 
 class LoginForm(forms.Form):

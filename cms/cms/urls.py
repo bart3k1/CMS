@@ -39,7 +39,8 @@ from cms_body.views import (
     HostDetailView,
     GuestDetailView,
     DocumentDetailView,
-    AddUserView,)
+    AddUserView,
+    UpdateDocumentView,)
 
 
 
@@ -69,7 +70,8 @@ urlpatterns = [
     url(r'^editions/$', EditionView.as_view(), name='editions'),
 
     url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
-    url(r'^update_document/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document'),
+    url(r'^update_document1/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document1'),
+    url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
     url(r'^detail_document/(?P<pk>\d+)/$', DocumentDetailView.as_view(), name='document-detail'),
     url(r'^documents/$', DocumentView.as_view(), name='documents'),

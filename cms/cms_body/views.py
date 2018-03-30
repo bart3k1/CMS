@@ -121,14 +121,33 @@ class AddDocument(View):
         return render(request, "add_document.html", ctx)
 
 
-class DocumentView(ListView):
-    model = Document
+class UpdateDocumentView(View):
+    def get(self, request, pk):
+        document = Document.objects.get(pk=pk)
+        form = DocumentForm(instance=document)
+        ctx = {
+            'form': form,
+        }
+        return render(request, "add_document.html", ctx)
+
+    def post(self, request, pk):
+        document = Document.objects.get(pk=pk)
+        form = DocumentForm(request.POST, instance=document)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(
+                reverse('documents')
+            )
 
 
 class DocumentUpdateView(UpdateView):
     model = Document
     fields = '__all__'
     success_url = reverse_lazy('documents')
+
+
+class DocumentView(ListView):
+    model = Document
 
 
 class DocumentDetailView(DetailView):
