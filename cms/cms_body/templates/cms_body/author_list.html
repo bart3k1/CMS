@@ -6,7 +6,7 @@
        <ul>
             {% for object in object_list %}
             <li>
-            Imię: {{ object.name }}, Nazwisko: {{ object.surname }}
+            Imię: {{ object.name }}, Nazwisko: {{ object.surname }} {{ object.doc_authors_set }}
             </li>
             {% endfor %}
        </ul>

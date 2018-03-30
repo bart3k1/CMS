@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>PROWADZĄCY/DETAL</h1>
+<p> Prowadzący: {{ object }}</p>
+
+<p>
+    Wydania:<br>
+    {% for edition in host.host_progs.all|dictsortreversed:"id" %}
+        {{ edition.date }}<br>
+    {% endfor %}
+</p>
+
+
+
+{%  endblock %}

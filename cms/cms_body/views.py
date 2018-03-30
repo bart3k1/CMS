@@ -1,23 +1,30 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm, LoginForm
+from cms_body.forms import DocumentForm, LoginForm, AddUserForm
 
 
-# Create your views here.
+# INDEX
 
 
 class IndexView(View):
     def get(self, request):
         ctx = {
-            'wydania': Edition.objects.all(),
+            'editions': Edition.objects.all(),
+            'authors': Author.objects.all(),
+            'documents': Document.objects.all(),
+            'guests': Guest.objects.all(),
+            'hosts': Host.objects.all(),
 
         }
         return render(request, "index.html", ctx)
+
+# AUTHOR
 
 
 class AuthorCreateView(CreateView):
@@ -28,13 +35,13 @@ class AuthorCreateView(CreateView):
 
 class AuthorView(ListView):
     model = Author
-    # template_name = 'exercises/hosts_list.html' #nie trzeba jesli takie jak standardowe hosts_list.html
+    # template_name = 'cms_body/authors.html' # now - author_list.html
 
 
 class AuthorUpdateView(UpdateView):
     model = Author
     fields = '__all__'
-    # template_name_suffix = '_update_form'
+    # template_name_suffix = '_update_form' # now _form
     success_url = reverse_lazy('authors')
 
 
@@ -45,6 +52,20 @@ class AuthorDeleteView(DeleteView):
 
 class AuthorDetailView(DetailView):
     model = Author
+
+# HOST
+
+
+class HostDetailView(DetailView):
+    model = Host
+
+# GUEST
+
+
+class GuestDetailView(DetailView):
+    model = Guest
+
+# EDITION
 
 
 class EditionCreateView(CreateView):
@@ -70,6 +91,82 @@ class EditionDeleteView(DeleteView):
 
 class EditionDetailView(DetailView):
     model = Edition
+
+
+# DOCUMENT
+
+
+class DocumentCreateView(CreateView):
+    model = Document
+    fields = '__all__'
+
+
+class AddDocument(View):
+    def get(self, request):
+        ctx = {
+            'form': DocumentForm,
+        }
+        return render(request, "add_document.html", ctx)
+
+    def post(self, request):
+        form = DocumentForm(request.POST)
+        if form.is_valid():
+            # content = form.cleaned_data['content']
+            form.save()
+            # return HttpResponse('Dodano gościa {}'.format(name))
+            return HttpResponseRedirect(reverse('documents'))
+        ctx = {
+            'form': form,
+        }
+        return render(request, "add_document.html", ctx)
+
+
+class DocumentView(ListView):
+    model = Document
+
+
+class DocumentUpdateView(UpdateView):
+    model = Document
+    fields = '__all__'
+    success_url = reverse_lazy('documents')
+
+
+class DocumentDetailView(DetailView):
+    model = Document
+
+
+# USER
+
+class AddUserView(View):
+    def get(self, request):
+        ctx = {
+            'form': AddUserForm,
+        }
+        return render(request, 'add_user_form.html', ctx)
+
+    def post(self, request):
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            # create_user - HASLA HASZOWANE
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                            password=form.cleaned_data['password'],
+                                            first_name=form.cleaned_data['first_name'],
+                                            last_name=form.cleaned_data['last_name'],
+                                            email=form.cleaned_data['email'])
+            #SZYBSZE z usunieciem nieptrzebnego pola
+            # del form.cleaned_data['password_c'] albo
+            # form.cleaned_data.pop('password_c')
+            # user = User.objects.create_user(**form.cleaned_data)
+
+
+            #ZROBIC USER ADDED DELETED MODIFICATED TEMPLATE!
+
+            return HttpResponse('DODANO! usera o id {}'.format(user.id))
+
+        ctx = {
+            'form': form,
+        }
+        return render(request, 'add_user_form.html', ctx)
 
 
 class UserLoginView(View):
@@ -104,41 +201,3 @@ class UserLogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponse('Wylogowano')
-
-
-class DocumentCreateView(CreateView):
-    model = Document
-    fields = '__all__'
-
-
-class AddDocument(View):
-    def get(self, request):
-        ctx = {
-            'form': DocumentForm,
-        }
-        return render(request, "add_document.html", ctx)
-
-    def post(self, request):
-        form = DocumentForm(request.POST)
-        if form.is_valid():
-            content = form.cleaned_data['content']
-            form.save()
-            # return HttpResponse('Dodano gościa {}'.format(name))
-            return HttpResponseRedirect(reverse('documents'))
-
-
-        # BLEDY ... jesli if nei pojdzie to bledy w formie sie wyswietla
-        ctx = {
-            'form': form,
-        }
-        return render(request, "add_document.html", ctx)
-
-
-class DocumentView(ListView):
-    model = Document
-
-
-class DocumentUpdateView(UpdateView):
-    model = Document
-    fields = '__all__'
-    success_url = reverse_lazy('documents')

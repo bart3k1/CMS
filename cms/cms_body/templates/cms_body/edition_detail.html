@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Id: {{ object.id }}</p>
-<p>Data: {{ object.date }}</p>
+<h1>WYDANIE/DETAL</h1>
 <p>Wydanie: {{ object }}</p>
-<p>docs: {{ object.edition_set }}</p>
+<p>Wydawca: {{ object.editor.surname }}</p>
+
+ - - - - -
+<p>Doki:</p>
+
+    {% for doc in edition.doc_editions.all %}
+<p>
+        <a href="{% url 'update-document' pk=doc.id %}">{{ doc.topic }} </a> - {{ doc.author }}<br>
+            Goście:
+            {% for guest in doc.guests.all %}
+            {{ guest.surname }} |
+            {% endfor %}
+
+</p>
+    {% endfor %}
+
+- - - - -
+<p>Prowadzący:
+    {% for host in edition.hosts.all %}
+        {{ host.surname }} |
+    {% endfor %}
+</p>
+
 
 {%  endblock %}

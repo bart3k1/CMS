@@ -26,5 +26,5 @@ class GuestAdmin(admin.ModelAdmin):
 
 @admin.register(Document)
 class DocumentAdmin(admin.ModelAdmin):
-    list_display = ("topic",)
+    list_display = ("topic", "edition", "author")
     filter_horizontal = ['guests']

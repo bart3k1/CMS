@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Id: {{ object.id }}</p>
-<p>Imię: {{ object.name }}</p>
-<p> Autor: {{ author }}</p>
+<h1>AUTOR/DETAL</h1>
+<p> Autor: {{ object }}</p>
+
+<p>
+    Doki:<br>
+    {% for doc in author.doc_authors.all|dictsortreversed:"id" %}
+        {{ doc.topic }} | {{ doc.edition }}<br>
+    {% endfor %}
+</p>
+
+
 
 {%  endblock %}

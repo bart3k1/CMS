@@ -35,13 +35,19 @@ from cms_body.views import (
     DocumentUpdateView,
     UserLoginView,
     UserLogoutView,
-    IndexView,)
+    IndexView,
+    HostDetailView,
+    GuestDetailView,
+    DocumentDetailView,
+    AddUserView,)
+
 
 
 urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^index/', IndexView.as_view(), name='index'),
+    url(r'^add_user/$', AddUserView.as_view(), name='add-user'),
     url(r'^user_login/$', UserLoginView.as_view(), name='user-login'),
     url(r'^logout/$', UserLogoutView.as_view(), name='logout'),
 
@@ -52,6 +58,10 @@ urlpatterns = [
     url(r'^detail_author/(?P<pk>\d+)/$', AuthorDetailView.as_view(), name='author-detail'),
     url(r'^authors/$', AuthorView.as_view(), name='authors'),
 
+    url(r'^detail_host/(?P<pk>\d+)/$', HostDetailView.as_view(), name='host-detail'),
+
+    url(r'^detail_guest/(?P<pk>\d+)/$', GuestDetailView.as_view(), name='guest-detail'),
+
     url(r'^create_edition/$', EditionCreateView.as_view(), name='create-edition'),
     url(r'^update_edition/(?P<pk>\d+)/$', EditionUpdateView.as_view(), name='update-edition'),
     url(r'^delete_edition/(?P<pk>\d+)/$', EditionDeleteView.as_view(), name='delete-edition'),
@@ -61,6 +71,7 @@ urlpatterns = [
     url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
     url(r'^update_document/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
+    url(r'^detail_document/(?P<pk>\d+)/$', DocumentDetailView.as_view(), name='document-detail'),
     url(r'^documents/$', DocumentView.as_view(), name='documents'),
 
 

@@ -24,6 +24,17 @@
         </p>
         {%  if user.is_authenticated %}
 
+        <p>
+            <a href="{% url 'index' %}"> Start | </a>
+            <a href="{% url 'authors' %}"> Autorzy | </a>
+            <a href="{% url 'editions' %}"> Wydania | </a>
+            <a href="{% url 'documents' %}"> Dokumentacje </a>
+
+
+        </p>
+
+
+
         <p>Jesteś zalogowany jako {{ user.username }} </p>
             <p> <a href="{% url 'logout' %}"> Wyloguj!</a></p>
             {% else %}

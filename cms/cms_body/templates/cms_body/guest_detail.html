@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>GOŚĆ/DETAL</h1>
+
+<p> Gość: {{ object }}</p>
+<p> Telefon: {{ object.phone }}</p>
+<p> Telefon2: {{ object.alt_phone }}</p>
+<p> Notatki: {{ object.notes }}</p>
+<p> Ready: {{ object.tv_ready }} /  {{ object.get_tv_ready_display }} </p>
+
+<p>
+    Wizyty:<br>
+    {% for doc in guest.doc_guests.all|dictsortreversed:"id" %}
+        {{ doc.topic }} | {{ doc.edition }}<br>
+    {% endfor %}
+</p>
+
+
+
+{%  endblock %}
