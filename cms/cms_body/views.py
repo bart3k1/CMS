@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm, LoginForm, AddUserForm
+from cms_body.forms import DocumentForm, LoginForm, AddUserForm, SearchForm
 
 
 # INDEX
@@ -64,6 +64,34 @@ class HostDetailView(DetailView):
 
 class GuestDetailView(DetailView):
     model = Guest
+
+
+class SearchGuestView(View):
+    def get(self, request):
+        ctx = {
+            'form': SearchForm,
+        }
+        return render(request, 'search.html', ctx)
+
+    def post(self, request):
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            gosc = form.cleaned_data['gosc']
+            name = Guest.objects.filter(name__icontains=gosc)
+            surname = Guest.objects.filter(surname__icontains=gosc)
+            # print(categories)
+            ctx = {
+                'form': SearchForm,
+                'name': name,
+                'surname': surname,
+                'wyniki': True
+            }
+            return render(request, 'search.html', ctx)
+
+        ctx = {
+            'form': SearchForm,
+        }
+        return render(request, 'search.html', ctx)
 
 # EDITION
 

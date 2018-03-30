@@ -12,6 +12,11 @@ class AuthorForm(forms.ModelForm):
         fields = '__all__'
 
 
+class SearchForm(forms.Form):
+    gosc = forms.CharField(max_length=100, required=False)
+
+
+
 class DocumentForm(forms.ModelForm):
     # content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
     # guests = FilteredSelectMultiple(verbose_name="Goście", is_stacked=True)
