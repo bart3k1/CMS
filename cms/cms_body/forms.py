@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from cms_body.models import Author, Document, Guest
 from django.forms import ModelMultipleChoiceField
 from tinymce.widgets import TinyMCE
-from cms_body.validators import validate_username
+from cms_body.validators import validate_username, validate_gosc
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django_select2.forms import Select2MultipleWidget
 
@@ -15,8 +15,15 @@ class AuthorForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    gosc = forms.CharField(max_length=100, required=False)
+    gosc = forms.CharField(max_length=100, required=True)
     # guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
+
+    # JESLI NIE REQUIRED
+    # def clean_gosc(self):
+    #     gosc = self.cleaned_data['gosc']
+    #     if not gosc:
+    #         raise ValidationError('POLE "GOŚĆ" JEST WYMAGANE')
+    #     return gosc
 
 
 class DocumentForm(forms.ModelForm):

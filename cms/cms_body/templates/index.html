@@ -19,7 +19,12 @@
     <a href="{% url 'add-author'  %}">DODAJ AUTORA </a>
 {% endcomment %}
         <ul>
-            {% for object in authors|dictsortreversed:"id" %}
+
+            {% comment %}
+                {% for object in authors|dictsortreversed:"id" %}
+            {% endcomment %}
+
+            {% for object in authors %}
             <li>
             <a href="{% url 'author-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
             </li>
@@ -31,7 +36,7 @@
     <a href="{% url 'add-host'  %}">DODAJ PROWADZACEGO </a>
 {% endcomment %}
         <ul>
-            {% for object in hosts|dictsortreversed:"id" %}
+            {% for object in hosts %}
             <li>
             <a href="{% url 'host-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
             </li>
@@ -41,16 +46,18 @@
 
 
     <p>Goście</p>
-{% comment %}
-    <a href="{% url 'add-guest'  %}">DODAJ GOŚCIA </a>
-{% endcomment %}
+
+    <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a><br>
+    <a href="{% url 'guests'  %}">SZUKAJ GOŚCIA </a>
+
         <ul>
-            {% for object in guests|dictsortreversed:"id" %}
+            {% for object in guests %}
             <li>
-            <a href="{% url 'guest-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+            <a href="{% url 'guest-detail' pk=object.id %}"> -->  {{ object.surname }}</a>
             </li>
             {% endfor %}
         </ul>
+    <a href="{% url 'guests'  %}"> ...więcej </a>
 
     <p>Dokumentacje</p>
     <a href="{% url 'add-document'  %}">DODAJ NOWY </a>

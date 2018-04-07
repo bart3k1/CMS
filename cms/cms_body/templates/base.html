@@ -9,8 +9,6 @@
         {% block styles %}{% endblock %}
     </head>
     <body>
-        {% block content %}{% endblock %}
-     <footer>
         <p>
             _________________________________________________________
         </p>
@@ -21,23 +19,25 @@
             <a href="{% url 'authors' %}"> Autorzy | </a>
             <a href="{% url 'editions' %}"> Wydania | </a>
             <a href="{% url 'documents' %}"> Dokumentacje </a>
-
-
+            | Jesteś zalogowany jako: {{ user.username }} <a href="{% url 'logout' %}"> Wyloguj!</a>
         </p>
 
+        {% else %}
+        <p> <a href="{% url 'user-login' %}"> zaloguj!</a></p>
 
-
-        <p>Jesteś zalogowany jako: {{ user.username }} </p>
-            <p> <a href="{% url 'logout' %}"> Wyloguj!</a></p>
-            {% else %}
-            <p> <a href="{% url 'user-login' %}"> zaloguj!</a></p>
         {% endif %}
-
         <p>
             _________________________________________________________
         </p>
+
+
+        {% block content %}{% endblock %}
+     <footer>
     <p>
-     {{ version }} / {{ now }}
+            _________________________________________________________
+        </p>
+    <p>
+     {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
      </p>
      </footer>
      {{ form.media.js }}

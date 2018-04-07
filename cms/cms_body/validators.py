@@ -10,3 +10,10 @@ def validate_username(value):
         raise ValidationError("Jest już taki użytkwonik")
     except User.DoesNotExist:
         pass
+
+
+def validate_gosc(value):
+    print(value)
+    if not value:
+        raise ValidationError("Pole nie moze byc puste")
+

@@ -1,0 +1,27 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+
+       <ul>
+            {% for guest in guests %}
+            <li>
+
+           {{ forloop.counter }}  Imię: {{ guest.name }}, Nazwisko: {{ guest.surname }} {{ guest.phone }}
+
+            </li>
+            {% endfor %}
+
+       </ul>
+
+    <ul>
+
+{#            {% for value in ile %}#}
+{#                    {{ value }}<br>#}
+{#            {% endfor %}#}
+
+    </ul>
+
+
+
+{% endblock %}

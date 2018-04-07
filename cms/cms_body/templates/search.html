@@ -28,6 +28,10 @@
         </ul>
     {% endif %}
 
+    {% if not name and not surname %}
 
+    <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
+
+    {% endif %}
 {% endblock %}
 

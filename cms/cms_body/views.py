@@ -16,11 +16,11 @@ from django.forms import ModelForm
 class IndexView(View):
     def get(self, request):
         ctx = {
-            'editions': Edition.objects.all(),
-            'authors': Author.objects.all(),
-            'documents': Document.objects.all(),
-            'guests': Guest.objects.all(),
-            'hosts': Host.objects.all(),
+            'editions': Edition.objects.all().order_by('-id')[0:10],
+            'authors': Author.objects.all().order_by('-id')[0:10],
+            'documents': Document.objects.all().order_by('-id')[0:10],
+            'guests': Guest.objects.all().order_by('-id')[0:10],
+            'hosts': Host.objects.all().order_by('-id')[0:10],
 
         }
         return render(request, "index.html", ctx)
@@ -63,13 +63,42 @@ class HostDetailView(DetailView):
 # GUEST
 
 
+class GuestCreateView(CreateView):
+    model = Guest
+    fields = '__all__'
+    success_url = reverse_lazy('authors')
+
+
 class GuestListView(View):
     def get(self, request):
         ctx = {
-            'guests': Guest.objects.all(),
+            'guests': Guest.objects.all().order_by('-id')[0:20],
             'form': SearchForm,
-        }
+                    }
         return render(request, 'guest_list.html', ctx)
+
+    def post(self, request):
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            gosc = form.cleaned_data['gosc']
+            name = Guest.objects.filter(name__icontains=gosc)
+            surname = Guest.objects.filter(surname__icontains=gosc)
+            # print(categories)
+            ctx = {
+                'guests': Guest.objects.all().order_by('-id')[0:20],
+                'form': form,
+                'name': name,
+                'surname': surname,
+                'wyniki': True
+            }
+            return render(request,  'guest_list.html', ctx)
+
+        ctx = {
+            'guests': Guest.objects.all().order_by('-id')[0:20],
+            'form': form,
+        }
+        return render(request,  'guest_list.html', ctx)
+
 
 
 class GuestDetailView(DetailView):
