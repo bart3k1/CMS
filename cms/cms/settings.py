@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'tinymce',
+    'django_select2',
     'cms_body',
 ]
 

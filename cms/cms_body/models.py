@@ -70,10 +70,10 @@ class Edition(models.Model):
 
 class Document(models.Model):
         topic = models.CharField(max_length=40, verbose_name='Tytuł')
-        content = tinymce_models.HTMLField(verbose_name='Treść')
+        content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
         author = models.ForeignKey(Author, null=True, related_name='doc_authors', verbose_name='Autor')
         edition = models.ForeignKey(Edition, null=True, related_name='doc_editions', verbose_name='Wydanie')
-        guests = models.ManyToManyField(Guest, related_name='doc_guests', verbose_name='Goście')
+        guests = models.ManyToManyField(Guest, blank=True, related_name='doc_guests', verbose_name='Goście')
 
         def __str__(self):
             return "{}".format(self.topic)

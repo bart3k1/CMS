@@ -1,9 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from cms_body.models import Author, Document, Guest
+from django.forms import ModelMultipleChoiceField
 from tinymce.widgets import TinyMCE
 from cms_body.validators import validate_username
 from django.contrib.admin.widgets import FilteredSelectMultiple
+from django_select2.forms import Select2MultipleWidget
 
 
 class AuthorForm(forms.ModelForm):
@@ -14,21 +16,23 @@ class AuthorForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     gosc = forms.CharField(max_length=100, required=False)
-
+    # guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
 
 
 class DocumentForm(forms.ModelForm):
     # content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
     # guests = FilteredSelectMultiple(verbose_name="Goście", is_stacked=True)
+    guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
 
     class Meta:
         model = Document
         fields = '__all__'
-        widgets = {'guests': FilteredSelectMultiple(verbose_name="Goście", is_stacked=False, )}
 
-    class Media:
-        css = {'all':['admin/css/widgets.css']}
-        js = ['/admin/jsi18n/']
+        # widgets = {'guests': FilteredSelectMultiple(verbose_name="Goście", is_stacked=False)}
+
+    # class Media:
+    #     css = {'all':['admin/css/widgets.css']}
+    #     js = ['/admin/jsi18n/']
 
 
 class LoginForm(forms.Form):

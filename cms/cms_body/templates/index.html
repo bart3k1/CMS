@@ -3,6 +3,9 @@
 {% block content %}
 
     <p>Wydania</p>
+
+    <a href="{% url 'create-edition'  %}">DODAJ WYDANIE </a>
+
         <ul>
             {% for object in editions|dictsortreversed:"id" %}
             <li>
@@ -12,6 +15,9 @@
         </ul>
 
     <p>Autorzy</p>
+{% comment %}
+    <a href="{% url 'add-author'  %}">DODAJ AUTORA </a>
+{% endcomment %}
         <ul>
             {% for object in authors|dictsortreversed:"id" %}
             <li>
@@ -21,6 +27,9 @@
         </ul>
 
     <p>Prowadzący</p>
+{% comment %}
+    <a href="{% url 'add-host'  %}">DODAJ PROWADZACEGO </a>
+{% endcomment %}
         <ul>
             {% for object in hosts|dictsortreversed:"id" %}
             <li>
@@ -32,6 +41,9 @@
 
 
     <p>Goście</p>
+{% comment %}
+    <a href="{% url 'add-guest'  %}">DODAJ GOŚCIA </a>
+{% endcomment %}
         <ul>
             {% for object in guests|dictsortreversed:"id" %}
             <li>
@@ -41,6 +53,7 @@
         </ul>
 
     <p>Dokumentacje</p>
+    <a href="{% url 'add-document'  %}">DODAJ NOWY </a>
         <ul>
             {% for object in documents|dictsortreversed:"id" %}
             <li>{{ object.topic }} :

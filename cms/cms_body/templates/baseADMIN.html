@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+          {{ form.media }}
+        <script type="text/javascript" src="/admin/jsi18n/"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/widgets.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css"/>
+
+        {% block styles %}{% endblock %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+     <footer>
+        <p>
+            _________________________________________________________
+        </p>
+        {%  if user.is_authenticated %}
+
+        <p>
+            <a href="{% url 'index' %}"> Start | </a>
+            <a href="{% url 'authors' %}"> Autorzy | </a>
+            <a href="{% url 'editions' %}"> Wydania | </a>
+            <a href="{% url 'documents' %}"> Dokumentacje </a>
+
+
+        </p>
+
+
+
+        <p>Jesteś zalogowany jako: {{ user.username }} </p>
+            <p> <a href="{% url 'logout' %}"> Wyloguj!</a></p>
+            {% else %}
+            <p> <a href="{% url 'user-login' %}"> zaloguj!</a></p>
+        {% endif %}
+
+        <p>
+            _________________________________________________________
+        </p>
+    <p>
+     {{ version }} / {{ now }}
+     </p>
+     </footer>
+     <script type="text/javascript">
+    addEvent(window, "load", function(e) { SelectFilter.init("id_pricetags", "pricetags", 0, "{{ STATIC_URL }}admin/"); });
+    </script>
+    </body>
+</html>

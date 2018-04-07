@@ -1,0 +1,20 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% block buttontext %}{% endblock %}">
+    </form>
+
+       <ul>
+            {% for guest in guests %}
+            <li>
+            Imię: {{ guest.name }}, Nazwisko: {{ guest.surname }} {{ guest.phone }}
+            </li>
+            {% endfor %}
+       </ul>
+
+
+
+{% endblock %}

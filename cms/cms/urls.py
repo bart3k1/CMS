@@ -40,12 +40,16 @@ from cms_body.views import (
     GuestDetailView,
     DocumentDetailView,
     AddUserView,
-    UpdateDocumentView, SearchGuestView)
+    UpdateDocumentView,
+    SearchGuestView,
+    GuestListView)
 
 
 
 urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^select2/', include('django_select2.urls')),
+
     url(r'^admin/', admin.site.urls),
     url(r'^index/', IndexView.as_view(), name='index'),
     url(r'^add_user/$', AddUserView.as_view(), name='add-user'),
@@ -62,7 +66,9 @@ urlpatterns = [
     url(r'^detail_host/(?P<pk>\d+)/$', HostDetailView.as_view(), name='host-detail'),
 
     url(r'^detail_guest/(?P<pk>\d+)/$', GuestDetailView.as_view(), name='guest-detail'),
-    url(r'search_guest', SearchGuestView.as_view(), name='search-guest'),
+    url(r'^search_guest/$', SearchGuestView.as_view(), name='search-guest'),
+    url(r'^list_guest/$', GuestListView.as_view(), name='authors'),
+
 
     url(r'^create_edition/$', EditionCreateView.as_view(), name='create-edition'),
     url(r'^update_edition/(?P<pk>\d+)/$', EditionUpdateView.as_view(), name='update-edition'),

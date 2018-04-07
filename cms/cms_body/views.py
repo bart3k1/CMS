@@ -7,7 +7,8 @@ from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
 from cms_body.forms import DocumentForm, LoginForm, AddUserForm, SearchForm
-
+from django import forms
+from django.forms import ModelForm
 
 # INDEX
 
@@ -62,6 +63,15 @@ class HostDetailView(DetailView):
 # GUEST
 
 
+class GuestListView(View):
+    def get(self, request):
+        ctx = {
+            'guests': Guest.objects.all(),
+            'form': SearchForm,
+        }
+        return render(request, 'guest_list.html', ctx)
+
+
 class GuestDetailView(DetailView):
     model = Guest
 
@@ -96,10 +106,22 @@ class SearchGuestView(View):
 # EDITION
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class EditionCreateView(CreateView):
     model = Edition
     fields = '__all__'
     success_url = reverse_lazy('editions')
+
+    #DROPDOWN DATE
+    def get_form(self):
+        '''add date picker in forms'''
+        from django.forms.extras.widgets import SelectDateWidget
+        form = super(EditionCreateView, self).get_form()
+        form.fields['date'].widget = SelectDateWidget()
+        return form
 
 
 class EditionView(ListView):
