@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+
+       <ul>
+            {% for object in object_list|dictsortreversed:"id"  %}
+            <li>
+            <a href="{% url 'update-document' pk=object.id %}">Edytuj {{  object.topic }}</a> | Autor: {{  object.author.surname }}
+
+            </li>
+            {% endfor %}
+       </ul>
+
+
+{% endblock %}

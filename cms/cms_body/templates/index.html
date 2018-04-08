@@ -13,6 +13,7 @@
             </li>
             {% endfor %}
         </ul>
+     <a href="{% url 'editions'  %}"> ...więcej </a>
 
     <p>Autorzy</p>
 {% comment %}
@@ -30,6 +31,7 @@
             </li>
             {% endfor %}
         </ul>
+     <a href="{% url 'authors'  %}"> ...więcej </a>
 
     <p>Prowadzący</p>
 {% comment %}
@@ -60,7 +62,8 @@
     <a href="{% url 'guests'  %}"> ...więcej </a>
 
     <p>Dokumentacje</p>
-    <a href="{% url 'add-document'  %}">DODAJ NOWY </a>
+    <a href="{% url 'add-document'  %}">DODAJ NOWY </a><br>
+    <a href="{% url 'documents'  %}">SZUKAJ DOKUMENTACJI </a>
         <ul>
             {% for object in documents|dictsortreversed:"id" %}
             <li>{{ object.topic }} :

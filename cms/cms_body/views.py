@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm, LoginForm, AddUserForm, SearchForm
+from cms_body.forms import DocumentForm, LoginForm, AddUserForm, GuestSearchForm
 from django import forms
 from django.forms import ModelForm
 
@@ -71,19 +71,19 @@ class HostListView(ListView):
 class GuestCreateView(CreateView):
     model = Guest
     fields = '__all__'
-    success_url = reverse_lazy('authors')
+    success_url = reverse_lazy('guests')
 
 
 class GuestListView(View):
     def get(self, request):
         ctx = {
             'guests': Guest.objects.all().order_by('-id')[0:20],
-            'form': SearchForm,
+            'form': GuestSearchForm,
                     }
         return render(request, 'guest_list.html', ctx)
 
     def post(self, request):
-        form = SearchForm(request.POST)
+        form = GuestSearchForm(request.POST)
         if form.is_valid():
             gosc = form.cleaned_data['gosc']
             name = Guest.objects.filter(name__icontains=gosc)
@@ -109,32 +109,32 @@ class GuestDetailView(DetailView):
     model = Guest
 
 
-class SearchGuestView(View):
-    def get(self, request):
-        ctx = {
-            'form': SearchForm,
-        }
-        return render(request, 'search.html', ctx)
-
-    def post(self, request):
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            gosc = form.cleaned_data['gosc']
-            name = Guest.objects.filter(name__icontains=gosc)
-            surname = Guest.objects.filter(surname__icontains=gosc)
-            # print(categories)
-            ctx = {
-                'form': SearchForm,
-                'name': name,
-                'surname': surname,
-                'wyniki': True
-            }
-            return render(request, 'search.html', ctx)
-
-        ctx = {
-            'form': SearchForm,
-        }
-        return render(request, 'search.html', ctx)
+# class SearchGuestView(View):
+#     def get(self, request):
+#         ctx = {
+#             'form': GuestSearchForm,
+#         }
+#         return render(request, 'search.html', ctx)
+#
+#     def post(self, request):
+#         form = GuestSearchForm(request.POST)
+#         if form.is_valid():
+#             gosc = form.cleaned_data['gosc']
+#             name = Guest.objects.filter(name__icontains=gosc)
+#             surname = Guest.objects.filter(surname__icontains=gosc)
+#             # print(categories)
+#             ctx = {
+#                 'form': form,
+#                 'name': name,
+#                 'surname': surname,
+#                 'wyniki': True
+#             }
+#             return render(request, 'search.html', ctx)
+#
+#         ctx = {
+#             'form': form,
+#         }
+#         return render(request, 'search.html', ctx)
 
 # EDITION
 

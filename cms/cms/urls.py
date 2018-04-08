@@ -41,7 +41,7 @@ from cms_body.views import (
     DocumentDetailView,
     AddUserView,
     UpdateDocumentView,
-    SearchGuestView,
+    # SearchGuestView,
     GuestListView,
     GuestCreateView,
     HostListView)
@@ -68,7 +68,7 @@ urlpatterns = [
     url(r'^hosts/$', HostListView.as_view(), name='hosts'),
 
     url(r'^detail_guest/(?P<pk>\d+)/$', GuestDetailView.as_view(), name='guest-detail'),
-    url(r'^search_guest/$', SearchGuestView.as_view(), name='search-guest'),
+    # url(r'^search_guest/$', SearchGuestView.as_view(), name='search-guest'),
     url(r'^list_guest/$', GuestListView.as_view(), name='guests'),
     url(r'^create_guest/$', GuestCreateView.as_view(), name='create-guest'),
 

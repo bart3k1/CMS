@@ -14,7 +14,7 @@ class AuthorForm(forms.ModelForm):
         fields = '__all__'
 
 
-class SearchForm(forms.Form):
+class GuestSearchForm(forms.Form):
     gosc = forms.CharField(max_length=100, required=True)
     # guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
 

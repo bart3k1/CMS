@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<button onclick="myFunction()">Wydrukuj stronę</button>
+
 <h1>DOKUMENT/DETAL</h1>
     <p> Tytuł: {{ object }}</p>
     <p> Autor: {{ object.author }}</p>
+    <p> Lead: {{ object.lead }}</p>
+    <p> Treść: {% autoescape off %}{{ object.content }}{% endautoescape %}</p>
     <p> Wydanie: {{ object.edition }}</p>
     <p> Goście:<br>
         {% for guest in object.guests.all %}
@@ -12,6 +17,8 @@
     </p>
 
 
+
+<script> function myFunction() {window.print();}</script>
 
 
 {%  endblock %}

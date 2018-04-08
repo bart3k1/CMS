@@ -4,14 +4,16 @@ from django.contrib.staticfiles import finders
 
 DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
                          {
+                            'plugins': "spellchecker",
                             'theme': "advanced",
+                            'toolbar': "undo redo | styleselect | bold italic | link image",
                             'relative_urls': False,
                             'width': '75%',
                             'height': 500,
 
                           })
 
-USE_SPELLCHECKER = getattr(settings, 'TINYMCE_SPELLCHECKER', False)
+USE_SPELLCHECKER = getattr(settings, 'TINYMCE_SPELLCHECKER', True)
 
 USE_COMPRESSOR = getattr(settings, 'TINYMCE_COMPRESSOR', False)
 
