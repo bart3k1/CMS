@@ -4,7 +4,7 @@
 <p>USUNĄĆ  {{ object }} ???</p>
     <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Usuń">
+    <input type="submit" value="Usuń!">
     </form>
-
+<p><a href="{% url 'editions'  %}"> <<< powrót </a></p>
 {% endblock %}

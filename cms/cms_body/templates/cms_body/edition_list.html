@@ -6,7 +6,7 @@
        <ul>
             {% for object in object_list|dictsortreversed:"date"  %}
             <li>
-                {{ object}} <a href="{% url 'delete-edition' pk=object.id %}"> Usuń wydanie >>></a>
+                {{ object}}<a href="{% url 'edition-detail' pk=object.id %}"> >Więcej </a> <a href="{% url 'update-edition' pk=object.id %}"> >Edytuj </a> <a href="{% url 'delete-edition' pk=object.id %}"> >Usuń </a>
 
             </li>
             {% endfor %}

@@ -9,7 +9,7 @@
         <ul>
             {% for object in editions|dictsortreversed:"id" %}
             <li>
-            <a href="{% url 'edition-detail' pk=object.id %}">Edytuj {{ object.date }}</a>
+            <a href="{% url 'update-edition' pk=object.id %}">Edytuj {{ object.date }}</a>
             </li>
             {% endfor %}
         </ul>

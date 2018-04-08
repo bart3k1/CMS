@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from cms_body.models import Author, Document, Guest
-from django.forms import ModelMultipleChoiceField
+from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from tinymce.widgets import TinyMCE
 from cms_body.validators import validate_username, validate_gosc
 from django.contrib.admin.widgets import FilteredSelectMultiple
@@ -24,6 +24,13 @@ class GuestSearchForm(forms.Form):
     #     if not gosc:
     #         raise ValidationError('POLE "GOŚĆ" JEST WYMAGANE')
     #     return gosc
+
+
+class DocumentSearchForm(forms.Form):
+    slowo = forms.CharField(max_length=100, required=True)
+    data = forms.DateField(widget=SelectDateWidget)
+
+
 
 
 class DocumentForm(forms.ModelForm):

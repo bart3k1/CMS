@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from cms_body.models import Author, Host, Guest, Edition, Document
 from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm, LoginForm, AddUserForm, GuestSearchForm
+from cms_body.forms import DocumentForm, LoginForm, AddUserForm, GuestSearchForm, DocumentSearchForm
 from django import forms
 from django.forms import ModelForm
 
@@ -166,6 +166,13 @@ class EditionUpdateView(UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('editions')
 
+    def get_form(self):
+        '''add date picker in forms'''
+        from django.forms.extras.widgets import SelectDateWidget
+        form = super(EditionUpdateView, self).get_form()
+        form.fields['date'].widget = SelectDateWidget()
+        return form
+
 
 class EditionDeleteView(DeleteView):
     model = Edition
@@ -235,6 +242,44 @@ class DocumentView(ListView):
     model = Document
 
 
+class DocumentListView(View):
+    def get(self, request):
+        ctx = {
+            'documents': Document.objects.all().order_by('-id')[0:20],
+            'form': DocumentSearchForm,
+                    }
+        return render(request, 'document_list.html', ctx)
+
+    def post(self, request):
+        form = DocumentSearchForm(request.POST)
+        if form.is_valid():
+            slowo = form.cleaned_data['slowo']
+            data = form.cleaned_data['data']
+            print(data)
+            topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
+            lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
+            content = Document.objects.filter(content__icontains=slowo).order_by('-id')
+            edition = Edition.objects.get(date=data)
+
+            # print(categories)
+            ctx = {
+                'form': form,
+                'edition': edition,
+                'content': content,
+                'lead': lead,
+                'topic': topic,
+                'documents': Document.objects.all().order_by('-id')[0:20],
+                'wyniki': True
+            }
+            return render(request,  'document_list.html', ctx)
+
+        ctx = {
+            'guests': Document.objects.all().order_by('-id')[0:20],
+            'form': form,
+        }
+        return render(request,  'document_list.html', ctx)
+
+
 class DocumentDetailView(DetailView):
     model = Document
 
@@ -291,7 +336,7 @@ class UserLoginView(View):
                 url = request.GET.get('next')
                 if url:
                     return redirect(url)
-                return redirect('editions')
+                return redirect('index')
 
             form.add_error(field=None, error='Zły login lub hasło')
 
@@ -304,4 +349,5 @@ class UserLoginView(View):
 class UserLogoutView(View):
     def get(self, request):
         logout(request)
-        return HttpResponse('Wylogowano')
+        # return HttpResponse('Wylogowano')
+        return redirect('user-login')

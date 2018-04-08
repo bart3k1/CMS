@@ -1,0 +1,88 @@
+{% extends 'base_form.html' %}
+
+{% block buttontext %}Wyszukaj!{% endblock %}
+
+{% block afterform %}
+
+
+    {% if topic %}
+        <p>Dopasowano tytuł:</p>
+        <ul>
+            {% for tytul in topic %}
+                <li>
+            {{ tytul.topic }}
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if lead %}
+        <p>Dopasowano lead:</p>
+        <ul>
+            {% for doc in lead %}
+                <li>
+           {{ doc.topic }}
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if lead %}
+        <p>Dopasowano treść:</p>
+        <ul>
+            {% for doc in content %}
+                <li>
+           {{ doc.topic }}
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if edition %}
+
+        <p>Dopasowano wydanie:</p>
+        {{ edition }}
+        <ul>
+            {% for doc in edition.doc_editions.all %}
+                <li>
+
+
+                    {{ doc.topic }}<br>
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    {% endif %}
+
+
+    {% if not topic and not lead and not content %}
+        <p>    --- Brak dopasownych Dokumentacji--- </p>
+    {% endif %}
+
+
+    Ostatnio dodane:
+     <ul>
+
+            {% for doc in documents %}
+            <li>
+
+           {{ forloop.counter }}  Tytuł: {{ doc.topic }}
+
+            </li>
+            {% endfor %}
+
+       </ul>
+<a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
+{% comment %}
+    {% if not name and not surname %}
+
+    <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
+
+    {% endif %}
+{% endcomment %}
+
+{% endblock %}
+
