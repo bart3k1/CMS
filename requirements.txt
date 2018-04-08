@@ -1,5 +1,7 @@
 Django==1.11
+django-appconf==1.0.2
 django-extensions==2.0.6
+django-select2==6.0.2
 django-tinymce==2.7.0
 djangorestframework==3.5.3
 mysql-connector==2.1.4
