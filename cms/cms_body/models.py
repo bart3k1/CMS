@@ -43,9 +43,9 @@ class Guest(models.Model):
     name = models.CharField(max_length=40, verbose_name='Imię')
     surname = models.CharField(max_length=40, null=False, verbose_name='Nazwisko')
     phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
-    alt_phone = models.CharField(max_length=128, null=False, verbose_name='Telefon/Menadżer')
-    notes = models.CharField(max_length=200, null=True, verbose_name='Notatki')
-    tv_ready = models.IntegerField(choices=TVREADY)
+    alt_phone = models.CharField(max_length=128, null=True, blank=True, verbose_name='Telefon/Menadżer')
+    notes = models.CharField(max_length=200, null=True, blank=True, verbose_name='Notatki')
+    tv_ready = models.IntegerField(choices=TVREADY, blank=True, null=True)
 
     def __str__(self):
         return "{} {}".format(self.name, self.surname)
@@ -70,6 +70,7 @@ class Edition(models.Model):
 
 class Document(models.Model):
         topic = models.CharField(max_length=40, verbose_name='Tytuł')
+        lead = models.TextField(max_length=200, null=True, verbose_name='Lead')
         content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
         author = models.ForeignKey(Author, null=True, related_name='doc_authors', verbose_name='Autor')
         edition = models.ForeignKey(Edition, null=True, related_name='doc_editions', verbose_name='Wydanie')

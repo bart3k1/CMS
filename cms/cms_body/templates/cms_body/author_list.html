@@ -6,7 +6,10 @@
        <ul>
             {% for object in object_list %}
             <li>
-            Imię: {{ object.name }}, Nazwisko: {{ object.surname }} {{ object.doc_authors_set }}
+            Imię: {{ object.name }}, Nazwisko: {{ object.surname }} <a href="{% url 'author-detail' pk=object.id %}"> Więcej >>></a>
+                {% for i in object.doc_authors.all %}
+                    <br>{{ i }}
+                {% endfor %}
             </li>
             {% endfor %}
        </ul>

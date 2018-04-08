@@ -1,29 +1,20 @@
-<!doctype html>
-{% load tinymce_tags %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        {{ form.media.css }}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% extends 'base_form.html' %}
 
-
-    </head>
-    <body>
-         <fieldset>
+{% block content %}
+<p> Goście:
+    {% for guest in guests %}
+    {{ guest.name }} {{ guest.surname }},
+    {%  endfor %}
+ </p>
+ <p>
+   <fieldset>
     <div class="form-row">
         <form method="post" action=".">
             {% csrf_token %}
             {{ form.as_p }}
         <button type="submit" value="submit">Add</button>
     </form>
-  </div>
-</fieldset>
-
-
-    <footer>
-
-    </footer>
-
-         {{ form.media.js }}
-    </body>
-</html>
+    </div>
+    </fieldset>
+</p>
+{%  endblock %}

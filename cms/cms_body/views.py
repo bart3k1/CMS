@@ -60,6 +60,11 @@ class AuthorDetailView(DetailView):
 class HostDetailView(DetailView):
     model = Host
 
+
+class HostListView(ListView):
+    model = Host
+    # template_name = 'cms_body/authors.html' # now - author_list.html
+
 # GUEST
 
 
@@ -98,7 +103,6 @@ class GuestListView(View):
             'form': form,
         }
         return render(request,  'guest_list.html', ctx)
-
 
 
 class GuestDetailView(DetailView):
@@ -203,9 +207,11 @@ class AddDocument(View):
 class UpdateDocumentView(View):
     def get(self, request, pk):
         document = Document.objects.get(pk=pk)
+        guests = Guest.objects.all().filter(doc_guests=pk)
         form = DocumentForm(instance=document)
         ctx = {
             'form': form,
+            'guests': guests,
         }
         return render(request, "add_document.html", ctx)
 

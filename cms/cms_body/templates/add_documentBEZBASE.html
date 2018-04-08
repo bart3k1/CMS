@@ -1,26 +1,25 @@
 <!doctype html>
-
+{% load tinymce_tags %}
 <html>
     <head>
         <meta charset="utf-8">
         {{ form.media.css }}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        {% block styles %}{% endblock %}
+
     </head>
     <body>
-        <p>
+
+     <p>
             _________________________________________________________
         </p>
         {%  if user.is_authenticated %}
 
         <p>
-
             <a href="{% url 'index' %}"> Start | </a>
-            <a href="{% url 'editions' %}"> Wydania | </a>
-            <a href="{% url 'documents' %}"> Dokumentacje | </a>
-            <a href="{% url 'guests' %}"> Goście |  </a>
             <a href="{% url 'authors' %}"> Autorzy | </a>
+            <a href="{% url 'editions' %}"> Wydania | </a>
+            <a href="{% url 'documents' %}"> Dokumentacje </a>
             | Jesteś zalogowany jako: {{ user.username }} <a href="{% url 'logout' %}"> Wyloguj!</a>
         </p>
 
@@ -32,16 +31,21 @@
             _________________________________________________________
         </p>
 
+         <fieldset>
+    <div class="form-row">
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit" value="submit">Add</button>
+    </form>
+  </div>
+</fieldset>
 
-        {% block content %}{% endblock %}
-     <footer>
-    <p>
-            _________________________________________________________
-        </p>
-    <p>
-     {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
-     </p>
-     </footer>
-     {{ form.media.js }}
+
+    <footer>
+
+    </footer>
+
+         {{ form.media.js }}
     </body>
 </html>

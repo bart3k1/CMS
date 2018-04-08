@@ -40,7 +40,7 @@
             {% for guest in guests %}
             <li>
 
-           {{ forloop.counter }}  Imię: {{ guest.name }}, Nazwisko: {{ guest.surname }} {{ guest.phone }}
+           {{ forloop.counter }}  Imię: {{ guest.name }}, Nazwisko: {{ guest.surname }}, Ocena {{ guest.tv_ready }}, {{ guest.phone }} <a href="{% url 'guest-detail' pk=guest.id %}"> Więcej >>></a>
 
             </li>
             {% endfor %}

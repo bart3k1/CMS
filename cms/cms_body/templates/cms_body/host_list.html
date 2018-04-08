@@ -1,0 +1,16 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+
+       <ul>
+            {% for object in object_list %}
+            <li>
+            Imię: {{ object.name }}, Nazwisko: {{ object.surname }}
+            </li>
+            {% endfor %}
+       </ul>
+
+
+
+{% endblock %}
