@@ -21,8 +21,8 @@
             <a href="{% url 'editions' %}"> Wydania | </a>
             <a href="{% url 'documents' %}"> Dokumentacje | </a>
             <a href="{% url 'guests' %}"> Goście |  </a>
-            <a href="{% url 'authors' %}"> Autorzy | </a>
-            | Jesteś zalogowany jako: {{ user.username }} <a href="{% url 'logout' %}"> Wyloguj!</a>
+            <a href="{% url 'authors' %}"> Autorzy |</a>
+            Jesteś zalogowany jako: {{ user.username }} <a href="{% url 'logout' %}"> Wyloguj!</a>
         </p>
 
         {% else %}

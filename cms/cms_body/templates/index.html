@@ -52,7 +52,7 @@
     <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a><br>
     <a href="{% url 'guests'  %}">SZUKAJ GOŚCIA </a>
 
-        <ul>
+        <ul>...ostatnio dodani:
             {% for object in guests %}
             <li>
             <a href="{% url 'guest-detail' pk=object.id %}"> -->  {{ object.surname }}</a>
