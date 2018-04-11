@@ -151,7 +151,7 @@ class EditionCreateView(CreateView):
     #DROPDOWN DATE
     def get_form(self):
         '''add date picker in forms'''
-        from django.forms.extras.widgets import SelectDateWidget
+        from django.forms.widgets import SelectDateWidget
         form = super(EditionCreateView, self).get_form()
         form.fields['date'].widget = SelectDateWidget()
         return form
@@ -168,7 +168,7 @@ class EditionUpdateView(UpdateView):
 
     def get_form(self):
         '''add date picker in forms'''
-        from django.forms.extras.widgets import SelectDateWidget
+        from django.forms.widgets import SelectDateWidget
         form = super(EditionUpdateView, self).get_form()
         form.fields['date'].widget = SelectDateWidget()
         return form
@@ -259,9 +259,12 @@ class DocumentListView(View):
             topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
             lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
             content = Document.objects.filter(content__icontains=slowo).order_by('-id')
-            edition = Edition.objects.get(date=data)
-
-            # print(categories)
+            try:
+                edition = Edition.objects.get(date=data)
+            except:
+                edition = None
+            # # todo
+            # edition = Edition.objects.all()
             ctx = {
                 'form': form,
                 'edition': edition,
