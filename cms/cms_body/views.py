@@ -12,7 +12,6 @@ from django.forms import ModelForm
 
 # INDEX
 
-
 class IndexView(View):
     def get(self, request):
         ctx = {
