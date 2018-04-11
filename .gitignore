@@ -8,6 +8,7 @@ __pycache__/
 
 .idea/
 venvCMS/
+venvcms/
 
 # Distribution / packaging
 .Python

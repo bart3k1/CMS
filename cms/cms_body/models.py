@@ -58,7 +58,7 @@ class Guest(models.Model):
 class Edition(models.Model):
     date = models.DateField(auto_now_add=False, verbose_name='Data')
     hosts = models.ManyToManyField(Host, related_name='host_progs', verbose_name='Prowadzący')
-    editor = models.ForeignKey(Author, verbose_name='Wydawca')
+    editor = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Wydawca')
 
     def __str__(self):
         return "Wydanie {}".format(self.date)
@@ -72,8 +72,8 @@ class Document(models.Model):
         topic = models.CharField(max_length=40, verbose_name='Tytuł')
         lead = models.TextField(max_length=200, null=True, verbose_name='Lead')
         content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
-        author = models.ForeignKey(Author, null=True, related_name='doc_authors', verbose_name='Autor')
-        edition = models.ForeignKey(Edition, null=True, related_name='doc_editions', verbose_name='Wydanie')
+        author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name='doc_authors', verbose_name='Autor')
+        edition = models.ForeignKey(Edition, on_delete=models.CASCADE, null=True, related_name='doc_editions', verbose_name='Wydanie')
         guests = models.ManyToManyField(Guest, blank=True, related_name='doc_guests', verbose_name='Goście')
 
         def __str__(self):
