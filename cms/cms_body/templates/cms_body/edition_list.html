@@ -1,17 +1,12 @@
 {%  extends 'base.html' %}
-
 {% block content %}
-
-
-       <ul>
+    <p>Wydania</p>
+        <ul>
             {% for object in object_list|dictsortreversed:"date"  %}
-            <li>
-                {{ object}}<a href="{% url 'edition-detail' pk=object.id %}"> >Więcej </a> <a href="{% url 'update-edition' pk=object.id %}"> >Edytuj </a> <a href="{% url 'delete-edition' pk=object.id %}"> >Usuń </a>
-
-            </li>
+                <li>
+                    {{ object}}<a href="{% url 'edition-detail' pk=object.id %}"> >Więcej </a> <a href="{% url 'update-edition' pk=object.id %}"> >Edytuj </a> <a href="{% url 'delete-edition' pk=object.id %}"> >Usuń </a>
+                </li>
             {% endfor %}
-       </ul>
-
+        </ul>
     <a href="{% url 'create-edition'  %}">DODAJ WYDANIE </a>
-
 {% endblock %}

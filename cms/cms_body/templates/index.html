@@ -1,78 +1,56 @@
-{% extends 'base_form.html' %}
-
+{%  extends 'base.html' %}
 {% block content %}
-
     <p>Wydania</p>
-
     <a href="{% url 'create-edition'  %}">DODAJ WYDANIE </a>
-
         <ul>
             {% for object in editions|dictsortreversed:"id" %}
-            <li>
-            <a href="{% url 'update-edition' pk=object.id %}">Edytuj {{ object.date }}</a>
-            </li>
+                <li>
+                    <a href="{% url 'update-edition' pk=object.id %}">Edytuj {{ object.date }}</a>
+                </li>
             {% endfor %}
         </ul>
-     <a href="{% url 'editions'  %}"> ...więcej </a>
-
+    <a href="{% url 'editions'  %}"> ...więcej </a>
     <p>Autorzy</p>
-{% comment %}
-    <a href="{% url 'add-author'  %}">DODAJ AUTORA </a>
-{% endcomment %}
         <ul>
-
-            {% comment %}
-                {% for object in authors|dictsortreversed:"id" %}
-            {% endcomment %}
-
             {% for object in authors %}
-            <li>
-            <a href="{% url 'author-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
-            </li>
+                <li>
+                    <a href="{% url 'author-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+                </li>
             {% endfor %}
         </ul>
-     <a href="{% url 'authors'  %}"> ...więcej </a>
-
+    <a href="{% url 'authors'  %}"> ...więcej </a>
     <p>Prowadzący</p>
-{% comment %}
-    <a href="{% url 'add-host'  %}">DODAJ PROWADZACEGO </a>
-{% endcomment %}
         <ul>
             {% for object in hosts %}
-            <li>
-            <a href="{% url 'host-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
-            </li>
+                <li>
+                    <a href="{% url 'host-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+                </li>
             {% endfor %}
         </ul>
     <a href="{% url 'hosts'  %}"> ...więcej </a>
-
-
     <p>Goście</p>
-
     <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a><br>
     <a href="{% url 'guests'  %}">SZUKAJ GOŚCIA </a>
-
         <ul>...ostatnio dodani:
             {% for object in guests %}
-            <li>
-            <a href="{% url 'guest-detail' pk=object.id %}"> -->  {{ object.surname }}</a>
-            </li>
+                <li>
+                    <a href="{% url 'guest-detail' pk=object.id %}"> -->  {{ object.surname }}</a>
+                </li>
             {% endfor %}
         </ul>
     <a href="{% url 'guests'  %}"> ...więcej </a>
-
     <p>Dokumentacje</p>
     <a href="{% url 'add-document'  %}">DODAJ NOWY </a><br>
     <a href="{% url 'documents'  %}">SZUKAJ DOKUMENTACJI </a>
         <ul>
             {% for object in documents|dictsortreversed:"id" %}
-            <li>{{ object.topic }} :
-                <a href="{% url 'document-detail' pk=object.id %}">Detal | </a>
-                <a href="{% url 'update-document' pk=object.id %}">Edytuj </a>
-
-            </li>
+                <li>{{ object.topic }} :
+                    <a href="{% url 'document-detail' pk=object.id %}">Detal | </a>
+                    <a href="{% url 'update-document' pk=object.id %}">Edytuj </a>
+                </li>
             {% endfor %}
         </ul>
     <a href="{% url 'documents'  %}"> ...więcej </a>
+    <p></p>
 
 {%  endblock %}
