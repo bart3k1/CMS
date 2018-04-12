@@ -3,38 +3,31 @@
 <!doctype html>
 
 <html>
+<head>
+    <meta charset="utf-8">
+    {{ form.media.css }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cms.css' %}" />
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<div class="container">
 
-    <head>
-
-        <meta charset="utf-8">
-        {{ form.media.css }}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-        <link rel="stylesheet" type="text/css" href="{% static 'css/cms.css' %}" />
-
-        {% block styles %}{% endblock %}
-    </head>
-    <body>
-    <div class="container">
-        {%  if user.is_authenticated %}
-            {%  comment %}
-            <div>
-              Zalogowany: {{ user.username }} <a href="{% url 'logout' %}"> Wyloguj!</a>
-            </div>
-            <div class="btn-group">
-                    <a href="{% url 'index' %}"><button type="button" class="btn btn-primary"> Start  </button></a>
-                    <a href="{% url 'editions' %}"><button type="button" class="btn btn-primary"> Wydania  </button></a>
-                    <a href="{% url 'documents' %}"><button type="button" class="btn btn-primary"> Dokumentacje  </button></a>
-                    <a href="{% url 'guests' %}"><button type="button" class="btn btn-primary"> Goście  </button></a>
-                    <a href="{% url 'authors' %}"> <button type="button" class="btn btn-primary">Autorzy </button></a>
-            </div>
-            {% endcomment %}
-
-             <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
+    {%  if user.is_authenticated %}
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">CMS</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="{% url 'index' %}">Start</a></li>
                         <li class="dropdown">
@@ -49,32 +42,56 @@
                         <li><a href="{% url 'guests' %}">Goście</a></li>
                         <li><a href="{% url 'authors' %}">Autorzy</a></li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Zalogowany: {{ user.username }}</a></li>
-                      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Zalogowany: {{ user.username }}</a></li>
+                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
                     </ul>
-
-
                 </div>
-             </nav>
-        {% else %}
-        <p> <a href="{% url 'user-login' %}"> Zaloguj! >>></a></p>
-        {% endif %}
+            </div>
+        </nav>
 
+    {% else %}
 
-    {% block content %}{% endblock %}
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'user-login' %}"><span class="glyphicon glyphicon-user"></span> Logowanie</a></li>
+                </ul>
+            </div>
+        </nav>
 
+    {% endif %}
 
-     <footer>
-    <p>
-            _________________________________________________________
-        </p>
-    <p>
-     {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
-     </p>
-     </footer>
-     {{ form.media.js }}
-    </div>
-    </body>
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                    <p><a href="#">Strona</a></p>
+                    <p><a href="#">Google</a></p>
+                    <p><a href="#">...</a></p>
+                </div>
+                <div class="col-sm-8 text-left">
+
+                    {% block content %}{% endblock %}
+                </div>
+
+                <div class="col-sm-2 sidenav">
+                    <div class="well">
+                        <p>COKOLWIEK</p>
+                    </div>
+                    <div class="well">
+                        <p>COS INNEGO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="container-fluid text-center">
+            {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
+        </footer>
+
+</div>
+
+{{ form.media.js }}
+
+</body>
 </html>
