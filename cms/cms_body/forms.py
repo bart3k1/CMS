@@ -64,10 +64,18 @@ class AddUserForm(forms.Form):
     #sprawdzanie bledow w formularzach
 
     def clean_password_c(self):
-        cleaned_data = super().clean()
-        password = cleaned_data['password']
-        password2 = cleaned_data['password_c']
+        password = self.cleaned_data['password']
+        password2 = self.cleaned_data['password_c']
         if password != password2:
             raise ValidationError('Hasła się różnią')
-        return cleaned_data
+        return password
+
+
+    # def clean_password_c(self):
+    #     cleaned_data = super().clean()
+    #     password = cleaned_data['password']
+    #     password2 = cleaned_data['password_c']
+    #     if password != password2:
+    #         raise ValidationError('Hasła się różnią')
+    #     return cleaned_data
 

@@ -12,6 +12,7 @@ from django.forms import ModelForm
 
 # INDEX
 
+
 class IndexView(View):
     def get(self, request):
         ctx = {
@@ -22,7 +23,11 @@ class IndexView(View):
             'hosts': Host.objects.all().order_by('-id')[0:10],
 
         }
-        return render(request, "index.html", ctx)
+        if request.user.is_authenticated:
+            return render(request, "index.html", ctx)
+        else:
+            return redirect('user-login')
+
 
 # AUTHOR
 
