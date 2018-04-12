@@ -11,7 +11,7 @@
 
 <p>
     Wizyty:<br>
-    {% for doc in guest.doc_guests.all|dictsortreversed:"id" %}
+    {% for doc in guest.documents.all|dictsortreversed:"id" %}
         {{ doc.topic }} | {{ doc.edition }}<br>
     {% endfor %}
 </p>

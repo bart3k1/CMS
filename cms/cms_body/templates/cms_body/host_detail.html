@@ -7,7 +7,7 @@
 
 <p>
     Wydania:<br>
-    {% for edition in host.host_progs.all|dictsortreversed:"id" %}
+    {% for edition in host.editions.all|dictsortreversed:"id" %}
         {{ edition.date }}<br>
     {% endfor %}
 </p>

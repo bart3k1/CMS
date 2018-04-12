@@ -2,13 +2,13 @@
 
 import json
 import os
-from mock import patch, Mock
 
 from django.contrib.flatpages.models import FlatPage
 from django.http import HttpResponse
 from django.test import TestCase
-
 from tinymce.views import render_to_image_list
+
+from mock import Mock, patch
 
 devnull = open(os.devnull, 'w')
 

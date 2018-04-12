@@ -1,12 +1,11 @@
 # coding: utf-8
 
 import zlib
-from mock import patch
 
-
-from django.test import TestCase, RequestFactory
-
+from django.test import RequestFactory, TestCase
 from tinymce.compressor import gzip_compressor
+
+from mock import patch
 
 
 class TestCompressor(TestCase):

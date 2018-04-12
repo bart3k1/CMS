@@ -1,9 +1,9 @@
 # Copyright (c) 2009 Joost Cassee
 # Licensed under the terms of the MIT License (see LICENSE.txt)
 
+import tinymce.settings
 from django import template
 from django.template.loader import render_to_string
-import tinymce.settings
 
 register = template.Library()
 

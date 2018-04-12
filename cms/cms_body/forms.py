@@ -1,11 +1,12 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from cms_body.models import Author, Document, Guest
-from django.forms import ModelMultipleChoiceField, SelectDateWidget
-from tinymce.widgets import TinyMCE
-from cms_body.validators import validate_username, validate_gosc
 from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.core.exceptions import ValidationError
+from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from django_select2.forms import Select2MultipleWidget
+from tinymce.widgets import TinyMCE
+
+from cms_body.models import Author, Document, Guest
+from cms_body.validators import validate_gosc, validate_username
 
 
 class AuthorForm(forms.ModelForm):
@@ -78,4 +79,3 @@ class AddUserForm(forms.Form):
     #     if password != password2:
     #         raise ValidationError('Hasła się różnią')
     #     return cleaned_data
-

@@ -5,23 +5,24 @@ import json
 import logging
 
 import django
-if django.VERSION < (2,):  # pragma: no cover
-    import warnings
-    warnings.warn("Support for Django < 2.0 will be removed soon,"
-                  "please upgrade your projects to use Django 2.0", DeprecationWarning)
-
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
+from tinymce.compressor import gzip_compressor
+
+if django.VERSION < (2,):  # pragma: no cover
+    import warnings
+    warnings.warn("Support for Django < 2.0 will be removed soon,"
+                  "please upgrade your projects to use Django 2.0", DeprecationWarning)
+
 try:
     from django.urls import reverse
 except ImportError:
     # Django < 1.10
     from django.core.urlresolvers import reverse
 
-from tinymce.compressor import gzip_compressor
 
 try:
     import enchant

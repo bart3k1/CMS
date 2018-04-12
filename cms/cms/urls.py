@@ -14,39 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf.urls import url
-from django.conf.urls import include
 
-from cms_body.views import (
-    AuthorCreateView,
-    AuthorUpdateView,
-    AuthorDeleteView,
-    AuthorDetailView,
-    AuthorView,
-    EditionCreateView,
-    EditionView,
-    EditionDetailView,
-    EditionDeleteView,
-    EditionUpdateView,
-    DocumentCreateView,
-    AddDocument,
-    DocumentView,
-    DocumentUpdateView,
-    UserLoginView,
-    UserLogoutView,
-    IndexView,
-    HostDetailView,
-    GuestDetailView,
-    DocumentDetailView,
-    AddUserView,
-    UpdateDocumentView,
-    # SearchGuestView,
-    GuestListView,
-    GuestCreateView,
-    HostListView,
-    DocumentListView,)
-
+from cms_body.views import (AddDocument, AddUserView,  # SearchGuestView,
+                            AuthorCreateView, AuthorDeleteView,
+                            AuthorDetailView, AuthorUpdateView, AuthorView,
+                            DocumentCreateView, DocumentDetailView,
+                            DocumentListView, DocumentUpdateView, DocumentView,
+                            EditionCreateView, EditionDeleteView,
+                            EditionDetailView, EditionUpdateView, EditionView,
+                            GuestCreateView, GuestDetailView, GuestListView,
+                            HostDetailView, HostListView, IndexView,
+                            UpdateDocumentView, UserLoginView, UserLogoutView)
 
 urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),

@@ -7,21 +7,20 @@ Copyright (c) 2008 Jason Davies
 Licensed under the terms of the MIT License (see LICENSE.txt)
 """
 
-from datetime import datetime
+import json
 import os
 import re
-import json
+from datetime import datetime
 
+import tinymce.settings
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.utils.text import compress_string
-from django.utils.cache import patch_vary_headers, patch_response_headers
+from django.utils.cache import patch_response_headers, patch_vary_headers
 from django.utils.encoding import smart_text
 from django.utils.http import http_date
-
-import tinymce.settings
+from django.utils.text import compress_string
 
 safe_filename_re = re.compile('^[a-zA-Z][a-zA-Z0-9_/-]*$')
 

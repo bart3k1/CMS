@@ -6,7 +6,7 @@
 
 <p>
     Doki:<br>
-    {% for doc in author.doc_authors.all|dictsortreversed:"id" %}
+    {% for doc in author.documents.all|dictsortreversed:"id" %}
         {{ doc.topic }} | {{ doc.edition }}<br>
     {% endfor %}
 </p>

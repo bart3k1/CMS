@@ -3,7 +3,6 @@
 from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
 from django.test import TestCase
-
 from tinymce.widgets import AdminTinyMCE
 
 from .models import TestModel

@@ -2,13 +2,12 @@
 
 from contextlib import contextmanager
 
+import tinymce.settings
 from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.translation import override
-
-import tinymce.settings
-from tinymce.widgets import get_language_config, TinyMCE
+from tinymce.widgets import TinyMCE, get_language_config
 
 
 @contextmanager

@@ -7,9 +7,10 @@ http://code.djangoproject.com/wiki/CustomWidgetsTinyMCE
 """
 from __future__ import unicode_literals
 
-from collections import OrderedDict
 import json
+from collections import OrderedDict
 
+import tinymce.settings
 from django import forms
 from django.conf import settings
 from django.contrib.admin import widgets as admin_widgets
@@ -17,14 +18,15 @@ from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import get_language, ugettext as _
+from django.utils.translation import get_language
+from django.utils.translation import ugettext as _
+
 try:
     from django.urls import reverse
 except ImportError:
     # Django < 1.10
     from django.core.urlresolvers import reverse
 
-import tinymce.settings
 
 
 class TinyMCE(forms.Textarea):

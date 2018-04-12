@@ -1,5 +1,6 @@
-from cms_body.models import Author, Document, Edition, Guest, Host
 from django.contrib import admin
+
+from cms_body.models import Author, Document, Edition, Guest, Host
 
 
 @admin.register(Author)

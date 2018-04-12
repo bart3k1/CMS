@@ -15,4 +15,3 @@ def validate_username(value):
 def validate_gosc(value):
     if not value:
         raise ValidationError("Pole nie może być puste")
-

@@ -1,9 +1,10 @@
 # Copyright (c) 2008 Joost Cassee
 # Licensed under the terms of the MIT License (see LICENSE.txt)
 
-from django.db import models
 from django.contrib.admin import widgets as admin_widgets
+from django.db import models
 from tinymce import widgets as tinymce_widgets
+
 try:
     from south.modelsinspector import add_introspection_rules
     add_introspection_rules([], ['^tinymce\.models\.HTMLField'])

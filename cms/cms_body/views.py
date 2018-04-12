@@ -1,14 +1,17 @@
+from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
-from cms_body.models import Author, Host, Guest, Edition, Document
-from django.views import View
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
-from cms_body.forms import DocumentForm, LoginForm, AddUserForm, GuestSearchForm, DocumentSearchForm
-from django import forms
 from django.forms import ModelForm
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
+from django.views import View
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
+from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
+                            GuestSearchForm, LoginForm)
+from cms_body.models import Author, Document, Edition, Guest, Host
 
 # INDEX
 
@@ -218,7 +221,7 @@ class AddDocument(View):
 class UpdateDocumentView(View):
     def get(self, request, pk):
         document = Document.objects.get(pk=pk)
-        guests = Guest.objects.all().filter(doc_guests=pk)
+        guests = Guest.objects.all().filter(documents=pk)
         form = DocumentForm(instance=document)
         ctx = {
             'form': form,
@@ -259,7 +262,7 @@ class DocumentListView(View):
         if form.is_valid():
             slowo = form.cleaned_data['slowo']
             data = form.cleaned_data['data']
-            print(data)
+            # print(data)
             topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
             lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
             content = Document.objects.filter(content__icontains=slowo).order_by('-id')
