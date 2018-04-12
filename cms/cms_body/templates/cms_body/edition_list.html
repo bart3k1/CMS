@@ -1,12 +1,29 @@
 {%  extends 'base.html' %}
+
+{% block content_1 %}
+
+    <p><a href="{% url 'create-edition' %}">Dodaj Wydanie</a></p>
+    <p><a href="#">OPCJA 2</a></p>
+    <p><a href="#">OPCJA 3</a></p>
+    <p><a href="#">OPCJA 4</a></p>
+    <p><a href="#">OPCJA 5</a></p>
+    <p><a href="#">OPCJA 6</a></p>
+
+{% endblock %}
+
 {% block content %}
-    <p>Wydania</p>
-        <ul>
-            {% for object in object_list|dictsortreversed:"date"  %}
-                <li>
-                    {{ object}}<a href="{% url 'edition-detail' pk=object.id %}"> >Więcej </a> <a href="{% url 'update-edition' pk=object.id %}"> >Edytuj </a> <a href="{% url 'delete-edition' pk=object.id %}"> >Usuń </a>
-                </li>
-            {% endfor %}
-        </ul>
-    <a href="{% url 'create-edition'  %}">DODAJ WYDANIE </a>
+
+    <h2>Wydania</h2>
+    <ul>
+        {% for object in object_list|dictsortreversed:"date"  %}
+            <li>
+                <a href="{% url 'edition-detail' pk=object.id %}"> {{ object }} </a>
+                    <a href="{% url 'update-edition' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj </a>
+                    <a href="{% url 'delete-edition' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Usuń </a>
+                    | <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }}
+
+            </li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

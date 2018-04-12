@@ -2,6 +2,10 @@ body {
     width: calc(100vw - 34px);
 }
 
+h6 {
+    background-color: lightgray;
+}
+
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
   margin-bottom: 0;

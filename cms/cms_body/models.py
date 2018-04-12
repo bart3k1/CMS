@@ -58,7 +58,7 @@ class Guest(models.Model):
 
 
 class Edition(models.Model):
-    date = models.DateField(auto_now_add=False, verbose_name='Data')
+    date = models.DateField(auto_now_add=False, unique=True, verbose_name='Data')
     hosts = models.ManyToManyField(Host, related_name='editions', verbose_name='Prowadzący')
     editor = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Wydawca')
 

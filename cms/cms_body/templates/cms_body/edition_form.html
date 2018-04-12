@@ -1,11 +1,4 @@
-{%  extends 'base.html' %}
+{% extends 'base_form_edition.html' %}
 
-{% block content %}
+{% block buttontext %}Zapisz zmiany{% endblock %}
 
-    <form action="" method="post">
-    {% csrf_token %}
-    {{  form.as_p }}
-    <input type="submit" value="Zapisz">
-    </form>
-
-{% endblock %}

@@ -1,30 +1,36 @@
 {% extends 'base.html' %}
 
+{% block content_1 %}
+
+    <p><a href="{% url 'create-edition' %}">Dodaj Wydanie</a></p>
+    <p><a href="#">OPCJA 2</a></p>
+    <p><a href="#">OPCJA 3</a></p>
+    <p><a href="#">OPCJA 4</a></p>
+    <p><a href="#">OPCJA 5</a></p>
+    <p><a href="#">OPCJA 6</a></p>
+
+{% endblock %}
+
 {% block content %}
-<h1>WYDANIE/DETAL</h1>
-<p>Wydanie: {{ object }}</p>
-<p>Wydawca: {{ object.editor.surname }}</p>
 
- - - - - -
-<p>Doki:</p>
+    <h3>{{ object }}</h3>
+    <h5>Wydawca:<br>
+        <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }}</h5>
 
+    <h5>Prowadzący:<br>
+        {% for host in edition.hosts.all %}
+            <span class="glyphicon glyphicon-user"></span> {{ host.surname }}<br>
+        {% endfor %}
+    </h5>
+    <h5>Dokumentacje: </h5>
     {% for doc in edition.documents.all %}
-<p>
-        <a href="{% url 'update-document' pk=doc.id %}">{{ doc.topic }} </a> - {{ doc.author }}<br>
-            Goście:
-            {% for guest in doc.guests.all %}
-            {{ guest.surname }} |
-            {% endfor %}
-
-</p>
+           <h6> {{ forloop.counter }}. <a href="{% url 'update-document' pk=doc.id %}"><span class="glyphicon glyphicon-book"></span> {{ doc.topic }} </a> <span class="glyphicon glyphicon-user"></span> {{ doc.author.surname }}<br></h6>
+            <h7>Goście:<br>
+                {% for guest in doc.guests.all %}
+                    <span class="glyphicon glyphicon-user"></span> {{ guest.surname }}<br>
+                {% endfor %}
+            </h7>
     {% endfor %}
-
-- - - - -
-<p>Prowadzący:
-    {% for host in edition.hosts.all %}
-        {{ host.surname }} |
-    {% endfor %}
-</p>
 
 
 {%  endblock %}
