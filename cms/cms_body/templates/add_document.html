@@ -1,20 +1,6 @@
 {% extends 'base_form.html' %}
 
-{% block content %}
-<p> Goście:
-    {% for guest in guests %}
-    {{ guest.name }} {{ guest.surname }},
-    {%  endfor %}
- </p>
- <p>
-   <fieldset>
-    <div class="form-row">
-        <form method="post" action=".">
-            {% csrf_token %}
-            {{ form.as_p }}
-        <button type="submit" value="submit">Add</button>
-    </form>
-    </div>
-    </fieldset>
-</p>
-{%  endblock %}
+{% block beforeform %}
+    <h1>Dodaj dokumentację</h1>
+{% endblock %}
+{% block buttontext %} Zapisz {% endblock %}

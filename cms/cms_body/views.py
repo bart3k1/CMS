@@ -10,8 +10,9 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
-                            GuestSearchForm, LoginForm)
+                            EditionSearchForm, GuestSearchForm, LoginForm)
 from cms_body.models import Author, Document, Edition, Guest, Host
+
 
 # INDEX
 
@@ -61,6 +62,7 @@ class AuthorDeleteView(DeleteView):
 class AuthorDetailView(DetailView):
     model = Author
 
+
 # HOST
 
 
@@ -71,6 +73,7 @@ class HostDetailView(DetailView):
 class HostListView(ListView):
     model = Host
     # template_name = 'cms_body/authors.html' # now - author_list.html
+
 
 # GUEST
 
@@ -86,7 +89,7 @@ class GuestListView(View):
         ctx = {
             'guests': Guest.objects.all().order_by('-id')[0:20],
             'form': GuestSearchForm,
-                    }
+        }
         return render(request, 'guest_list.html', ctx)
 
     def post(self, request):
@@ -95,7 +98,6 @@ class GuestListView(View):
             gosc = form.cleaned_data['gosc']
             name = Guest.objects.filter(name__icontains=gosc)
             surname = Guest.objects.filter(surname__icontains=gosc)
-            # print(categories)
             ctx = {
                 'guests': Guest.objects.all().order_by('-id')[0:20],
                 'form': form,
@@ -103,45 +105,18 @@ class GuestListView(View):
                 'surname': surname,
                 'wyniki': True
             }
-            return render(request,  'guest_list.html', ctx)
+            return render(request, 'guest_list.html', ctx)
 
         ctx = {
             'guests': Guest.objects.all().order_by('-id')[0:20],
             'form': form,
         }
-        return render(request,  'guest_list.html', ctx)
+        return render(request, 'guest_list.html', ctx)
 
 
 class GuestDetailView(DetailView):
     model = Guest
 
-
-# class SearchGuestView(View):
-#     def get(self, request):
-#         ctx = {
-#             'form': GuestSearchForm,
-#         }
-#         return render(request, 'search.html', ctx)
-#
-#     def post(self, request):
-#         form = GuestSearchForm(request.POST)
-#         if form.is_valid():
-#             gosc = form.cleaned_data['gosc']
-#             name = Guest.objects.filter(name__icontains=gosc)
-#             surname = Guest.objects.filter(surname__icontains=gosc)
-#             # print(categories)
-#             ctx = {
-#                 'form': form,
-#                 'name': name,
-#                 'surname': surname,
-#                 'wyniki': True
-#             }
-#             return render(request, 'search.html', ctx)
-#
-#         ctx = {
-#             'form': form,
-#         }
-#         return render(request, 'search.html', ctx)
 
 # EDITION
 
@@ -155,17 +130,46 @@ class EditionCreateView(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('editions')
 
-    #DROPDOWN DATE
     def get_form(self):
-        '''add date picker in forms'''
+        # add date picker in forms
         from django.forms.widgets import SelectDateWidget
         form = super(EditionCreateView, self).get_form()
         form.fields['date'].widget = SelectDateWidget()
         return form
 
 
-class EditionView(ListView):
-    model = Edition
+# class EditionView(ListView):
+#     model = Edition
+
+class EditionListView(View):
+    def get(self, request):
+        ctx = {
+            'editions': Edition.objects.all().order_by('-id')[0:20],
+            'form': EditionSearchForm,
+        }
+        return render(request, 'edition_list.html', ctx)
+
+    def post(self, request):
+        form = EditionSearchForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data['data']
+            try:
+                edition = Edition.objects.get(date=data)
+            except:
+                edition = None
+            ctx = {
+                'form': form,
+                'edition': edition,
+                'editions': Edition.objects.all().order_by('-id')[0:20],
+
+            }
+            return render(request, 'edition_list.html', ctx)
+
+        ctx = {
+            'editions': Edition.objects.all().order_by('-id')[0:20],
+            'form': form,
+        }
+        return render(request, 'edition_list.html', ctx)
 
 
 class EditionUpdateView(UpdateView):
@@ -245,8 +249,8 @@ class DocumentUpdateView(UpdateView):
     success_url = reverse_lazy('documents')
 
 
-class DocumentView(ListView):
-    model = Document
+# class DocumentView(ListView):
+#     model = Document
 
 
 class DocumentListView(View):
@@ -254,7 +258,7 @@ class DocumentListView(View):
         ctx = {
             'documents': Document.objects.all().order_by('-id')[0:20],
             'form': DocumentSearchForm,
-                    }
+        }
         return render(request, 'document_list.html', ctx)
 
     def post(self, request):
@@ -270,8 +274,6 @@ class DocumentListView(View):
                 edition = Edition.objects.get(date=data)
             except:
                 edition = None
-            # # todo
-            # edition = Edition.objects.all()
             ctx = {
                 'form': form,
                 'edition': edition,
@@ -279,15 +281,15 @@ class DocumentListView(View):
                 'lead': lead,
                 'topic': topic,
                 'documents': Document.objects.all().order_by('-id')[0:20],
-                'wyniki': True
+                'wyniki': None
             }
-            return render(request,  'document_list.html', ctx)
+            return render(request, 'document_list.html', ctx)
 
         ctx = {
             'guests': Document.objects.all().order_by('-id')[0:20],
             'form': form,
         }
-        return render(request,  'document_list.html', ctx)
+        return render(request, 'document_list.html', ctx)
 
 
 class DocumentDetailView(DetailView):
@@ -312,13 +314,12 @@ class AddUserView(View):
                                             first_name=form.cleaned_data['first_name'],
                                             last_name=form.cleaned_data['last_name'],
                                             email=form.cleaned_data['email'])
-            #SZYBSZE z usunieciem nieptrzebnego pola
+            # SZYBSZE z usunieciem nieptrzebnego pola
             # del form.cleaned_data['password_c'] albo
             # form.cleaned_data.pop('password_c')
             # user = User.objects.create_user(**form.cleaned_data)
 
-
-            #ZROBIC USER ADDED DELETED MODIFICATED TEMPLATE!
+            # ZROBIC USER ADDED DELETED MODIFICATED TEMPLATE!
 
             return HttpResponse('DODANO! usera o id {}'.format(user.id))
 

@@ -10,13 +10,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/cms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cms.css' %}"/>
     {% block styles %}{% endblock %}
 </head>
 <body>
 <div class="container">
 
-    {%  if user.is_authenticated %}
+    {% if user.is_authenticated %}
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'index' %}">Start</a></li>
+                        <li><a href="{% url 'index' %}">Start</a></li>
                         <li><a href="{% url 'editions' %}">Wydania</a></li>
                         <li><a href="{% url 'documents' %}">Dokumentacje</a></li>
                         <li><a href="{% url 'guests' %}">Goście</a></li>
@@ -37,8 +37,10 @@
                         <li><a href="{% url 'authors' %}">Autorzy</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Zalogowany: {{ user.username }}</a></li>
-                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Wyloguj</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Zalogowany: {{ user.username }}
+                        </a></li>
+                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Wyloguj</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,44 +51,56 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'user-login' %}"><span class="glyphicon glyphicon-user"></span> Logowanie</a></li>
+                    <li><a href="{% url 'user-login' %}"><span class="glyphicon glyphicon-user"></span> Logowanie</a>
+                    </li>
                 </ul>
             </div>
         </nav>
 
     {% endif %}
 
-        <div class="container-fluid text-center">
-            <div class="row content">
-                <div class="col-sm-2 sidenav">
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav text-left">
 
-                    {% block content_1 %}{% endblock %}
+                <p>Dodaj:</p>
+                <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
+                <a href="{% url 'add-document' %}"> Dokumentację</a></p>
+                <p><a href="#">Gościa</a></p>
+                <p><a href="#">Autora</a></p>
+                <p><a href="#">Prowadzącego</a></p>
+                <p><a href="#" class="not-active">Temat</a></p>
 
+            </div>
+            <div class="col-sm-8 text-left">
+
+                {% block content %}
+
+
+
+                {% endblock %}
+
+
+            </div>
+
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                    <p>COKOLWIEK</p>
                 </div>
-                <div class="col-sm-8 text-left">
-
-                    {% block content %}{% endblock %}
-
-                </div>
-
-                <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>COKOLWIEK</p>
-                    </div>
-                    <div class="well">
-                        <p>COS INNEGO</p>
-                    </div>
+                <div class="well">
+                    <p>COS INNEGO</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <footer class="container-fluid text-center">
-            {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
-        </footer>
+    <footer class="container-fluid text-center">
+        {{ version }} {% autoescape off %}{{ mail }}{% endautoescape %}
+    </footer>
 
 </div>
 
 {{ form.media.js }}
-
+<p></p>
 </body>
 </html>

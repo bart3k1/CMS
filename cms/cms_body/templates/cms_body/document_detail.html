@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p></p>
+    <button onclick="myFunction()">Wydrukuj stronę</button>
 
-<button onclick="myFunction()">Wydrukuj stronę</button>
-
-<h1>DOKUMENT/DETAL</h1>
-    <p> Tytuł: {{ object }}</p>
-    <p> Autor: {{ object.author }}</p>
-    <p> Lead: {{ object.lead }}</p>
-    <p> Treść: {% autoescape off %}{{ object.content }}{% endautoescape %}</p>
-    <p> Wydanie: {{ object.edition }}</p>
-    <p> Goście:<br>
-        {% for guest in object.guests.all %}
-        {{ guest.surname }}<bR>
+    <h1>{{ object }}</h1>
+    <p> {{ object.edition }}<br>
+        Autor: {{ object.author }}<br>
+        Prowadzący:<br>
+        {% for host in object.edition.hosts.all %}
+            {{ host.name }} {{ host.surname }}<br>
         {% endfor %}
     </p>
+    <p> Goście:<br>
+        {% for guest in object.guests.all %}
+            {{ guest.surname }} |  {{ guest.phone }}<bR>
+        {% endfor %}
+    </p>
+    <p> Lead: <br>{{ object.lead }}</p>
+    <p> Treść: <br>{% autoescape off %}{{ object.content }}{% endautoescape %}</p>
 
 
-
-<script> function myFunction() {window.print();}</script>
-
-
-{%  endblock %}
+    <button onclick="myFunction()">Wydrukuj stronę</button>
+    <p></p>
+    <script> function myFunction() {
+        window.print();
+    }</script>
+{% endblock %}

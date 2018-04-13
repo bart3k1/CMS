@@ -4,12 +4,14 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 
-TVREADY = (
-    (1, 'black'),
-    (2, 'red'),
-    (3, 'blue'),
-    (4, 'yellow'),
-    (5, 'green'),
+OCENA = (
+    (0, '0'),
+    (1, '1'),
+    (2, '2'),
+    (3, '3'),
+    (4, '4'),
+    (5, '5'),
+    (6, '6'),
 )
 
 
@@ -46,8 +48,8 @@ class Guest(models.Model):
     surname = models.CharField(max_length=40, null=False, verbose_name='Nazwisko')
     phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
     alt_phone = models.CharField(max_length=128, null=True, blank=True, verbose_name='Telefon/Menadżer')
-    notes = models.CharField(max_length=200, null=True, blank=True, verbose_name='Notatki')
-    tv_ready = models.IntegerField(choices=TVREADY, blank=True, null=True)
+    notes = models.TextField(max_length=400, null=True, blank=True, verbose_name='Notatki')
+    ocena = models.IntegerField(choices=OCENA, blank=True, null=True)
 
     def __str__(self):
         return "{} {}".format(self.name, self.surname)
@@ -71,16 +73,17 @@ class Edition(models.Model):
 
 
 class Document(models.Model):
-        topic = models.CharField(max_length=40, verbose_name='Tytuł')
-        lead = models.TextField(max_length=200, null=True, verbose_name='Lead')
-        content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
-        author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Autor')
-        edition = models.ForeignKey(Edition, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Wydanie')
-        guests = models.ManyToManyField(Guest, blank=True, related_name='documents', verbose_name='Goście')
+    edition = models.ForeignKey(Edition, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Wydanie')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Autor')
+    guests = models.ManyToManyField(Guest, blank=True, related_name='documents', verbose_name='Goście')
+    notes = models.TextField(max_length=200, null=True, verbose_name='Info')
+    topic = models.CharField(max_length=100, verbose_name='Tytuł')
+    lead = models.TextField(max_length=400, null=True, verbose_name='Lead')
+    content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
 
-        def __str__(self):
+    def __str__(self):
             return "{}".format(self.topic)
 
-        class Meta:
-            verbose_name = "Dokument"
-            verbose_name_plural = "Dokumenty"
+    class Meta:
+        verbose_name = "Dokument"
+        verbose_name_plural = "Dokumenty"

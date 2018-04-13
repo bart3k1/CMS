@@ -1,88 +1,94 @@
 {% extends 'base_form.html' %}
 
+{% block beforeform %}
+    <h2>Znajdź dokumentację:</h2>
+{% endblock %}
+
 {% block buttontext %}Wyszukaj!{% endblock %}
 
 {% block afterform %}
 
+    {% if not wyniki %}
 
-    {% if topic %}
-        <p>Dopasowano tytuł:</p>
-        <ul>
-            {% for tytul in topic %}
-                <li>
-            {{ tytul.topic }}
-                </li>
+        {% if topic %}
+            <h4>Dopasowano tytuł:</h4>
+            <ul>
+                {% for object in topic %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+                        <a href="{% url 'author-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h4>Brak dopasowanych tytułów</h4>
+        {% endif %}
+        {% if lead %}
+            <h4>Dopasowano lead:</h4>
+            <ul>
+                {% for object in lead %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+                        <a href="{% url 'author-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h4>Brak dopasowanych leadów</h4>
+        {% endif %}
+        {% if lead %}
+            <h4>Dopasowano treść:</h4>
+            <ul>
+                {% for object in content %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+                        <a href="{% url 'author-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                    </li>
+                {% endfor %}
+            </ul>
+         {% else %}
+            <h4>Brak dopasowanych treści</h4>
+        {% endif %}
+        {% if edition %}
 
-            {% endfor %}
-        </ul>
+            <h4>Dopasowano wydanie:</h4>
+            {{ edition }}
+            <ul>
+                {% for object in edition.documents.all %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+                        <a href="{% url 'author-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        {% else %}
+            <h4>Brak dopasowanych wydań</h4>
+        {% endif %}
     {% endif %}
-    {% if lead %}
-        <p>Dopasowano lead:</p>
-        <ul>
-            {% for doc in lead %}
-                <li>
-           {{ doc.topic }}
-                </li>
 
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% if lead %}
-        <p>Dopasowano treść:</p>
-        <ul>
-            {% for doc in content %}
-                <li>
-           {{ doc.topic }}
-                </li>
+    <h4>Ostatnio dodane dokumentacje:</h4>
+    <ul>
 
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if edition %}
-
-        <p>Dopasowano wydanie:</p>
-        {{ edition }}
-        <ul>
-            {% for doc in edition.documents.all %}
-                <li>
-
-
-                    {{ doc.topic }}<br>
-
-                </li>
-
-            {% endfor %}
-
-        </ul>
-    {% endif %}
-
-
-    {% if not topic and not lead and not content %}
-        <p>    --- Brak dopasownych Dokumentacji--- </p>
-    {% endif %}
-
-
-    Ostatnio dodane:
-     <ul>
-
-            {% for doc in documents %}
+        {% for object in documents %}
             <li>
-
-           {{ forloop.counter }}  Tytuł: {{ doc.topic }}
-
+                {{ forloop.counter }}.
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+                <a href="{% url 'author-detail' pk=object.author.id %}">
+                    <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
             </li>
-            {% endfor %}
+        {% endfor %}
 
-       </ul>
-<a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
-{% comment %}
-    {% if not name and not surname %}
+    </ul>
 
-    <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
-
-    {% endif %}
-{% endcomment %}
 
 {% endblock %}
 

@@ -1,2 +1,75 @@
-{#ikonka prawo #}
+{#GLYPHICON#}
 <span class="glyphicon glyphicon-chevron-right"></span>
+
+{#ŁADNY FORM#}
+{% for field in form %}
+    <div class="row">
+        <div class="col-md-2">
+            {{ field.label_tag }}
+            {% if field.help_text %}
+                <sup>{{ field.help_text }}</sup>
+            {% endif %}
+            {% for error in field.errors %}
+                <div class="row">
+                    <div class="alert alert-danger">{{ error }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-10 pull-left">
+            {{ field }}
+        </div>
+    </div>
+{% endfor %}
+
+{#INDEX #}
+<p>Wydania</p>
+<a href="{% url 'create-edition' %}">DODAJ WYDANIE </a>
+<ul>
+    {% for object in editions|dictsortreversed:"date" %}
+        <li>
+            <a href="{% url 'update-edition' pk=object.id %}">Edytuj {{ object.date }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'editions' %}"> ...więcej </a>
+<p>Autorzy</p>
+<ul>
+    {% for object in authors %}
+        <li>
+            <a href="{% url 'author-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'authors' %}"> ...więcej </a>
+<p>Prowadzący</p>
+<ul>
+    {% for object in hosts %}
+        <li>
+            <a href="{% url 'host-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'hosts' %}"> ...więcej </a>
+<p>Goście</p>
+<a href="{% url 'create-guest' %}">DODAJ GOŚCIA </a><br>
+<a href="{% url 'guests' %}">SZUKAJ GOŚCIA </a>
+<ul>...ostatnio dodani:
+    {% for object in guests %}
+        <li>
+            <a href="{% url 'guest-detail' pk=object.id %}"> --> {{ object.surname }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'guests' %}"> ...więcej </a>
+<p>Dokumentacje</p>
+<a href="{% url 'add-document' %}">DODAJ NOWY </a><br>
+<a href="{% url 'documents' %}">SZUKAJ DOKUMENTACJI </a>
+<ul>
+    {% for object in documents|dictsortreversed:"id" %}
+        <li>{{ object.topic }} :
+            <a href="{% url 'document-detail' pk=object.id %}">Detal | </a>
+            <a href="{% url 'update-document' pk=object.id %}">Edytuj </a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'documents' %}"> ...więcej </a>

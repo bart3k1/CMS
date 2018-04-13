@@ -1,0 +1,47 @@
+{% extends 'base_form.html' %}
+
+{% block beforeform %}
+    <h2>Znajdź wydanie:</h2>
+{% endblock %}
+
+{% block buttontext %}Szukaj{% endblock %}
+
+{% block afterform %}
+
+    {% if edition %}
+        <h2>Szukane wydanie:</h2>
+        <ul>
+            <li>
+                <a href="{% url 'edition-detail' pk=edition.id %}"> {{ edition }} |</a>
+                <a href="{% url 'update-edition' pk=edition.id %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-edition' pk=edition.id %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Usuń |</a>
+                <a href="{% url 'author-detail' pk=edition.editor.id %}">
+                    <span class="glyphicon glyphicon-user"></span> {{ edition.editor.surname }} |</a>
+            </li>
+        </ul>
+    {% else %}
+        <ul>
+            <li>
+                Brak wydania
+            </li>
+        </ul>
+    {% endif %}
+
+    <h2>Ostatnie wydania: </h2>
+    <ul>
+        {% for object in editions %}
+            <li>
+                <a href="{% url 'edition-detail' pk=object.id %}"> {{ object }} |</a>
+                <a href="{% url 'update-edition' pk=object.id %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-edition' pk=object.id %}">
+                    <span class="glyphicon glyphicon-chevron-right"></span> Usuń |</a>
+                <a href="{% url 'author-detail' pk=object.editor.id %}">
+                    <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }} |</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

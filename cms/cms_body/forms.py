@@ -1,10 +1,7 @@
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from django_select2.forms import Select2MultipleWidget
-from tinymce.widgets import TinyMCE
-
 from cms_body.models import Author, Document, Guest
 from cms_body.validators import validate_gosc, validate_username
 
@@ -27,17 +24,21 @@ class GuestSearchForm(forms.Form):
     #     return gosc
 
 
+class EditionSearchForm(forms.Form):
+    import datetime
+    year = datetime.date.today().year
+    data = forms.DateField(widget=SelectDateWidget(years=range(2017, year + 1)))
+
+
 class DocumentSearchForm(forms.Form):
-    slowo = forms.CharField(max_length=100, required=True)
-    data = forms.DateField(widget=SelectDateWidget)
-
-
+    slowo = forms.CharField(max_length=100, required=True, label="Wyszukaj słowo")
+    data = forms.DateField(widget=SelectDateWidget, label="Data wydania")
 
 
 class DocumentForm(forms.ModelForm):
     # content = forms.CharField(widget=TinyMCE(attrs={'cols': 10, 'rows': 100}))
     # guests = FilteredSelectMultiple(verbose_name="Goście", is_stacked=True)
-    guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
+    guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget, label="Goście")
 
     class Meta:
         model = Document
@@ -62,7 +63,8 @@ class AddUserForm(forms.Form):
     first_name = forms.CharField(max_length=128)
     last_name = forms.CharField(max_length=128)
     email = forms.EmailField()
-    #sprawdzanie bledow w formularzach
+
+    # sprawdzanie bledow w formularzach
 
     def clean_password_c(self):
         password = self.cleaned_data['password']
@@ -70,7 +72,6 @@ class AddUserForm(forms.Form):
         if password != password2:
             raise ValidationError('Hasła się różnią')
         return password
-
 
     # def clean_password_c(self):
     #     cleaned_data = super().clean()

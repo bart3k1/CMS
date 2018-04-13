@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<div class="col-sm-8 text-center">
-                    <div class="panel-body">
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <input type="submit" value="{% block buttontext %}{% endblock %}">
-                        </form>
-                    </div>
-</div>
+    <div class="col-sm-8 text-center">
+        <div class="panel-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="{% block buttontext %}{% endblock %}">
+            </form>
+        </div>
+    </div>
 
     {% block afterform %}{% endblock %}
 

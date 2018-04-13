@@ -21,12 +21,13 @@ from cms_body.views import (AddDocument, AddUserView,  # SearchGuestView,
                             AuthorCreateView, AuthorDeleteView,
                             AuthorDetailView, AuthorUpdateView, AuthorView,
                             DocumentCreateView, DocumentDetailView,
-                            DocumentListView, DocumentUpdateView, DocumentView,
-                            EditionCreateView, EditionDeleteView,
-                            EditionDetailView, EditionUpdateView, EditionView,
+                            DocumentListView, DocumentUpdateView, #DocumentView,
+                            EditionCreateView, EditionListView, EditionDeleteView,
+                            EditionDetailView, EditionUpdateView, #EditionView,
                             GuestCreateView, GuestDetailView, GuestListView,
                             HostDetailView, HostListView, IndexView,
                             UpdateDocumentView, UserLoginView, UserLogoutView)
+
 
 urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),
@@ -57,14 +58,13 @@ urlpatterns = [
     url(r'^update_edition/(?P<pk>\d+)/$', EditionUpdateView.as_view(), name='update-edition'),
     url(r'^delete_edition/(?P<pk>\d+)/$', EditionDeleteView.as_view(), name='delete-edition'),
     url(r'^detail_edition/(?P<pk>\d+)/$', EditionDetailView.as_view(), name='edition-detail'),
-    url(r'^editions/$', EditionView.as_view(), name='editions'),
+    url(r'^editions/$', EditionListView.as_view(), name='editions'),
 
     url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
     url(r'^update_document1/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document1'),
     url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
     url(r'^detail_document/(?P<pk>\d+)/$', DocumentDetailView.as_view(), name='document-detail'),
-    # url(r'^documents/$', DocumentView.as_view(), name='documents'),
     url(r'^documents/$', DocumentListView.as_view(), name='documents'),
 
 
