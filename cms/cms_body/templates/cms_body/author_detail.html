@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>AUTOR/DETAL</h1>
-<p> Autor: {{ object }}</p>
+<h2>{{ object }}</h2>
+
 
 <p>
-    Doki:<br>
-    {% for doc in author.documents.all|dictsortreversed:"id" %}
-        {{ doc.topic }} | {{ doc.edition }}<br>
+    Dokumentacje:<br>
+    {% for object in author.documents.all|dictsortreversed:"id" %}
+        {{ object.topic }} | {{ object.edition }}<br>
     {% endfor %}
 </p>
 

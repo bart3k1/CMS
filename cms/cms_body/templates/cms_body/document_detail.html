@@ -3,6 +3,7 @@
 {% block content %}
     <p></p>
     <button onclick="myFunction()">Wydrukuj stronę</button>
+    <button onclick="goBack()">Wróć</button>
 
     <h1>{{ object }}</h1>
     <p> {{ object.edition }}<br>
@@ -22,8 +23,18 @@
 
 
     <button onclick="myFunction()">Wydrukuj stronę</button>
+    <button onclick="goBack()">Wróć</button>
     <p></p>
-    <script> function myFunction() {
-        window.print();
-    }</script>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
+
 {% endblock %}

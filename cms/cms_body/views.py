@@ -75,6 +75,12 @@ class HostListView(ListView):
     # template_name = 'cms_body/authors.html' # now - author_list.html
 
 
+class HostCreateView(CreateView):
+    model = Host
+    fields = '__all__'
+    success_url = reverse_lazy('hosts')
+
+
 # GUEST
 
 
@@ -96,13 +102,15 @@ class GuestListView(View):
         form = GuestSearchForm(request.POST)
         if form.is_valid():
             gosc = form.cleaned_data['gosc']
-            name = Guest.objects.filter(name__icontains=gosc)
-            surname = Guest.objects.filter(surname__icontains=gosc)
+            name = Guest.objects.filter(name__icontains=gosc).order_by('-id')
+            surname = Guest.objects.filter(surname__icontains=gosc).order_by('-id')
+            notatki = Guest.objects.filter(notes__icontains=gosc).order_by('-id')
             ctx = {
                 'guests': Guest.objects.all().order_by('-id')[0:20],
                 'form': form,
                 'name': name,
                 'surname': surname,
+                'notatki': notatki,
                 'wyniki': True
             }
             return render(request, 'guest_list.html', ctx)
@@ -137,9 +145,6 @@ class EditionCreateView(CreateView):
         form.fields['date'].widget = SelectDateWidget()
         return form
 
-
-# class EditionView(ListView):
-#     model = Edition
 
 class EditionListView(View):
     def get(self, request):
@@ -197,15 +202,11 @@ class EditionDetailView(DetailView):
 # DOCUMENT
 
 
-class DocumentCreateView(CreateView):
-    model = Document
-    fields = '__all__'
-
-
 class AddDocument(View):
     def get(self, request):
         ctx = {
             'form': DocumentForm,
+            'naglowek': "Dodaj dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
@@ -218,6 +219,7 @@ class AddDocument(View):
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
             'form': form,
+            'naglowek': "Dodaj dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
@@ -230,6 +232,7 @@ class UpdateDocumentView(View):
         ctx = {
             'form': form,
             'guests': guests,
+            'naglowek': "Zmień dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
@@ -241,16 +244,6 @@ class UpdateDocumentView(View):
             return HttpResponseRedirect(
                 reverse('documents')
             )
-
-
-class DocumentUpdateView(UpdateView):
-    model = Document
-    fields = '__all__'
-    success_url = reverse_lazy('documents')
-
-
-# class DocumentView(ListView):
-#     model = Document
 
 
 class DocumentListView(View):

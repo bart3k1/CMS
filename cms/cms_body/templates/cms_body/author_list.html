@@ -1,18 +1,16 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
-
-       <ul>
-            {% for object in object_list %}
+    <h2>Autorzy:</h2>
+    <ul>
+        {% for object in object_list %}
             <li>
-            Imię: {{ object.name }}, Nazwisko: {{ object.surname }} <a href="{% url 'author-detail' pk=object.id %}"> Więcej >>></a>
-                {% for i in object.documents.all %}
-                    <br>{{ i }}
-                {% endfor %}
+                <a href="{% url 'author-detail' pk=object.id %}"> <span
+                        class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
             </li>
-            {% endfor %}
-       </ul>
+        {% endfor %}
+    </ul>
 
 
 

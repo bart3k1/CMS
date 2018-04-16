@@ -2,23 +2,23 @@
 
 {% block content %}
 
-    <h3>{{ object }}</h3>
+    <h2>{{ object }}</h2>
     <h5>Wydawca:<br>
         <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }}</h5>
 
     <h5>Prowadzący:<br>
-        {% for host in edition.hosts.all %}
-            <span class="glyphicon glyphicon-user"></span> {{ host.surname }}<br>
+        {% for object in edition.hosts.all %}
+            <span class="glyphicon glyphicon-user"></span> {{ object.surname }}<br>
         {% endfor %}
     </h5>
     <h5>Dokumentacje: </h5>
-    {% for doc in edition.documents.all %}
-           <h6> {{ forloop.counter }}. <a href="{% url 'update-document' pk=doc.id %}"><span class="glyphicon glyphicon-book"></span> {{ doc.topic }} </a> <span class="glyphicon glyphicon-user"></span> {{ doc.author.surname }}<br></h6>
-            <h7>Goście:<br>
-                {% for guest in doc.guests.all %}
+    {% for object in edition.documents.all %}
+           <h5> {{ forloop.counter }}. <a href="{% url 'document-detail' pk=object.id %}"><span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a> <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }}<br></h5>
+            <h5>Goście:<br>
+                {% for guest in object.guests.all %}
                     <span class="glyphicon glyphicon-user"></span> {{ guest.surname }}<br>
                 {% endfor %}
-            </h7>
+            </h5>
     {% endfor %}
 
 

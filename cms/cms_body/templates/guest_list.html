@@ -1,5 +1,8 @@
-
 {% extends 'base_form.html' %}
+
+{% block beforeform %}
+    <h2>Znajdź gościa:</h2>
+{% endblock %}
 
 {% block buttontext %}Wyszukaj!{% endblock %}
 
@@ -9,9 +12,9 @@
     {% if name %}
         <p>Dopasowano imię:</p>
         <ul>
-            {% for gosc in name %}
+            {% for object in name %}
                 <li>
-            {{ gosc.name }} {{ gosc.surname }}
+            <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
                 </li>
 
             {% endfor %}
@@ -20,9 +23,20 @@
     {% if surname %}
         <p>Dopasowano nazwisko:</p>
         <ul>
-            {% for gosc in surname %}
+            {% for object in surname %}
                 <li>
-           {{ gosc.surname }}  {{ gosc.name }}
+           <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if notatki %}
+        <p>Dopasowano notkę:</p>
+        <ul>
+            {% for object in notatki %}
+                <li>
+            <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
                 </li>
 
             {% endfor %}
@@ -37,10 +51,10 @@
     Ostatnio dodani:
      <ul>
 
-            {% for guest in guests %}
+            {% for object in guests %}
             <li>
 
-           {{ forloop.counter }}  Imię: {{ guest.name }}, Nazwisko: {{ guest.surname }}, Ocena {{ guest.tv_ready }}, {{ guest.phone }} <a href="{% url 'guest-detail' pk=guest.id %}"> Więcej >>></a>
+           {{ forloop.counter }}  <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
 
             </li>
             {% endfor %}

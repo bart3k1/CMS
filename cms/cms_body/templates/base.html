@@ -66,9 +66,9 @@
                 <p>Dodaj:</p>
                 <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
                 <a href="{% url 'add-document' %}"> Dokumentację</a></p>
-                <p><a href="#">Gościa</a></p>
-                <p><a href="#">Autora</a></p>
-                <p><a href="#">Prowadzącego</a></p>
+                <p><a href="{% url 'create-guest' %}">Gościa</a></p>
+                <p><a href="{% url 'create-author' %}">Autora</a></p>
+                <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
                 <p><a href="#" class="not-active">Temat</a></p>
 
             </div>
@@ -85,10 +85,13 @@
 
             <div class="col-sm-2 sidenav">
                 <div class="well">
-                    <p>COKOLWIEK</p>
+                    <p>PIERWSZY BLOK</p>
                 </div>
                 <div class="well">
-                    <p>COS INNEGO</p>
+                    <p>DRUGI BLOK</p>
+                </div>
+                <div class="well">
+                    <p>TRZECI BLOK</p>
                 </div>
             </div>
         </div>

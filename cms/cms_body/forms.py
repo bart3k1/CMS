@@ -13,7 +13,7 @@ class AuthorForm(forms.ModelForm):
 
 
 class GuestSearchForm(forms.Form):
-    gosc = forms.CharField(max_length=100, required=True)
+    gosc = forms.CharField(max_length=100, required=True, label="Gość")
     # guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget)
 
     # JESLI NIE REQUIRED
