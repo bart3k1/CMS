@@ -1,4 +1,4 @@
-Django==2.0.4
+Django
 django-appconf==1.0.2
 django-extensions==2.0.6
 django-select2==6.0.2
