@@ -14,7 +14,8 @@
         <ul>
             {% for object in name %}
                 <li>
-            <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
+                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
                 </li>
 
             {% endfor %}
@@ -25,7 +26,8 @@
         <ul>
             {% for object in surname %}
                 <li>
-           <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
+                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
                 </li>
 
             {% endfor %}
@@ -36,7 +38,8 @@
         <ul>
             {% for object in notatki %}
                 <li>
-            <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
+                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
                 </li>
 
             {% endfor %}
@@ -44,24 +47,25 @@
     {% endif %}
 
     {% if not name and not surname %}
-        <p>    --- Brak gości--- </p>
+        <p> --- Brak gości--- </p>
     {% endif %}
 
 
     Ostatnio dodani:
-     <ul>
+    <ul>
 
-            {% for object in guests %}
+        {% for object in guests %}
             <li>
 
-           {{ forloop.counter }}  <a href="{% url 'guest-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span>   {{ object.name }} {{ object.surname }} </a>
+                {{ forloop.counter }} <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                    class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
 
             </li>
-            {% endfor %}
+        {% endfor %}
 
-       </ul>
-<a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>
-{% comment %}
+    </ul>
+    <a href="{% url 'create-guest' %}">DODAJ GOŚCIA </a>
+    {% comment %}
     {% if not name and not surname %}
 
     <a href="{% url 'create-guest'  %}">DODAJ GOŚCIA </a>

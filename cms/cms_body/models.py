@@ -1,6 +1,5 @@
 from django.db import models
 from tinymce import models as tinymce_models
-from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -26,8 +25,6 @@ class Author(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.name, self.surname)
-
-
 
 
 class Host(models.Model):

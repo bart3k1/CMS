@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ object }}</h1>
+    <h1>{{ object }}</h1>
 
     <p> Telefon: {{ object.phone }}</p>
 
-<p>
-    Wydania:<br>
-    {% for object in host.editions.all|dictsortreversed:"id" %}
-          <a href="{% url 'edition-detail' pk=object.id %}">  <span class="glyphicon glyphicon-user"></span> {{ object }} </a>
-        <br>
-    {% endfor %}
-</p>
+    <p>
+        Wydania:<br>
+        {% for object in host.editions.all|dictsortreversed:"id" %}
+            <a href="{% url 'edition-detail' pk=object.id %}"> <span
+                    class="glyphicon glyphicon-user"></span> {{ object }} </a>
+            <br>
+        {% endfor %}
+    </p>
 
 
 
-{%  endblock %}
+{% endblock %}

@@ -13,13 +13,15 @@
     </h5>
     <h5>Dokumentacje: </h5>
     {% for object in edition.documents.all %}
-           <h5> {{ forloop.counter }}. <a href="{% url 'document-detail' pk=object.id %}"><span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a> <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }}<br></h5>
-            <h5>Goście:<br>
-                {% for guest in object.guests.all %}
-                    <span class="glyphicon glyphicon-user"></span> {{ guest.surname }}<br>
-                {% endfor %}
-            </h5>
+        <h5> {{ forloop.counter }}. <a href="{% url 'document-detail' pk=object.id %}"><span
+                class="glyphicon glyphicon-book"></span> {{ object.topic }} </a> <span
+                class="glyphicon glyphicon-user"></span> {{ object.author.surname }}<br></h5>
+        <h5>Goście:<br>
+            {% for guest in object.guests.all %}
+                <span class="glyphicon glyphicon-user"></span> {{ guest.surname }}<br>
+            {% endfor %}
+        </h5>
     {% endfor %}
 
 
-{%  endblock %}
+{% endblock %}

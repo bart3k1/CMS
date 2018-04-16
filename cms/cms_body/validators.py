@@ -3,8 +3,6 @@ from django.core.exceptions import ValidationError
 
 
 def validate_username(value):
-    # if User.objects.filter(username=value):
-    #     raise ValidationError("Jest już taki użytkwonik")
     try:
         User.objects.get(username=value)
         raise ValidationError("Jest już taki użytkownik")

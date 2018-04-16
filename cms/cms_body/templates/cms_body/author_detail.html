@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ object }}</h2>
+    <h2>{{ object }}</h2>
 
 
-<p>
-    Dokumentacje:<br>
-    {% for object in author.documents.all|dictsortreversed:"id" %}
-        {{ object.topic }} | {{ object.edition }}<br>
-    {% endfor %}
-</p>
+    <p>
+        Dokumentacje:<br>
+        {% for object in author.documents.all|dictsortreversed:"id" %}
+            {{ object.topic }} | {{ object.edition }}<br>
+        {% endfor %}
+    </p>
 
 
 
-{%  endblock %}
+{% endblock %}

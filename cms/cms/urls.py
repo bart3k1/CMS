@@ -17,13 +17,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from cms_body.views import (AddDocument, AddUserView,  # SearchGuestView,
+from cms_body.views import (AddDocument, AddUserView,
                             AuthorCreateView, AuthorDeleteView,
                             AuthorDetailView, AuthorUpdateView, AuthorView,
-                            DocumentCreateView, DocumentDetailView,
-                            DocumentListView, DocumentUpdateView, #DocumentView,
+                            DocumentDetailView, DocumentListView,
                             EditionCreateView, EditionListView, EditionDeleteView,
-                            EditionDetailView, EditionUpdateView, #EditionView,
+                            EditionDetailView, EditionUpdateView,
                             GuestCreateView, GuestDetailView, GuestListView,
                             HostCreateView, HostDetailView, HostListView, IndexView,
                             UpdateDocumentView, UserLoginView, UserLogoutView)
@@ -52,7 +51,6 @@ urlpatterns = [
     url(r'^create_host/$', HostCreateView.as_view(), name='create-host'),
 
     url(r'^detail_guest/(?P<pk>\d+)/$', GuestDetailView.as_view(), name='guest-detail'),
-    # url(r'^search_guest/$', SearchGuestView.as_view(), name='search-guest'),
     url(r'^list_guest/$', GuestListView.as_view(), name='guests'),
     url(r'^create_guest/$', GuestCreateView.as_view(), name='create-guest'),
 
@@ -62,9 +60,7 @@ urlpatterns = [
     url(r'^detail_edition/(?P<pk>\d+)/$', EditionDetailView.as_view(), name='edition-detail'),
     url(r'^editions/$', EditionListView.as_view(), name='editions'),
 
-    url(r'^create_document/$', DocumentCreateView.as_view(), name='create-document'),
-    url(r'^update_document1/(?P<pk>\d+)/$', DocumentUpdateView.as_view(), name='update-document1'),
-    url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
+        url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
     url(r'^detail_document/(?P<pk>\d+)/$', DocumentDetailView.as_view(), name='document-detail'),
     url(r'^documents/$', DocumentListView.as_view(), name='documents'),

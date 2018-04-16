@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ object }}</h1>
+    <h1>{{ object }}</h1>
 
-<p> Telefon: {{ object.phone }}</p>
-<p> Telefon2: {{ object.alt_phone }}</p>
-<p> Notatki: {{ object.notes }}</p>
-<p> Ocena: {{ object.ocena }} </p>
-{# {{ object.get_ocena_display }}#}
+    <p> Telefon: {{ object.phone }}</p>
+    <p> Telefon2: {{ object.alt_phone }}</p>
+    <p> Notatki: {{ object.notes }}</p>
+    <p> Ocena: {{ object.ocena }} </p>
+    {# {{ object.get_ocena_display }}#}
 
-<p>
-    Wizyty:<br>
-    {% for doc in guest.documents.all|dictsortreversed:"id" %}
-        {{ doc.topic }} | {{ doc.edition }}<br>
-    {% endfor %}
-</p>
+    <p>
+        Wizyty:<br>
+        {% for doc in guest.documents.all|dictsortreversed:"id" %}
+            {{ doc.topic }} | {{ doc.edition }}<br>
+        {% endfor %}
+    </p>
 
 
 
-{%  endblock %}
+{% endblock %}

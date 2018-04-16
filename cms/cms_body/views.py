@@ -1,14 +1,12 @@
 from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.forms import ModelForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
-
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
                             EditionSearchForm, GuestSearchForm, LoginForm)
 from cms_body.models import Author, Document, Edition, Guest, Host
@@ -213,9 +211,7 @@ class AddDocument(View):
     def post(self, request):
         form = DocumentForm(request.POST)
         if form.is_valid():
-            # content = form.cleaned_data['content']
             form.save()
-            # return HttpResponse('Dodano gościa {}'.format(name))
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
             'form': form,
@@ -259,7 +255,6 @@ class DocumentListView(View):
         if form.is_valid():
             slowo = form.cleaned_data['slowo']
             data = form.cleaned_data['data']
-            # print(data)
             topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
             lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
             content = Document.objects.filter(content__icontains=slowo).order_by('-id')
@@ -307,13 +302,10 @@ class AddUserView(View):
                                             first_name=form.cleaned_data['first_name'],
                                             last_name=form.cleaned_data['last_name'],
                                             email=form.cleaned_data['email'])
-            # SZYBSZE z usunieciem nieptrzebnego pola
+            # z usunieciem nieptrzebnego pola
             # del form.cleaned_data['password_c'] albo
             # form.cleaned_data.pop('password_c')
             # user = User.objects.create_user(**form.cleaned_data)
-
-            # ZROBIC USER ADDED DELETED MODIFICATED TEMPLATE!
-
             return HttpResponse('DODANO! usera o id {}'.format(user.id))
 
         ctx = {
@@ -353,5 +345,4 @@ class UserLoginView(View):
 class UserLogoutView(View):
     def get(self, request):
         logout(request)
-        # return HttpResponse('Wylogowano')
         return redirect('user-login')
