@@ -17,8 +17,8 @@
                     <li>
                         {{ forloop.counter }}.
                         <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'author-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                        <a href="{% url 'user-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -32,9 +32,9 @@
                     <li>
                         {{ forloop.counter }}.
                         <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                         <a href="{% url 'document-detail' pk=object.id %}"> USUŃ </a>
-                        <a href="{% url 'author-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                        <a href="{% url 'document-detail' pk=object.id %}"> USUŃ </a>
+                        <a href="{% url 'user-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -48,8 +48,8 @@
                     <li>
                         {{ forloop.counter }}.
                         <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'author-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                        <a href="{% url 'user-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -65,8 +65,8 @@
                     <li>
                         {{ forloop.counter }}.
                         <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'author-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                        <a href="{% url 'user-detail' pk=object.author.id %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
                     </li>
                 {% endfor %}
 
@@ -83,9 +83,12 @@
             <li>
                 {{ forloop.counter }}.
                 <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                 <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ </a>
-                <a href="{% url 'author-detail' pk=object.author.id %}">
-                    <span class="glyphicon glyphicon-user"></span> {{ object.author.surname }} |</a>
+                <a href="{% url 'update-document' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-edition' pk=object.id %}">
+                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ
+                </a>
+                <a href="{% url 'user-detail' pk=object.author.id %}">
+                    <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
             </li>
         {% endfor %}
 

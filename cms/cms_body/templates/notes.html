@@ -36,7 +36,7 @@
 <ul>
     {% for object in authors %}
         <li>
-            <a href="{% url 'author-detail' pk=object.id %}">Edytuj {{ object.surname }}</a>
+            <a href="{% url 'user-detail' pk=object.id %}">Edytuj {{ object.last_name }}</a>
         </li>
     {% endfor %}
 </ul>

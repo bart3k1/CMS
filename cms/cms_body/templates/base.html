@@ -34,7 +34,8 @@
                         <li><a href="{% url 'documents' %}">Dokumentacje</a></li>
                         <li><a href="{% url 'guests' %}">Goście</a></li>
                         <li><a href="{% url 'hosts' %}">Prowadzący</a></li>
-                        <li><a href="{% url 'authors' %}">Autorzy</a></li>
+                        <li><a href="{% url 'users' %}">Autorzy</a></li>
+                        <li><a href="{% url 'my' %}" >Moje</a></li><
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Zalogowany: {{ user.username }}
@@ -67,7 +68,13 @@
                 <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
                 <a href="{% url 'add-document' %}"> Dokumentację</a></p>
                 <p><a href="{% url 'create-guest' %}">Gościa</a></p>
-                <p><a href="{% url 'create-author' %}">Autora</a></p>
+
+                {% if perms.cms.delete_edition %}
+                    <p><a href="{% url 'add-user' %}">Autora</a></p>
+                {% else %}
+                    <p><a href="{% url 'add-user' %}" class="not-active">Autora</a></p>
+                {% endif %}
+
                 <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
                 <p><a href="#" class="not-active">Temat</a></p>
 
@@ -81,7 +88,7 @@
                 <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
                 <a href="{% url 'add-document' %}"> Dokumentację</a></p>
                 <p><a href="{% url 'create-guest' %}">Gościa</a></p>
-                <p><a href="{% url 'create-author' %}">Autora</a></p>
+                <p><a href="{% url 'add-user' %}">Autora</a></p>
                 <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
                 <p><a href="#" class="not-active">Temat</a></p>
 

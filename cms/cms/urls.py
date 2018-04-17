@@ -18,14 +18,15 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from cms_body.views import (AddDocument, AddUserView,
-                            AuthorCreateView, AuthorDeleteView,
-                            AuthorDetailView, AuthorUpdateView, AuthorView,
+                            # AuthorCreateView, AuthorDeleteView,
+                            # AuthorDetailView, AuthorUpdateView, AuthorView,
                             DocumentDeleteView, DocumentDetailView, DocumentListView,
                             EditionCreateView, EditionListView, EditionDeleteView,
                             EditionDetailView, EditionUpdateView,
                             GuestCreateView, GuestDetailView, GuestListView,
                             HostCreateView, HostDetailView, HostListView, IndexView,
-                            UpdateDocumentView, UserLoginView, UserLogoutView)
+                            MyView, UpdateDocumentView,
+                            UserDetailView, UserLoginView, UserLogoutView, UserView)
 
 
 urlpatterns = [
@@ -37,13 +38,16 @@ urlpatterns = [
     url(r'^add_user/$', AddUserView.as_view(), name='add-user'),
     url(r'^user_login/$', UserLoginView.as_view(), name='user-login'),
     url(r'^logout/$', UserLogoutView.as_view(), name='logout'),
+    url(r'^users/$', UserView.as_view(), name='users'),
+    url(r'^detail_user/(?P<pk>\d+)/$', UserDetailView.as_view(), name='user-detail'),
+    url(r'^my/$', MyView.as_view(), name='my'),
 
 
-    url(r'^create_author/$', AuthorCreateView.as_view(), name='create-author'),
-    url(r'^update_author/(?P<pk>\d+)/$', AuthorUpdateView.as_view(), name='update-author'),
-    url(r'^delete_author/(?P<pk>\d+)/$', AuthorDeleteView.as_view(), name='delete-author'),
-    url(r'^detail_author/(?P<pk>\d+)/$', AuthorDetailView.as_view(), name='author-detail'),
-    url(r'^authors/$', AuthorView.as_view(), name='authors'),
+    # url(r'^create_author/$', AuthorCreateView.as_view(), name='create-author'),
+    # url(r'^update_author/(?P<pk>\d+)/$', AuthorUpdateView.as_view(), name='update-author'),
+    # url(r'^delete_author/(?P<pk>\d+)/$', AuthorDeleteView.as_view(), name='delete-author'),
+    # url(r'^detail_author/(?P<pk>\d+)/$', AuthorDetailView.as_view(), name='author-detail'),
+    # url(r'^authors/$', AuthorView.as_view(), name='authors'),
 
     url(r'^detail_host/(?P<pk>\d+)/$', HostDetailView.as_view(), name='host-detail'),
     url(r'^hosts/$', HostListView.as_view(), name='hosts'),

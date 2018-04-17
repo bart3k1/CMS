@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from tinymce import models as tinymce_models
 
@@ -59,7 +60,7 @@ class Guest(models.Model):
 class Edition(models.Model):
     date = models.DateField(auto_now_add=False, unique=True, verbose_name='Data')
     hosts = models.ManyToManyField(Host, related_name='editions', verbose_name='Prowadzący')
-    editor = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Wydawca')
+    editor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Wydawca')
 
     def __str__(self):
         return "Wydanie {}".format(self.date)
@@ -71,7 +72,8 @@ class Edition(models.Model):
 
 class Document(models.Model):
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Wydanie')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Autor')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='documents', verbose_name='Autor')
+    published = models.BooleanField(default=False, verbose_name='Opublikować?')
     guests = models.ManyToManyField(Guest, blank=True, related_name='documents', verbose_name='Goście')
     notes = models.TextField(max_length=200, null=True, verbose_name='Info')
     topic = models.CharField(max_length=100, verbose_name='Tytuł')

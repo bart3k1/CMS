@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Moje ostatnie dokumentacje:</h2>
+
+    {% if not_published_documents %}
+
+        <h3>Nieopublikowane:</h3>
+        <ul>
+            {% for object in not_published_documents %}
+                <li>
+                    {{ forloop.counter }}.
+                    <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a><br>
+                    <a href="{% url 'update-document' pk=object.id %}"><span
+                            class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                    <a href="{% url 'delete-edition' pk=object.id %}">
+
+                        <a href="{% url 'delete-document' pk=object.id %}"> <span
+                                class="glyphicon glyphicon-remove"></span>USUŃ
+                        </a>
+
+                        Wydanie: {{ object.edition.date }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>Opublikowane:</h3>
+    <ul>
+        {% for object in documents %}
+            <li>
+                {{ forloop.counter }}.
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a><br>
+                <a href="{% url 'update-document' pk=object.id %}"><span
+                        class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-edition' pk=object.id %}">
+
+                    <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ
+                    </a>
+
+                    Wydanie: {{ object.edition.date }}
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
+

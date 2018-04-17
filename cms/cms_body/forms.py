@@ -41,12 +41,12 @@ class LoginForm(forms.Form):
 
 
 class AddUserForm(forms.Form):
-    username = forms.CharField(max_length=128, validators=[validate_username])
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_c = forms.CharField(widget=forms.PasswordInput)
-    first_name = forms.CharField(max_length=128)
-    last_name = forms.CharField(max_length=128)
-    email = forms.EmailField()
+    username = forms.CharField(max_length=128, validators=[validate_username], label="Użytkownik")
+    password = forms.CharField(widget=forms.PasswordInput, label="Hasło")
+    password_c = forms.CharField(widget=forms.PasswordInput, label="Hasło x 2")
+    first_name = forms.CharField(max_length=128, label="Imię")
+    last_name = forms.CharField(max_length=128, label="Nazwisko")
+    email = forms.EmailField(label="e-mail")
 
     def clean_password_c(self):
         password = self.cleaned_data['password']

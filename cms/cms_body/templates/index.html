@@ -56,31 +56,55 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="panel panel-warning">
-            <div class="panel-heading">AUTORZY</div>
-            <div class="panel-body">
-                <a href="{% url 'create-author' %}"> <span class="glyphicon glyphicon-chevron-right"></span>
-                    Dodaj</a><br>
-                <a href="{% url 'authors' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
-            </div>
-            <div class="panel-footer">
-                <a href="{% url 'authors' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+
+    {% if perms.cms.add_user %}
+
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">AUTORZY</div>
+                <div class="panel-body">
+                    <a href="{% url 'add-user' %}"> <span class="glyphicon glyphicon-chevron-right"></span>Dodaj</a><br>
+                    <a href="{% url 'users' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'users' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+                </div>
             </div>
         </div>
-    </div>
+
+    {% else %}
+
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">AUTORZY</div>
+                <div class="panel-body">
+                    <a href="{% url 'add-user' %}" class="not-active"> <span class="glyphicon glyphicon-chevron-right"></span>Dodaj</a><br>
+                    <a href="{% url 'users' %}" > <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'users' %}" > <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+
+
+
+
     <div class="col-sm-4">
         <div class="panel panel-default">
-            <div class="panel-heading">TEMATY</div>
+            <div class="panel-heading">MOJE:</div>
             <div class="panel-body">
-                <a href="{% url 'create-guest' %}" class="not-active"> <span
-                        class="glyphicon glyphicon-chevron-right"></span> Dodaj temat
+                <a href="{% url 'my' %}" > <span
+                        class="glyphicon glyphicon-chevron-right"></span> Dokumentacje
                 </a><br>
                 <a href="{% url 'guests' %}" class="not-active"> <span class="glyphicon glyphicon-chevron-right"></span>
-                    Szukaj</a>
+                  Wydania   </a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'guests' %}" class="not-active"> <span class="glyphicon glyphicon-chevron-right"></span>
+                <a href="{% url 'my' %}" > <span class="glyphicon glyphicon-chevron-right"></span>
                     Wszystkie</a>
             </div>
         </div>

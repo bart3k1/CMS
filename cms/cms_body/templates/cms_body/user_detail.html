@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ object }}</h2>
+
+    {{ object.first_name }}<br>
+    {{ object.last_name }}<br>
+    {{ object.email }}<br>
+    <p>
+        Dokumentacje:<br>
+        {% for object in object.documents.all|dictsortreversed:"id" %}
+            {{ object.topic }} | {{ object.edition }}<br>
+        {% endfor %}
+    </p>
+
+
+
+{% endblock %}

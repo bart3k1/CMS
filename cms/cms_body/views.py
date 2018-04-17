@@ -33,37 +33,37 @@ class IndexView(View):
 
 
 # AUTHOR
-
-
-class AuthorCreateView(PermissionRequiredMixin, CreateView):
-    permission_required = 'cms.add_author'
-    raise_exception = True
-    model = Author
-    fields = '__all__'
-    success_url = reverse_lazy('authors')
-
-
-class AuthorView(ListView):
-    model = Author
-    # template_name = 'cms_body/authors.html' # now - author_list.html
-
-
-class AuthorUpdateView(UpdateView):
-    model = Author
-    fields = '__all__'
-    # template_name_suffix = '_update_form' # now _form
-    success_url = reverse_lazy('authors')
-
-
-class AuthorDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = 'cms.add_author'
-    raise_exception = True
-    model = Author
-    success_url = reverse_lazy('authors')
-
-
-class AuthorDetailView(DetailView):
-    model = Author
+#
+#
+# class AuthorCreateView(PermissionRequiredMixin, CreateView):
+#     permission_required = 'cms.add_author'
+#     raise_exception = True
+#     model = Author
+#     fields = '__all__'
+#     success_url = reverse_lazy('authors')
+#
+#
+# class AuthorView(ListView):
+#     model = Author
+#     template_name = 'cms_body/author_list.html' #'cms_body/authors.html' #
+#
+#
+# class AuthorUpdateView(UpdateView):
+#     model = Author
+#     fields = '__all__'
+#     # template_name_suffix = '_update_form' # now _form
+#     success_url = reverse_lazy('authors')
+#
+#
+# class AuthorDeleteView(PermissionRequiredMixin, DeleteView):
+#     permission_required = 'cms.add_author'
+#     raise_exception = True
+#     model = Author
+#     success_url = reverse_lazy('authors')
+#
+#
+# class AuthorDetailView(DetailView):
+#     model = Author
 
 
 # HOST
@@ -250,7 +250,7 @@ class UpdateDocumentView(View):
 class DocumentListView(View):
     def get(self, request):
         ctx = {
-            'documents': Document.objects.all().order_by('-id')[0:20],
+            'documents': Document.objects.all().filter(published=True).order_by('-id')[0:20],
             'form': DocumentSearchForm,
         }
         return render(request, 'document_list.html', ctx)
@@ -356,3 +356,23 @@ class UserLogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('user-login')
+
+
+class UserView(ListView):
+    model = User
+    template_name = 'cms_body/user_list.html' #'cms_body/authors.html' #
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'cms_body/user_detail.html'
+
+
+class MyView(View):
+    def get(self, request):
+        current_user = request.user
+        ctx = {
+            'not_published_documents': Document.objects.all().filter(author_id=current_user.id).filter(published=False).order_by('-id')[0:20],
+            'documents': Document.objects.all().filter(author_id=current_user.id).filter(published=True).order_by('-id')[0:20],
+        }
+        return render(request, 'my_list.html', ctx)
