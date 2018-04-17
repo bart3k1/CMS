@@ -20,13 +20,12 @@ from django.contrib import admin
 from cms_body.views import (AddDocument, AddUserView,
                             AuthorCreateView, AuthorDeleteView,
                             AuthorDetailView, AuthorUpdateView, AuthorView,
-                            DocumentDetailView, DocumentListView,
+                            DocumentDeleteView, DocumentDetailView, DocumentListView,
                             EditionCreateView, EditionListView, EditionDeleteView,
                             EditionDetailView, EditionUpdateView,
                             GuestCreateView, GuestDetailView, GuestListView,
                             HostCreateView, HostDetailView, HostListView, IndexView,
                             UpdateDocumentView, UserLoginView, UserLogoutView)
-
 
 
 urlpatterns = [
@@ -60,10 +59,11 @@ urlpatterns = [
     url(r'^detail_edition/(?P<pk>\d+)/$', EditionDetailView.as_view(), name='edition-detail'),
     url(r'^editions/$', EditionListView.as_view(), name='editions'),
 
-        url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
+    url(r'^update_document/(?P<pk>\d+)/$', UpdateDocumentView.as_view(), name='update-document'),
     url(r'^add_document/$', AddDocument.as_view(), name='add-document'),
     url(r'^detail_document/(?P<pk>\d+)/$', DocumentDetailView.as_view(), name='document-detail'),
     url(r'^documents/$', DocumentListView.as_view(), name='documents'),
+    url(r'^delete_document/(?P<pk>\d+)/$', DocumentDeleteView.as_view(), name='delete-document'),
 
 
 ]

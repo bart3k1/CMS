@@ -71,7 +71,26 @@
                 <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
                 <p><a href="#" class="not-active">Temat</a></p>
 
+
+
+        {% if perms.cms.delete_edition %}
+
+
+
+                <p>KASUJ:</p>
+                <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
+                <a href="{% url 'add-document' %}"> Dokumentację</a></p>
+                <p><a href="{% url 'create-guest' %}">Gościa</a></p>
+                <p><a href="{% url 'create-author' %}">Autora</a></p>
+                <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
+                <p><a href="#" class="not-active">Temat</a></p>
+
+
+
+        {% endif %}
             </div>
+
+
             <div class="col-sm-8 text-left">
                 {% block content %}
 

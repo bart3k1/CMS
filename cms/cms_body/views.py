@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -34,7 +35,9 @@ class IndexView(View):
 # AUTHOR
 
 
-class AuthorCreateView(CreateView):
+class AuthorCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'cms.add_author'
+    raise_exception = True
     model = Author
     fields = '__all__'
     success_url = reverse_lazy('authors')
@@ -52,7 +55,9 @@ class AuthorUpdateView(UpdateView):
     success_url = reverse_lazy('authors')
 
 
-class AuthorDeleteView(DeleteView):
+class AuthorDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'cms.add_author'
+    raise_exception = True
     model = Author
     success_url = reverse_lazy('authors')
 
@@ -282,6 +287,11 @@ class DocumentListView(View):
 
 class DocumentDetailView(DetailView):
     model = Document
+
+
+class DocumentDeleteView(DeleteView):
+    model = Document
+    success_url = reverse_lazy('documents')
 
 
 # USER

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-     <p>
+
+    <p>
     <h2>USUNĄĆ {{ object }} ???</h2>
     <form action="" method="post">
         {% csrf_token %}
         <input type="submit" value="Usuń!">
     </form>
     </p>
-    <p><a href="{% url 'editions' %}"> <<< powrót </a></p>
+    <p><a href="{% url 'documents' %}"> <<< powrót </a></p>
 
 {% endblock %}

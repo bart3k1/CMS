@@ -16,7 +16,7 @@
                 <a href="{% url 'update-edition' pk=edition.id %}">
                     <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
                 <a href="{% url 'delete-edition' pk=edition.id %}">
-                    <span class="glyphicon glyphicon-chevron-right"></span> Usuń |</a>
+                    <span class="glyphicon glyphicon-remove"></span> Usuń |</a>
                 <a href="{% url 'author-detail' pk=edition.editor.id %}">
                     <span class="glyphicon glyphicon-user"></span> {{ edition.editor.surname }} |</a>
             </li>
@@ -37,7 +37,7 @@
                 <a href="{% url 'update-edition' pk=object.id %}">
                     <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
                 <a href="{% url 'delete-edition' pk=object.id %}">
-                    <span class="glyphicon glyphicon-chevron-right"></span> Usuń |</a>
+                    <span class="glyphicon glyphicon-remove"></span> Usuń |</a>
                 <a href="{% url 'author-detail' pk=object.editor.id %}">
                     <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }} |</a>
             </li>
