@@ -15,6 +15,11 @@ OCENA = (
 )
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
+
+
 class Author(models.Model):
     name = models.CharField(max_length=40, null=False, verbose_name='Imię')
     surname = models.CharField(max_length=40, null=False, verbose_name='Nazwisko')

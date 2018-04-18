@@ -7,7 +7,8 @@
         {% for object in object_list %}
             <li>
                 <a href="{% url 'user-detail' pk=object.id %}"> <span
-                        class="glyphicon glyphicon-user"></span>  {{ object.first_name }} {{ object.last_name }}  </a>
+                        class="glyphicon glyphicon-user"></span>  {{ object.first_name }} {{ object.last_name }} <span
+                        class="glyphicon glyphicon-earphone"></span> {{ object.profile.phone }}  </a>
                 <br>Ostatnie logowanie: {{ object.last_login }}
             </li>
         {% endfor %}

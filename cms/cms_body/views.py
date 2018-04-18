@@ -10,7 +10,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
                             EditionSearchForm, GuestSearchForm, LoginForm)
-from cms_body.models import Author, Document, Edition, Guest, Host
+from cms_body.models import Author, Document, Edition, Guest, Host, Profile
 
 
 # INDEX
@@ -216,7 +216,19 @@ class AddDocument(View):
     def post(self, request):
         form = DocumentForm(request.POST)
         if form.is_valid():
-            form.save()
+            current_user = request.user
+            document = Document.objects.create(
+                edition=form.cleaned_data['edition'],
+                published=form.cleaned_data['published'],
+                notes=form.cleaned_data['notes'],
+                topic=form.cleaned_data['topic'],
+                lead=form.cleaned_data['lead'],
+                content=form.cleaned_data['content'],
+                author=current_user)
+            document.guests.set(form.cleaned_data['guests'])
+            document.save()
+
+            # form.save()
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
             'form': form,
@@ -312,6 +324,10 @@ class AddUserView(View):
                                             first_name=form.cleaned_data['first_name'],
                                             last_name=form.cleaned_data['last_name'],
                                             email=form.cleaned_data['email'])
+            profile = Profile()
+            profile.user_id = user.id
+            profile.phone = form.cleaned_data['phone']
+            profile.save()
             # z usunieciem nieptrzebnego pola
             # del form.cleaned_data['password_c'] albo
             # form.cleaned_data.pop('password_c')
@@ -360,7 +376,7 @@ class UserLogoutView(View):
 
 class UserView(ListView):
     model = User
-    template_name = 'cms_body/user_list.html' #'cms_body/authors.html' #
+    template_name = 'cms_body/user_list.html'  # 'cms_body/authors.html' #
 
 
 class UserDetailView(DetailView):
@@ -372,7 +388,9 @@ class MyView(View):
     def get(self, request):
         current_user = request.user
         ctx = {
-            'not_published_documents': Document.objects.all().filter(author_id=current_user.id).filter(published=False).order_by('-id')[0:20],
-            'documents': Document.objects.all().filter(author_id=current_user.id).filter(published=True).order_by('-id')[0:20],
+            'not_published_documents': Document.objects.all().filter(author_id=current_user.id).filter(
+                published=False).order_by('-id')[0:20],
+            'documents': Document.objects.all().filter(author_id=current_user.id).filter(published=True).order_by(
+                '-id')[0:20],
         }
         return render(request, 'my_list.html', ctx)

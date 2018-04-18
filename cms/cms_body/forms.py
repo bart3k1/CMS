@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from django_select2.forms import Select2MultipleWidget
-from cms_body.models import Author, Document, Guest
+from cms_body.models import Author, Document, Guest, Profile
 from cms_body.validators import validate_gosc, validate_username
 
 
@@ -32,7 +32,7 @@ class DocumentForm(forms.ModelForm):
 
     class Meta:
         model = Document
-        fields = '__all__'
+        fields = ['edition', 'published', 'guests', 'notes', 'topic', 'lead', 'content']
 
 
 class LoginForm(forms.Form):
@@ -47,6 +47,7 @@ class AddUserForm(forms.Form):
     first_name = forms.CharField(max_length=128, label="Imię")
     last_name = forms.CharField(max_length=128, label="Nazwisko")
     email = forms.EmailField(label="e-mail")
+    phone = forms.CharField(max_length=128, label="Telefon")
 
     def clean_password_c(self):
         password = self.cleaned_data['password']
@@ -54,3 +55,9 @@ class AddUserForm(forms.Form):
         if password != password2:
             raise ValidationError('Hasła się różnią')
         return password
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['phone']
