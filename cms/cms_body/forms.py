@@ -2,14 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from django_select2.forms import Select2MultipleWidget
-from cms_body.models import Author, Document, Guest, Profile
+from cms_body.models import Document, Guest
 from cms_body.validators import validate_gosc, validate_username
-
-
-class AuthorForm(forms.ModelForm):
-    class Meta:
-        model = Author
-        fields = '__all__'
 
 
 class GuestSearchForm(forms.Form):
@@ -56,8 +50,3 @@ class AddUserForm(forms.Form):
             raise ValidationError('Hasła się różnią')
         return password
 
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['phone']

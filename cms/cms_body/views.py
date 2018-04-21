@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -10,8 +10,9 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
                             EditionSearchForm, GuestSearchForm, LoginForm)
-from cms_body.models import Author, Document, Edition, Guest, Host, Profile
+from cms_body.models import Document, Edition, Guest, Host
 
+User = get_user_model()
 
 # INDEX
 
@@ -20,7 +21,7 @@ class IndexView(View):
     def get(self, request):
         ctx = {
             'editions': Edition.objects.all().order_by('-id')[0:10],
-            'authors': Author.objects.all().order_by('-id')[0:10],
+            'authors': User.objects.all().order_by('-id')[0:10],
             'documents': Document.objects.all().order_by('-id')[0:10],
             'guests': Guest.objects.all().order_by('-id')[0:10],
             'hosts': Host.objects.all().order_by('-id')[0:10],
@@ -30,40 +31,6 @@ class IndexView(View):
             return render(request, "index.html", ctx)
         else:
             return redirect('user-login')
-
-
-# AUTHOR
-#
-#
-# class AuthorCreateView(PermissionRequiredMixin, CreateView):
-#     permission_required = 'cms.add_author'
-#     raise_exception = True
-#     model = Author
-#     fields = '__all__'
-#     success_url = reverse_lazy('authors')
-#
-#
-# class AuthorView(ListView):
-#     model = Author
-#     template_name = 'cms_body/author_list.html' #'cms_body/authors.html' #
-#
-#
-# class AuthorUpdateView(UpdateView):
-#     model = Author
-#     fields = '__all__'
-#     # template_name_suffix = '_update_form' # now _form
-#     success_url = reverse_lazy('authors')
-#
-#
-# class AuthorDeleteView(PermissionRequiredMixin, DeleteView):
-#     permission_required = 'cms.add_author'
-#     raise_exception = True
-#     model = Author
-#     success_url = reverse_lazy('authors')
-#
-#
-# class AuthorDetailView(DetailView):
-#     model = Author
 
 
 # HOST
@@ -323,16 +290,14 @@ class AddUserView(View):
                                             password=form.cleaned_data['password'],
                                             first_name=form.cleaned_data['first_name'],
                                             last_name=form.cleaned_data['last_name'],
-                                            email=form.cleaned_data['email'])
-            profile = Profile()
-            profile.user_id = user.id
-            profile.phone = form.cleaned_data['phone']
-            profile.save()
+                                            email=form.cleaned_data['email'],
+                                            phone=form.cleaned_data['phone'])
             # z usunieciem nieptrzebnego pola
             # del form.cleaned_data['password_c'] albo
             # form.cleaned_data.pop('password_c')
             # user = User.objects.create_user(**form.cleaned_data)
-            return HttpResponse('DODANO! usera o id {}'.format(user.id))
+            # return HttpResponse('DODANO! usera o id {}'.format(user.id))
+            return redirect('users')
 
         ctx = {
             'form': form,

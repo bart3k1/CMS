@@ -30,6 +30,8 @@ ALLOWED_HOSTS = [
     '3dfdc923.ngrok.io'
 ]
 
+AUTH_USER_MODEL = 'cms_body.User'
+
 
 # Application definition
 
@@ -84,7 +86,7 @@ WSGI_APPLICATION = 'cms.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'cms',
+        'NAME': 'cms_test',
         'ENGINE': 'mysql.connector.django',
         'USER': 'root',
         'PASSWORD': 'coderslab',

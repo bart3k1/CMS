@@ -6,7 +6,7 @@
     {{ object.first_name }}<br>
     {{ object.last_name }}<br>
     {{ object.email }}<br>
-    Tel. {{ object.profile.phone }}<br>
+    Tel. {{ object.phone }}<br>
     <p>
         Dokumentacje:<br>
         {% for object in object.documents.all|dictsortreversed:"id" %}

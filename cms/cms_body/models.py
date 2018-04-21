@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from tinymce import models as tinymce_models
+
 
 # Create your models here.
 
@@ -15,22 +16,29 @@ OCENA = (
 )
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
-
-
-class Author(models.Model):
-    name = models.CharField(max_length=40, null=False, verbose_name='Imię')
-    surname = models.CharField(max_length=40, null=False, verbose_name='Nazwisko')
+class User(AbstractUser):
     phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
 
     class Meta:
-        verbose_name = "Wydawca"
-        verbose_name_plural = "Wydawcy"
+        verbose_name = "Użytkownik"
+        verbose_name_plural = "Użytkownicy"
 
-    def __str__(self):
-        return "{} {}".format(self.name, self.surname)
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
+#
+#
+# class Author(models.Model):
+#     name = models.CharField(max_length=40, null=False, verbose_name='Imię')
+#     surname = models.CharField(max_length=40, null=False, verbose_name='Nazwisko')
+#     phone = models.CharField(max_length=15, null=False, verbose_name='Telefon')
+#
+#     class Meta:
+#         verbose_name = "Wydawca"
+#         verbose_name_plural = "Wydawcy"
+#
+#     def __str__(self):
+#         return "{} {}".format(self.name, self.surname)
 
 
 class Host(models.Model):

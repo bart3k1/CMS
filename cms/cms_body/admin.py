@@ -1,11 +1,13 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
+from cms_body.models import Document, Edition, Guest, Host
 
-from cms_body.models import Author, Document, Edition, Guest, Host
+User = get_user_model()
 
 
-@admin.register(Author)
+@admin.register(User)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ["surname", "name", "phone"]
+    list_display = ["username", "first_name", "last_name", "phone"]
 
 
 @admin.register(Host)

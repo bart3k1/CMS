@@ -8,7 +8,7 @@
             <li>
                 <a href="{% url 'user-detail' pk=object.id %}"> <span
                         class="glyphicon glyphicon-user"></span>  {{ object.first_name }} {{ object.last_name }} <span
-                        class="glyphicon glyphicon-earphone"></span> {{ object.profile.phone }}  </a>
+                        class="glyphicon glyphicon-earphone"></span> {{ object.phone }}  </a>
                 <br>Ostatnie logowanie: {{ object.last_login }}
             </li>
         {% endfor %}
