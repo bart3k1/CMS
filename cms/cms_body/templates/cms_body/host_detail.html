@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p></p>
+    <button onclick="goBack()">Wróć</button>
+
     <h1>{{ object }}</h1>
 
     <p> Telefon: {{ object.phone }}</p>
@@ -15,5 +18,12 @@
     </p>
 
 
+    <button onclick="goBack()">Wróć</button>
+    <p></p>
 
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 {% endblock %}

@@ -3,24 +3,23 @@
 {% block content %}
 
     <h2>{{ object }}</h2>
-    <h5>Wydawca:<br>
-        <span class="glyphicon glyphicon-user"></span> {{ object.editor.surname }}</h5>
-
-    <h5>Prowadzący:<br>
+    <h3>Wydawca: <a href="{% url 'user-detail' pk=object.editor.id %}"> <span class="glyphicon glyphicon-user"></span> {{ object.editor.last_name }}</h3> </a>
+    <h3>Prowadzący:
         {% for object in edition.hosts.all %}
-            <span class="glyphicon glyphicon-user"></span> {{ object.surname }}<br>
+            <a href="{% url 'host-detail' pk=object.id %}"><span class="glyphicon glyphicon-user"></span> {{ object.surname }} </a>|
         {% endfor %}
-    </h5>
-    <h5>Dokumentacje: </h5>
+    </h3>
+    <h3>Dokumentacje: </h3>
     {% for object in edition.documents.all %}
-        <h5> {{ forloop.counter }}. <a href="{% url 'document-detail' pk=object.id %}"><span
-                class="glyphicon glyphicon-book"></span> {{ object.topic }} </a> <span
-                class="glyphicon glyphicon-user"></span> {{ object.user.last_name }}<br></h5>
-        <h5>Goście:<br>
-            {% for guest in object.guests.all %}
-                <span class="glyphicon glyphicon-user"></span> {{ guest.surname }}<br>
+        <h4> {{ forloop.counter }}. <a href="{% url 'document-detail' pk=object.id %}"><span
+                class="glyphicon glyphicon-book"></span> {{ object.topic }} </a>
+            <a href="{% url 'user-detail' pk=object.author.id %}"> <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} </a> <br></h4>
+        <h5>Goście:
+            {% for object in object.guests.all %}
+                <a href="{% url 'guest-detail' pk=object.id %}"><span class="glyphicon glyphicon-user"></span> {{ object.surname }} </a>|
             {% endfor %}
         </h5>
+        <p> - - -</p>
     {% endfor %}
 
 

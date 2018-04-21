@@ -60,61 +60,50 @@
 
     {% endif %}
 
+
+    {% if user.is_authenticated %}
     <div class="container-fluid text-center">
         <div class="row content">
             <div class="col-sm-2 sidenav text-left">
 
                 <p>Dodaj:</p>
                 <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
-                <a href="{% url 'add-document' %}"> Dokumentację</a></p>
                 <p><a href="{% url 'create-guest' %}">Gościa</a></p>
-
+                <p><a href="{% url 'add-document' %}"> Dokumentację</a></p>
                 {% if perms.cms.delete_edition %}
                     <p><a href="{% url 'add-user' %}">Autora</a></p>
                 {% else %}
                     <p><a href="{% url 'add-user' %}" class="not-active">Autora</a></p>
                 {% endif %}
-
                 <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
                 <p><a href="#" class="not-active">Temat</a></p>
+    {% else %}
 
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav text-left">
 
+    {% endif %}
 
-        {% if perms.cms.delete_edition %}
-
-
-
-                <p>KASUJ:</p>
-                <p><a href="{% url 'create-edition' %}"> Wydanie</a></p>
-                <a href="{% url 'add-document' %}"> Dokumentację</a></p>
-                <p><a href="{% url 'create-guest' %}">Gościa</a></p>
-                <p><a href="{% url 'add-user' %}">Autora</a></p>
-                <p><a href="{% url 'create-host' %}">Prowadzącego</a></p>
-                <p><a href="#" class="not-active">Temat</a></p>
-
-
-
-        {% endif %}
             </div>
 
+        <div class="col-sm-8 text-left">
+            {% block content %}
 
-            <div class="col-sm-8 text-left">
-                {% block content %}
+            {% endblock %}
+        </div>
 
-                {% endblock %}
+        <div class="col-sm-2 sidenav">
+            <div class="well">
+                <p>PIERWSZY BLOK</p>
             </div>
-
-            <div class="col-sm-2 sidenav">
-                <div class="well">
-                    <p>PIERWSZY BLOK</p>
-                </div>
-                <div class="well">
-                    <p>DRUGI BLOK</p>
-                </div>
-                <div class="well">
-                    <p>TRZECI BLOK</p>
-                </div>
+            <div class="well">
+                <p>DRUGI BLOK</p>
             </div>
+            <div class="well">
+                <p>TRZECI BLOK</p>
+            </div>
+        </div>
         </div>
     </div>
 

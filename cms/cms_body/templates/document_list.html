@@ -10,8 +10,24 @@
 
     {% if not wyniki %}
 
+         {% if guest %}
+            <p>Dopasowano gościa:</p>
+            <ul>
+                {% for object in guest %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'guest-detail' pk=object.id %}">
+                            <span class="glyphicon glyphicon-user"></span>{{ object }} </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nie znaleziono gościa</p>
+        {% endif %}
+
+
         {% if topic %}
-            <h4>Dopasowano tytuł:</h4>
+            <p>Dopasowano tytuł:</p>
             <ul>
                 {% for object in topic %}
                     <li>
@@ -23,10 +39,11 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h4>Brak dopasowanych tytułów</h4>
+            <p>Brak dopasowanych tytułów</p>
         {% endif %}
+
         {% if lead %}
-            <h4>Dopasowano lead:</h4>
+            <p>Dopasowano lead:</p>
             <ul>
                 {% for object in lead %}
                     <li>
@@ -39,10 +56,10 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h4>Brak dopasowanych leadów</h4>
+            <p>Brak dopasowanych leadów</p>
         {% endif %}
         {% if lead %}
-            <h4>Dopasowano treść:</h4>
+            <p>Dopasowano treść:</p>
             <ul>
                 {% for object in content %}
                     <li>
@@ -54,11 +71,11 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h4>Brak dopasowanych treści</h4>
+            <p>Brak dopasowanych treści</p>
         {% endif %}
         {% if edition %}
 
-            <h4>Dopasowano wydanie:</h4>
+            <p>Dopasowano wydanie:</p>
             {{ edition }}
             <ul>
                 {% for object in edition.documents.all %}
@@ -72,11 +89,11 @@
 
             </ul>
         {% else %}
-            <h4>Brak dopasowanych wydań</h4>
+            <p>Brak dopasowanych wydań</p>
         {% endif %}
     {% endif %}
 
-    <h4>Ostatnio dodane dokumentacje:</h4>
+    <p>Ostatnio dodane dokumentacje:</p>
     <ul>
 
         {% for object in documents %}

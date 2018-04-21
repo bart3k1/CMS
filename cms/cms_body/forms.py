@@ -37,7 +37,7 @@ class LoginForm(forms.Form):
 class AddUserForm(forms.Form):
     username = forms.CharField(max_length=128, validators=[validate_username], label="Użytkownik")
     password = forms.CharField(widget=forms.PasswordInput, label="Hasło")
-    password_c = forms.CharField(widget=forms.PasswordInput, label="Hasło x 2")
+    password_c = forms.CharField(widget=forms.PasswordInput, label="Powt. hasło")
     first_name = forms.CharField(max_length=128, label="Imię")
     last_name = forms.CharField(max_length=128, label="Nazwisko")
     email = forms.EmailField(label="e-mail")

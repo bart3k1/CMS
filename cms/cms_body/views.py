@@ -11,6 +11,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
                             EditionSearchForm, GuestSearchForm, LoginForm)
 from cms_body.models import Document, Edition, Guest, Host
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -45,7 +46,8 @@ class HostListView(ListView):
     # template_name = 'cms_body/authors.html' # now - author_list.html
 
 
-class HostCreateView(CreateView):
+class HostCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'cms_body.add_document'
     model = Host
     fields = '__all__'
     success_url = reverse_lazy('hosts')
@@ -54,7 +56,8 @@ class HostCreateView(CreateView):
 # GUEST
 
 
-class GuestCreateView(CreateView):
+class GuestCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'cms_body.add_document'
     model = Guest
     fields = '__all__'
     success_url = reverse_lazy('guests')
@@ -103,7 +106,8 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class EditionCreateView(CreateView):
+class EditionCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'cms_body.add_document'
     model = Edition
     fields = '__all__'
     success_url = reverse_lazy('editions')
@@ -147,7 +151,8 @@ class EditionListView(View):
         return render(request, 'edition_list.html', ctx)
 
 
-class EditionUpdateView(UpdateView):
+class EditionUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'cms_body.add_document'
     model = Edition
     fields = '__all__'
     success_url = reverse_lazy('editions')
@@ -160,7 +165,8 @@ class EditionUpdateView(UpdateView):
         return form
 
 
-class EditionDeleteView(DeleteView):
+class EditionDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'cms_body.add_document'
     model = Edition
     success_url = reverse_lazy('editions')
 
@@ -172,11 +178,13 @@ class EditionDetailView(DetailView):
 # DOCUMENT
 
 
-class AddDocument(View):
+class AddDocument(PermissionRequiredMixin, View):
+    permission_required = 'cms_body.add_document'
+
     def get(self, request):
         ctx = {
             'form': DocumentForm,
-            'naglowek': "Dodaj dokumentację",
+            'head': "Dodaj dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
@@ -199,12 +207,14 @@ class AddDocument(View):
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
             'form': form,
-            'naglowek': "Dodaj dokumentację",
+            'head': "Dodaj dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
 
-class UpdateDocumentView(View):
+class UpdateDocumentView(PermissionRequiredMixin, View):
+    permission_required = 'cms_body.add_document'
+
     def get(self, request, pk):
         document = Document.objects.get(pk=pk)
         guests = Guest.objects.all().filter(documents=pk)
@@ -212,7 +222,7 @@ class UpdateDocumentView(View):
         ctx = {
             'form': form,
             'guests': guests,
-            'naglowek': "Zmień dokumentację",
+            'head': "Zmień dokumentację",
         }
         return render(request, "add_document.html", ctx)
 
@@ -242,11 +252,13 @@ class DocumentListView(View):
             topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
             lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
             content = Document.objects.filter(content__icontains=slowo).order_by('-id')
+            guest = Guest.objects.filter(Q(name__icontains=slowo) | Q(surname__icontains=slowo)).order_by('-id')
             try:
                 edition = Edition.objects.get(date=data)
             except:
                 edition = None
             ctx = {
+                'guest': guest,
                 'form': form,
                 'edition': edition,
                 'content': content,
@@ -268,7 +280,8 @@ class DocumentDetailView(DetailView):
     model = Document
 
 
-class DocumentDeleteView(DeleteView):
+class DocumentDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'cms_body.add_document'
     model = Document
     success_url = reverse_lazy('documents')
 
@@ -276,9 +289,11 @@ class DocumentDeleteView(DeleteView):
 # USER
 
 class AddUserView(View):
+    permission_required = 'cms_test.add_user'
     def get(self, request):
         ctx = {
             'form': AddUserForm,
+            'head': "Dodaj użytkownika",
         }
         return render(request, 'add_user_form.html', ctx)
 

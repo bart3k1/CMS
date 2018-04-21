@@ -11,39 +11,35 @@
             {% for object in not_published_documents %}
                 <li>
                     {{ forloop.counter }}.
-                    <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a><br>
-                    <a href="{% url 'update-document' pk=object.id %}"><span
-                            class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
-                    <a href="{% url 'delete-edition' pk=object.id %}">
-
-                        <a href="{% url 'delete-document' pk=object.id %}"> <span
-                                class="glyphicon glyphicon-remove"></span>USUŃ
-                        </a>
-
-                        Wydanie: {{ object.edition.date }}
+                    <a href="{% url 'document-detail' pk=object.id %}">
+                        <span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a><br>
+                    <a href="{% url 'update-document' pk=object.id %}">
+                        <span class="glyphicon glyphicon-chevron-right"></span> Edytuj </a> |
+                    <a href="{% url 'delete-document' pk=object.id %}">
+                        <span class="glyphicon glyphicon-remove"></span>USUŃ </a> |
+                    Wydanie: {{ object.edition.date }} | <br>
                 </li>
             {% endfor %}
         </ul>
+
     {% endif %}
 
-    <h3>Opublikowane:</h3>
-    <ul>
-        {% for object in documents %}
-            <li>
-                {{ forloop.counter }}.
-                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a><br>
-                <a href="{% url 'update-document' pk=object.id %}"><span
-                        class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
-                <a href="{% url 'delete-edition' pk=object.id %}">
+        <h3>Opublikowane:</h3>
+            <ul>
 
-                    <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ
-                    </a>
-
-                    Wydanie: {{ object.edition.date }}
-            </li>
-        {% endfor %}
-    </ul>
-
+                {% for object in documents %}
+                    <li>
+                        {{ forloop.counter }}.
+                        <a href="{% url 'document-detail' pk=object.id %}">
+                            <span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a><br>
+                        <a href="{% url 'update-document' pk=object.id %}">
+                            <span class="glyphicon glyphicon-chevron-right"></span> Edytuj </a> |
+                        <a href="{% url 'delete-document' pk=object.id %}">
+                            <span class="glyphicon glyphicon-remove"></span>USUŃ </a> |
+                        Wydanie: <a href="{% url 'edition-detail' pk=object.edition.id %}"> {{ object.edition.date }} </a> | <br>
+                    </li>
+                {% endfor %}
+            </ul>
 
 {% endblock %}
 

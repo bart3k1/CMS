@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p></p>
+    <button onclick="goBack()">Wróć</button>
+
     <h1>{{ object }}</h1>
 
     <p> Telefon: {{ object.phone }}</p>
@@ -11,11 +14,19 @@
 
     <p>
         Wizyty:<br>
-        {% for doc in guest.documents.all|dictsortreversed:"id" %}
-            {{ doc.topic }} | {{ doc.edition }}<br>
+        {% for object in guest.documents.all|dictsortreversed:"id" %}
+            <a href="{% url 'document-detail' pk=object.id %}"><span
+                    class="glyphicon glyphicon-book"></span> {{ object.topic }}</a> | <a href="{% url 'edition-detail' pk=object.edition.id %}"> {{ object.edition }} </a><br>
         {% endfor %}
     </p>
 
 
+    <button onclick="goBack()">Wróć</button>
+    <p></p>
 
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 {% endblock %}
