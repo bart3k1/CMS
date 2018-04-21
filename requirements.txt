@@ -1,6 +1,9 @@
 Django
+django-appconf==1.0.2
 django-extensions==2.0.6
 django-select2==6.0.2
 django-tinymce==2.7.0
+isort==4.3.4
 mysql-connector==2.1.6
 mysql-connector-python==8.0.6
+
