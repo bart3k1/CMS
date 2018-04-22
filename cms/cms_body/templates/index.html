@@ -11,7 +11,7 @@
                 <a href="{% url 'editions' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'editions' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszystkie </a>
+                {% comment %}<a href="{% url 'editions' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszystkie </a>{% endcomment %}
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
                 <a href="{% url 'documents' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'documents' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszystkie </a>
+               {% comment %} <a href="{% url 'documents' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszystkie </a>{% endcomment %}
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <a href="{% url 'guests' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj</a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'guests' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy</a>
+                {% comment %}<a href="{% url 'guests' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy</a>{% endcomment %}
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
                 <a href="{% url 'hosts' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'hosts' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+                {% comment %}<a href="{% url 'hosts' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>{% endcomment %}
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                     <a href="{% url 'users' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
                 </div>
                 <div class="panel-footer">
-                    <a href="{% url 'users' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+                   {% comment %} <a href="{% url 'users' %}"> <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>{% endcomment %}
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                     <a href="{% url 'users' %}" > <span class="glyphicon glyphicon-chevron-right"></span> Szukaj </a>
                 </div>
                 <div class="panel-footer">
-                    <a href="{% url 'users' %}" > <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>
+                  {% comment %}  <a href="{% url 'users' %}" > <span class="glyphicon glyphicon-chevron-right"></span> Wszyscy </a>{%  endcomment %}
                 </div>
             </div>
         </div>
@@ -98,14 +98,14 @@
             <div class="panel-heading">MOJE:</div>
             <div class="panel-body">
                 <a href="{% url 'my' %}" > <span
-                        class="glyphicon glyphicon-chevron-right"></span> Dokumentacje
-                </a><br>
-                <a href="{% url 'guests' %}" class="not-active"> <span class="glyphicon glyphicon-chevron-right"></span>
-                  Wydania   </a>
+                        class="glyphicon glyphicon-chevron-right"></span> Dokumentacje i wydania
+                </a>
             </div>
             <div class="panel-footer">
-                <a href="{% url 'my' %}" > <span class="glyphicon glyphicon-chevron-right"></span>
-                    Wszystkie</a>
+                {% comment %}
+                    <a href="{% url 'my' %}" > <span class="glyphicon glyphicon-chevron-right"></span>
+                        Wszystkie</a>
+                {%  endcomment %}
             </div>
         </div>
     </div>

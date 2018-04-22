@@ -9,7 +9,7 @@ DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
                             'theme': "advanced",
                             'toolbar': "undo redo | styleselect | bold italic | link image",
                             'relative_urls': False,
-                            'width': '75%',
+                            'width': '100%',
                             'height': 500,
 
                           })

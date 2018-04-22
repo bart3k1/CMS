@@ -41,5 +41,21 @@
                 {% endfor %}
             </ul>
 
+    {% if editions %}
+        <h3>Moje wydania:</h3>
+         <ul>
+            {% for object in editions %}
+                <li>
+                    {{ forloop.counter }}.
+                    <a href="{% url 'edition-detail' pk=object.id %}"> {{ object }} </a><br>
+
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+
+
 {% endblock %}
 

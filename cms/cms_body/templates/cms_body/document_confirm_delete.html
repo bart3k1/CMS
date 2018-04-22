@@ -9,6 +9,13 @@
         <input type="submit" value="Usuń!">
     </form>
     </p>
-    <p><a href="{% url 'documents' %}"> <<< powrót </a></p>
+     <button onclick="goBack()">Wróć</button>
+    <p></p>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}

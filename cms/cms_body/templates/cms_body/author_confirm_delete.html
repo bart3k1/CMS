@@ -6,5 +6,12 @@
         {% csrf_token %}
         <input type="submit" value="Usuń">
     </form>
-    <p><a href="{% url 'authors' %}"> <<< powrót </a></p>
+     <button onclick="goBack()">Wróć</button>
+    <p></p>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 {% endblock %}

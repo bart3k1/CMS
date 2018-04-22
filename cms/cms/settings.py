@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '192dbd76.ngrok.io'
+
 ]
 
 AUTH_USER_MODEL = 'cms_body.User'

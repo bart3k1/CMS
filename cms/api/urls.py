@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^userOLD/$', UserView.as_view(), name='user'),
     url(r'^login/(?P<pk>\d+)/$', UserLoginView.as_view(), name='login'),
     url(r'^guests/$', GuestViewSet.as_view({'get': 'list', 'post':'create'}), name='guests'),
-    url(r'^user/$', UserViewSet.as_view({'get': 'list', 'post':'create'}), name='users'),
+    url(r'^user/$', UserViewSet.as_view({'get': 'list', 'post': 'create'}), name='users'),
 
 ]

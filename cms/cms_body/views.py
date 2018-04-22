@@ -372,5 +372,7 @@ class MyView(View):
                 published=False).order_by('-id')[0:20],
             'documents': Document.objects.all().filter(author_id=current_user.id).filter(published=True).order_by(
                 '-id')[0:20],
+            'editions': Edition.objects.all().filter(editor_id=current_user.id).order_by(
+                '-id')[0:20],
         }
         return render(request, 'my_list.html', ctx)

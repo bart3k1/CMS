@@ -27,6 +27,11 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = ['edition', 'published', 'guests', 'notes', 'topic', 'lead', 'content']
+        widgets = {
+            'lead': forms.Textarea(attrs={'rows': 10, 'cols': 85}),
+            'notes': forms.Textarea(attrs={'rows': 10, 'cols': 85}),
+            'topic': forms.TextInput(attrs={'size': 85})
+        }
 
 
 class LoginForm(forms.Form):

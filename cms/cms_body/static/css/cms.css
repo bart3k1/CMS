@@ -35,6 +35,11 @@ h6 {
     background-color: lightgray;
 }
 
+.col-md-10 {
+    width: 100%;
+}
+
+
 /* Set black background color, white text and some padding */
 footer {
     background-color: #555;

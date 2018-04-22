@@ -81,8 +81,13 @@ class GuestViewSet(ModelViewSet):
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    def get_serializer_class(self):
-        if self.request.user.is_staff:
-            return UserSerializer
-        return UserGetSerializer
+
+    # def get_serializer_class(self):
+    #     if self.request.user.is_staff:
+    #         return UserGetSerializer
+    #     return UserSerializer
+        # if self.request.method.post:
+        #     return UserGetSerializer
+        # return UserSerializer
