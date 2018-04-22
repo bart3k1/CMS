@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p></p>
+     <button onclick="goBack()">Wróć</button>
+    <p></p>
+
+
 
     <h2>{{ object }}</h2>
     <h3>Wydawca: <a href="{% url 'user-detail' pk=object.editor.id %}"> <span class="glyphicon glyphicon-user"></span> {{ object.editor.last_name }}</h3> </a>
@@ -22,5 +27,13 @@
         <p> - - -</p>
     {% endfor %}
 
+      <p></p>
+     <button onclick="goBack()">Wróć</button>
+    <p></p>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
 {% endblock %}

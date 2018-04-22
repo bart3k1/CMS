@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '3dfdc923.ngrok.io'
+    '192dbd76.ngrok.io'
 ]
 
 AUTH_USER_MODEL = 'cms_body.User'
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'tinymce',
     'django_select2',
     'cms_body',
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

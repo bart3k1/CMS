@@ -30,6 +30,12 @@ from cms_body.views import (AddDocument, AddUserView,
 
 
 urlpatterns = [
+
+    url(r'^api/', include('api.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^select2/', include('django_select2.urls')),
+
+
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^select2/', include('django_select2.urls')),
 

@@ -13,7 +13,8 @@
     <p>
         Dokumentacje:<br>
         {% for object in object.documents.all|dictsortreversed:"id" %}
-            {{ object.topic }} | {{ object.edition }}<br>
+            <a href="{% url 'document-detail' pk=object.id %}"><span
+                    class="glyphicon glyphicon-book"></span> {{ object.topic }}</a> |  <a href="{% url 'edition-detail' pk=object.edition.id %}"> {{ object.edition }} </a><br>
         {% endfor %}
     </p>
 
