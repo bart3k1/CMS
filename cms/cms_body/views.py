@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -202,7 +202,7 @@ class AddDocument(PermissionRequiredMixin, View):
                 author=current_user)
             document.guests.set(form.cleaned_data['guests'])
             document.save()
-
+            # todo
             # form.save()
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
@@ -288,8 +288,9 @@ class DocumentDeleteView(PermissionRequiredMixin, DeleteView):
 
 # USER
 
-class AddUserView(View):
+class AddUserView(PermissionRequiredMixin, View):
     permission_required = 'cms_test.add_user'
+
     def get(self, request):
         ctx = {
             'form': AddUserForm,
