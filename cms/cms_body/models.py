@@ -72,7 +72,7 @@ class Document(models.Model):
     published = models.BooleanField(default=False, verbose_name='Opublikować?')
     guests = models.ManyToManyField(Guest, blank=True, related_name='documents', verbose_name='Goście')
     notes = models.TextField(max_length=200, null=True, verbose_name='Info')
-    topic = models.CharField(max_length=100, verbose_name='Tytuł')
+    topic = models.TextField(max_length=100, verbose_name='Tytuł')
     lead = models.TextField(max_length=400, null=True, verbose_name='Lead')
     content = tinymce_models.HTMLField(verbose_name='Treść', null=True)
 
