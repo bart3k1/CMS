@@ -30,7 +30,7 @@ class DocumentForm(forms.ModelForm):
         widgets = {
             'lead': forms.Textarea(attrs={'rows': 10, 'cols': 85}),
             'notes': forms.Textarea(attrs={'rows': 10, 'cols': 85}),
-            'topic': forms.TextInput(attrs={'size': 85})
+            'topic': forms.Textarea(attrs={'rows': 1, 'cols': 85})
         }
 
 
