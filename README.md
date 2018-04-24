@@ -1,3 +1,5 @@
 # CMS
-Document Management System designed for morning television show
+Document Management System (with REST API)
+
+
 
