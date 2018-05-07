@@ -106,6 +106,13 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+MONTHS = {
+    1: ('styczeń'), 2: ('luty'), 3: ('marzec'), 4: ('kwiecień'),
+    5: ('maj'), 6: ('czerwiec'), 7: ('lipiec'), 8: ('sierpień'),
+    9: ('wrzesień'), 10: ('październik'), 11: ('listopad'), 12: ('grudzień')
+}
+
+
 class EditionCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'cms_body.add_document'
     model = Edition
@@ -115,8 +122,11 @@ class EditionCreateView(PermissionRequiredMixin, CreateView):
     def get_form(self):
         # add date picker in forms
         from django.forms.widgets import SelectDateWidget
+        import datetime
+        year = datetime.date.today().year
+        print(year)
         form = super(EditionCreateView, self).get_form()
-        form.fields['date'].widget = SelectDateWidget()
+        form.fields['date'].widget = SelectDateWidget(years=range(2017, year+1), months=MONTHS,  empty_label=("Rok", "Miesiąc", "Dzień"))
         return form
 
 
@@ -202,8 +212,6 @@ class AddDocument(PermissionRequiredMixin, View):
                 author=current_user)
             document.guests.set(form.cleaned_data['guests'])
             document.save()
-            # todo
-            # form.save()
             return HttpResponseRedirect(reverse('documents'))
         ctx = {
             'form': form,
@@ -249,10 +257,17 @@ class DocumentListView(View):
         if form.is_valid():
             slowo = form.cleaned_data['slowo']
             data = form.cleaned_data['data']
-            topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
-            lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
-            content = Document.objects.filter(content__icontains=slowo).order_by('-id')
-            guest = Guest.objects.filter(Q(name__icontains=slowo) | Q(surname__icontains=slowo)).order_by('-id')
+            if slowo:
+                topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
+                lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
+                content = Document.objects.filter(content__icontains=slowo).order_by('-id')
+                guest = Guest.objects.filter(Q(name__icontains=slowo) | Q(surname__icontains=slowo)).order_by('-id')
+            else:
+                topic = None
+                lead = None
+                content = None
+                guest = None
+
             try:
                 edition = Edition.objects.get(date=data)
             except:
@@ -278,6 +293,11 @@ class DocumentListView(View):
 
 class DocumentDetailView(DetailView):
     model = Document
+
+
+class DocumentDetailPopView(DetailView):
+    model = Document
+    template_name = 'cms_body/document_detail_pop.html'
 
 
 class DocumentDeleteView(PermissionRequiredMixin, DeleteView):

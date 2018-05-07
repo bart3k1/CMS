@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
+{#{% extends 'base.html' %}#}
+<html>
+<body>
 
-{% block content %}
+{#{% block content %}#}
     <p></p>
-    <button onclick="goBack()">Wróć</button>
+    <button onclick="myFunction()">Wydrukuj stronę</button>
 
     <h1>{{ object }}</h1>
     <p> {{ object.edition }}<br>
@@ -21,14 +23,16 @@
     <p> Treść: <br>{% autoescape off %}{{ object.content }}{% endautoescape %}</p>
 
 
-    <button onclick="goBack()">Wróć</button>
+    <button onclick="myFunction()">Wydrukuj stronę</button>
+
     <p></p>
 
+
     <script>
-        function goBack() {
-            window.history.back();
+        function myFunction() {
+            window.print();
         }
     </script>
-
-
-{% endblock %}
+</body>
+</html>
+{#{% endblock %}#}

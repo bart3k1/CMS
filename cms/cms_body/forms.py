@@ -1,28 +1,36 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
-from django_select2.forms import Select2MultipleWidget
+from django_select2.forms import Select2MultipleWidget  # HeavySelect2MultipleWidget
 from cms_body.models import Document, Guest
-from cms_body.validators import validate_gosc, validate_username
-
+from cms_body.validators import validate_username
+import datetime
 
 class GuestSearchForm(forms.Form):
     gosc = forms.CharField(max_length=100, required=True, label="Gość")
 
 
+year = datetime.date.today().year
+
+MONTHS = {
+    1: ('styczeń'), 2: ('luty'), 3: ('marzec'), 4: ('kwiecień'),
+    5: ('maj'), 6: ('czerwiec'), 7: ('lipiec'), 8: ('sierpień'),
+    9: ('wrzesień'), 10: ('październik'), 11: ('listopad'), 12: ('grudzień')
+}
+
+
 class EditionSearchForm(forms.Form):
-    import datetime
-    year = datetime.date.today().year
-    data = forms.DateField(widget=SelectDateWidget(years=range(2017, year + 1)))
+
+    data = forms.DateField(widget=SelectDateWidget(years=range(2017, year + 1), months=MONTHS,  empty_label=("Rok", "Miesiąc", "Dzień")))
 
 
 class DocumentSearchForm(forms.Form):
-    slowo = forms.CharField(max_length=100, required=True, label="Wyszukaj słowo")
-    data = forms.DateField(widget=SelectDateWidget, label="Data wydania")
+    slowo = forms.CharField(max_length=100, required=False, label="Słowo")
+    data = forms.DateField(widget=SelectDateWidget(years=range(2017, year + 1), months=MONTHS,  empty_label=("Rok", "Miesiąc", "Dzień")), label="Data")
 
 
 class DocumentForm(forms.ModelForm):
-    guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget, label="Goście")
+    guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget(), label="Goście")
 
     class Meta:
         model = Document

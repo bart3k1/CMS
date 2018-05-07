@@ -15,7 +15,7 @@
             <ul>
                 {% for object in guest %}
                     <li>
-                        {{ forloop.counter }}.
+{#                        {{ forloop.counter }}.#}
                         <a href="{% url 'guest-detail' pk=object.id %}">
                             <span class="glyphicon glyphicon-user"></span>{{ object }} </a>
                     </li>
@@ -31,10 +31,14 @@
             <ul>
                 {% for object in topic %}
                     <li>
-                        {{ forloop.counter }}.
-                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'user-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
+{#                        {{ forloop.counter }}.#}
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a> <br>
+                        <a href="{% url 'document-detail-pop' pk=object.id %}"
+                           target="popup" onclick="window.open('document-detail-pop','popup', 'location=no, width=800,height=600') ">
+                            <span class="glyphicon glyphicon-print"></span> Drukuj | </a>
+                <a href="{% url 'update-document' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ |</a>
+                <a href="{% url 'user-detail' pk=object.author.id %}"> <span class="glyphicon glyphicon-user"></span>Autor: {{ object.author.last_name }} </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -47,11 +51,14 @@
             <ul>
                 {% for object in lead %}
                     <li>
-                        {{ forloop.counter }}.
-                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'document-detail' pk=object.id %}"> USUŃ </a>
-                        <a href="{% url 'user-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
+{#                        {{ forloop.counter }}.#}
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a> <br>
+                        <a href="{% url 'document-detail-pop' pk=object.id %}"
+                           target="popup" onclick="window.open('document-detail-pop','popup', 'location=no, width=800,height=600') ">
+                            <span class="glyphicon glyphicon-print"></span> Drukuj |</a>
+                <a href="{% url 'update-document' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ |</a>
+                <a href="{% url 'user-detail' pk=object.author.id %}"> <span class="glyphicon glyphicon-user"></span>Autor: {{ object.author.last_name }} </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -63,10 +70,14 @@
             <ul>
                 {% for object in content %}
                     <li>
-                        {{ forloop.counter }}.
-                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
-                        <a href="{% url 'user-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
+{#                        {{ forloop.counter }}.#}
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a> <br>
+                        <a href="{% url 'document-detail-pop' pk=object.id %}"
+                           target="popup" onclick="window.open('document-detail-pop','popup', 'location=no, width=800,height=600') ">
+                            <span class="glyphicon glyphicon-print"></span> Drukuj |</a>
+                <a href="{% url 'update-document' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ |</a>
+                <a href="{% url 'user-detail' pk=object.author.id %}"> <span class="glyphicon glyphicon-user"></span>Autor: {{ object.author.last_name }} </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -76,14 +87,14 @@
         {% if edition %}
 
             <p>Dopasowano wydanie:</p>
-            {{ edition }}
+            <a href="{% url 'edition-detail' pk=edition.id %}"> {{ edition }} |</a>
             <ul>
                 {% for object in edition.documents.all %}
                     <li>
-                        {{ forloop.counter }}.
-                        <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+{#                        {{ forloop.counter }}.#}
+                        <a href="{% url 'edition-detail' pk=object.id %}"> {{ object.topic }} </a>
                         <a href="{% url 'user-detail' pk=object.author.id %}">
-                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} |</a>
+                            <span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} </a>
                     </li>
                 {% endfor %}
 
@@ -98,13 +109,14 @@
 
         {% for object in documents %}
             <li>
-                {{ forloop.counter }}.
-                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a>
+{#                {{ forloop.counter }}.#}
+                <a href="{% url 'document-detail' pk=object.id %}"> {{ object.topic }} </a> <br>
+                        <a href="{% url 'document-detail-pop' pk=object.id %}"
+                           target="popup" onclick="window.open('document-detail-pop','popup', 'location=no, width=800,height=600') ">
+                            <span class="glyphicon glyphicon-print"></span> Drukuj |</a>
                 <a href="{% url 'update-document' pk=object.id %}"><span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
-                <a href="{% url 'delete-edition' pk=object.id %}">
-                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ
-                </a>
-                    <a href="{% url 'delete-document' pk=object.id %}"><span class="glyphicon glyphicon-user"></span> {{ object.author.last_name }} | </a>
+                <a href="{% url 'delete-document' pk=object.id %}"> <span class="glyphicon glyphicon-remove"></span>USUŃ |</a>
+                <a href="{% url 'user-detail' pk=object.author.id %}"> <span class="glyphicon glyphicon-user"></span>Autor: {{ object.author.last_name }} </a>
             </li>
         {% endfor %}
 
