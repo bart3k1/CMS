@@ -3,6 +3,9 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles import finders
 
+import enchant
+enchant.dict_exists('pl')
+
 DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
                          {
                             'plugins': "spellchecker",

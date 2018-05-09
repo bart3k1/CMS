@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
-from django_select2.forms import Select2MultipleWidget  # HeavySelect2MultipleWidget
+from django_select2.forms import Select2MultipleWidget, HeavySelect2Widget  # HeavySelect2MultipleWidget
 from cms_body.models import Document, Guest
 from cms_body.validators import validate_username
 import datetime

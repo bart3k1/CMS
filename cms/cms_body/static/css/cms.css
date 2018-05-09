@@ -35,9 +35,9 @@ h6 {
     background-color: lightgray;
 }
 
-/*.col-md-10 {*/
-    /*width: 100%;*/
-/*}*/
+.col-md-10 {
+    width: 100%;
+}
 
 
 /* Set black background color, white text and some padding */
