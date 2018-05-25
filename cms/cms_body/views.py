@@ -276,9 +276,9 @@ class DocumentListView(View):
             slowo = form.cleaned_data['slowo']
             data = form.cleaned_data['data']
             if slowo:
-                topic = Document.objects.filter(topic__icontains=slowo).order_by('-id')
-                lead = Document.objects.filter(lead__icontains=slowo).order_by('-id')
-                content = Document.objects.filter(content__icontains=slowo).order_by('-id')
+                topic = Document.objects.filter(topic__icontains=slowo).order_by('-id').filter(published=True)
+                lead = Document.objects.filter(lead__icontains=slowo).order_by('-id').filter(published=True)
+                content = Document.objects.filter(content__icontains=slowo).order_by('-id').filter(published=True)
                 guest = Guest.objects.filter(Q(name__icontains=slowo) | Q(surname__icontains=slowo)).order_by('-id')
             else:
                 topic = None
@@ -297,7 +297,7 @@ class DocumentListView(View):
                 'content': content,
                 'lead': lead,
                 'topic': topic,
-                'documents': Document.objects.all().order_by('-id')[0:20],
+                'documents': Document.objects.all().filter(published=True).order_by('-id')[0:20],
                 'wyniki': None
             }
             return render(request, 'document_list.html', ctx)
