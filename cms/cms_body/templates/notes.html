@@ -73,3 +73,73 @@
     {% endfor %}
 </ul>
 <a href="{% url 'documents' %}"> ...więcej </a>
+{##}
+
+
+{% extends 'base_form.html' %}
+
+{% block beforeform %}
+    <h2>Znajdź gościa:</h2>
+{% endblock %}
+
+{% block buttontext %}Wyszukaj!{% endblock %}
+
+{% block afterform %}
+
+
+    {% if guests_list %}
+        <p>Dopasowano:</p>
+        <ul>
+            {% for object in pag_list %}
+                <li>
+                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+    <span class="step-links">
+        {% if pag_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ pag_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ pag_list.number }} of {{ pag_list.paginator.num_pages }}.
+        </span>
+
+        {% if pag_list.has_next %}
+            <a href="?page={{ pag_list.next_page_number }}">next</a>
+            <a href="?page={{ pag_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+        </div>
+
+
+    {% endif %}
+
+
+
+    {% if not guests_list %}
+        <p> --- Brak gości--- </p>
+    {% endif %}
+
+
+    Ostatnio dodani:
+    <ul>
+
+        {% for object in guests %}
+            <li>
+
+                {{ forloop.counter }} <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                    class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}
+

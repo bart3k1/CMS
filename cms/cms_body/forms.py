@@ -8,7 +8,8 @@ import datetime
 
 
 class GuestSearchForm(forms.Form):
-    gosc = forms.CharField(max_length=100, required=True, label="Gość")
+    name = forms.CharField(max_length=100, required=True, label="Imię")
+    lastname = forms.CharField(max_length=100, required=False, label="Nazwisko")
 
 
 year = datetime.date.today().year

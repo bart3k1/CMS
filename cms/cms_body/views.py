@@ -76,15 +76,31 @@ class GuestListView(View):
     def post(self, request):
         form = GuestSearchForm(request.POST)
         if form.is_valid():
-            guest = form.cleaned_data['gosc']
+            guest_name = form.cleaned_data['name']
+            guest_lastname = form.cleaned_data['lastname']
             all_guests_list = Guest.objects.all()
-            for name in guest.split():
-                guests_list = all_guests_list.filter(Q(name__icontains=name) | Q(surname__icontains=name) | Q(notes__icontains=name))
+            for guest_name in guest_name.split():
+                guests_list1 = all_guests_list.filter(Q(name__icontains=guest_name) | Q(surname__icontains=guest_name)) # | Q(notes__icontains=guest_name))
+            if guest_lastname:
+                for guest_lastname in guest_lastname.split():
+                    guests_list2 = all_guests_list.filter(Q(name__icontains=guest_lastname) | Q(surname__icontains=guest_lastname)) # | Q(notes__icontains=guest_name))
+                    guests_list = [obj for obj in guests_list1 if obj in guests_list2]
+            else:
+                guests_list = guests_list1
+            #todo PAGINATION
+            # print(guests_list)
+            #
+            # paginator = Paginator(guests_list, 10)
+            # page = request.GET.get('page')
+            # pag_list = paginator.get_page(page)
 
             ctx = {
                 'guests': Guest.objects.all().order_by('-id')[0:10],
                 'form': form,
                 'guests_list': guests_list
+                # 'pag_list': pag_list,
+                # 'page': page,
+                # 'paginator': paginator
 
             }
             return render(request, 'guest_list.html', ctx)
