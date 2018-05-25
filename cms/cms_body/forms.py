@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelMultipleChoiceField, SelectDateWidget
 from django_select2.forms import Select2MultipleWidget, HeavySelect2Widget  # HeavySelect2MultipleWidget
-from cms_body.models import Document, Guest
+from cms_body.models import Document, Guest, Edition
 from cms_body.validators import validate_username
 import datetime
 
@@ -11,6 +11,9 @@ class GuestSearchForm(forms.Form):
 
 
 year = datetime.date.today().year
+date_today = datetime.date.today()
+date_month_plus = date_today + datetime.timedelta(days=30)
+date_month_minus = date_today - datetime.timedelta(days=30)
 
 MONTHS = {
     1: ('styczeń'), 2: ('luty'), 3: ('marzec'), 4: ('kwiecień'),
@@ -31,7 +34,7 @@ class DocumentSearchForm(forms.Form):
 
 class DocumentForm(forms.ModelForm):
     guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget(), label="Goście")
-
+    edition = forms.ModelChoiceField(Edition.objects.filter(date__range=[date_month_minus, date_month_plus]))
     class Meta:
         model = Document
         fields = ['edition', 'published', 'guests', 'notes', 'topic', 'lead', 'content']
