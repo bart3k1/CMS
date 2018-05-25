@@ -9,34 +9,10 @@
 {% block afterform %}
 
 
-    {% if name %}
-        <p>Dopasowano imię:</p>
+    {% if guests_list %}
+        <p>Dopasowano:</p>
         <ul>
-            {% for object in name %}
-                <li>
-                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
-                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
-                </li>
-
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% if surname %}
-        <p>Dopasowano nazwisko:</p>
-        <ul>
-            {% for object in surname %}
-                <li>
-                    <a href="{% url 'guest-detail' pk=object.id %}"> <span
-                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
-                </li>
-
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% if notatki %}
-        <p>Dopasowano notkę:</p>
-        <ul>
-            {% for object in notatki %}
+            {% for object in guests_list %}
                 <li>
                     <a href="{% url 'guest-detail' pk=object.id %}"> <span
                             class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
@@ -46,7 +22,9 @@
         </ul>
     {% endif %}
 
-    {% if not name and not surname %}
+
+
+    {% if not guests_list %}
         <p> --- Brak gości--- </p>
     {% endif %}
 

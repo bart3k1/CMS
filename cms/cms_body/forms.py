@@ -6,6 +6,7 @@ from cms_body.models import Document, Guest, Edition
 from cms_body.validators import validate_username
 import datetime
 
+
 class GuestSearchForm(forms.Form):
     gosc = forms.CharField(max_length=100, required=True, label="Gość")
 

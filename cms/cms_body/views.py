@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -66,7 +68,7 @@ class GuestCreateView(PermissionRequiredMixin, CreateView):
 class GuestListView(View):
     def get(self, request):
         ctx = {
-            'guests': Guest.objects.all().order_by('-id')[0:20],
+            'guests': Guest.objects.all().order_by('-id')[0:10],
             'form': GuestSearchForm,
         }
         return render(request, 'guest_list.html', ctx)
@@ -74,17 +76,16 @@ class GuestListView(View):
     def post(self, request):
         form = GuestSearchForm(request.POST)
         if form.is_valid():
-            gosc = form.cleaned_data['gosc']
-            name = Guest.objects.filter(name__icontains=gosc).order_by('-id')
-            surname = Guest.objects.filter(surname__icontains=gosc).order_by('-id')
-            notatki = Guest.objects.filter(notes__icontains=gosc).order_by('-id')
+            guest = form.cleaned_data['gosc']
+            all_guests_list = Guest.objects.all()
+            for name in guest.split():
+                guests_list = all_guests_list.filter(Q(name__icontains=name) | Q(surname__icontains=name) | Q(notes__icontains=name))
+
             ctx = {
-                'guests': Guest.objects.all().order_by('-id')[0:20],
+                'guests': Guest.objects.all().order_by('-id')[0:10],
                 'form': form,
-                'name': name,
-                'surname': surname,
-                'notatki': notatki,
-                'wyniki': True
+                'guests_list': guests_list
+
             }
             return render(request, 'guest_list.html', ctx)
 
