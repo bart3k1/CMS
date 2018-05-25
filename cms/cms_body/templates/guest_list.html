@@ -10,39 +10,41 @@
 
 
     {% if guests_list %}
-        <p>Dopasowano:</p>
-        <ul>
+        <div class="container-list-outer">
+        <div>Dopasowano:</div>
+
             {% for object in guests_list %}
-                <li>
+                    <div class="container-list">
                     <a href="{% url 'guest-detail' pk=object.id %}"> <span
-                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
-                </li>
+                            class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} | tel. {{ object.phone }}
+                        {% if object.alt_phone %} | tel/menadżer. {{ object.alt_phone }} {% endif %}</a>
+                    </div>
 
             {% endfor %}
-        </ul>
 
+        </div>
     {% endif %}
 
 
 
     {% if not guests_list %}
-        <p> --- Brak gości--- </p>
+        <div class="container-list-outer">
+        <div> BRAK GOŚCI</div>
+        </div>
     {% endif %}
 
+    <div class="container-list-outer">
+    <div>Ostatnio dodani: </div>
 
-    Ostatnio dodani:
-    <ul>
+    {% for object in guests %}
+        <div class="container-list">
+        <a href="{% url 'guest-detail' pk=object.id %}"> <span
+                class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} | tel. {{ object.phone }}
+                        {% if object.alt_phone %} | tel/menadżer. {{ object.alt_phone }} {% endif %}</a>
+        </div>
 
-        {% for object in guests %}
-            <li>
-
-                {{ forloop.counter }} <a href="{% url 'guest-detail' pk=object.id %}"> <span
-                    class="glyphicon glyphicon-user"></span> {{ object.name }} {{ object.surname }} </a>
-
-            </li>
-        {% endfor %}
-
-    </ul>
+    {% endfor %}
+    </div>
 
 {% endblock %}
 

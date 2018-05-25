@@ -80,10 +80,11 @@ class GuestListView(View):
             guest_lastname = form.cleaned_data['lastname']
             all_guests_list = Guest.objects.all()
             for guest_name in guest_name.split():
-                guests_list1 = all_guests_list.filter(Q(name__icontains=guest_name) | Q(surname__icontains=guest_name)) # | Q(notes__icontains=guest_name))
+                # guests_list1 = all_guests_list.filter(Q(name__icontains=guest_name) | Q(surname__icontains=guest_name)) # | Q(notes__icontains=guest_name))
+                guests_list1 = all_guests_list.filter(name__icontains=guest_name)
             if guest_lastname:
                 for guest_lastname in guest_lastname.split():
-                    guests_list2 = all_guests_list.filter(Q(name__icontains=guest_lastname) | Q(surname__icontains=guest_lastname)) # | Q(notes__icontains=guest_name))
+                    guests_list2 = all_guests_list.filter(surname__icontains=guest_lastname) # | Q(notes__icontains=guest_name))
                     guests_list = [obj for obj in guests_list1 if obj in guests_list2]
             else:
                 guests_list = guests_list1

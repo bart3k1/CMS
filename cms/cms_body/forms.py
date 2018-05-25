@@ -30,7 +30,7 @@ class EditionSearchForm(forms.Form):
 
 
 class DocumentSearchForm(forms.Form):
-    slowo = forms.CharField(max_length=100, required=False, label="Słowo")
+    slowo = forms.CharField(max_length=100, required=False, label="Fraza")
     data = forms.DateField(widget=SelectDateWidget(years=range(2017, year + 1), months=MONTHS,  empty_label=("Rok", "Miesiąc", "Dzień")), label="Data")
 
 

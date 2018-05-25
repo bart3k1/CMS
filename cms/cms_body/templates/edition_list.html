@@ -9,30 +9,29 @@
 {% block afterform %}
 
     {% if edition %}
-        <h2>Szukane wydanie:</h2>
-        <ul>
-            <li>
-                <a href="{% url 'edition-detail' pk=edition.id %}"> {{ edition }} |</a>
-                <a href="{% url 'update-edition' pk=edition.id %}">
-                    <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
-                <a href="{% url 'delete-edition' pk=edition.id %}">
-                    <span class="glyphicon glyphicon-remove"></span> Usuń |</a>
-                <a href="{% url 'user-detail' pk=edition.editor.id %}">
-                    <span class="glyphicon glyphicon-user"></span> {{ edition.editor.last_name }} |</a>
-            </li>
-        </ul>
+        <div class="container-list-outer">
+        <div>Znaleziono wydanie:</div>
+            <div class="container-list">
+        <a href="{% url 'edition-detail' pk=edition.id %}"> {{ edition }} |</a>
+        <a href="{% url 'update-edition' pk=edition.id %}">
+            <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
+        <a href="{% url 'delete-edition' pk=edition.id %}">
+            <span class="glyphicon glyphicon-remove"></span> Usuń |</a>
+        <a href="{% url 'user-detail' pk=edition.editor.id %}">
+            <span class="glyphicon glyphicon-user"></span> {{ edition.editor.last_name }} |</a>
+            </div>
+            </div>
+
     {% else %}
-        <ul>
-            <li>
-                Brak wydania
-            </li>
-        </ul>
+        <div class="container-list-outer">
+        <div> ...</div>
+        </div>
     {% endif %}
 
-    <h2>Ostatnie wydania: </h2>
-    <ul>
+    <div class="container-list-outer">
+        <div>Ostatnie wydania:</div>
         {% for object in editions %}
-            <li>
+            <div class="container-list">
                 <a href="{% url 'edition-detail' pk=object.id %}"> {{ object }} |</a>
                 <a href="{% url 'update-edition' pk=object.id %}">
                     <span class="glyphicon glyphicon-chevron-right"></span> Edytuj |</a>
@@ -40,8 +39,9 @@
                     <span class="glyphicon glyphicon-remove"></span> Usuń |</a>
                 <a href="{% url 'user-detail' pk=object.editor.id %}">
                     <span class="glyphicon glyphicon-user"></span> {{ object.editor.last_name }} |</a>
-            </li>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
 
 {% endblock %}
