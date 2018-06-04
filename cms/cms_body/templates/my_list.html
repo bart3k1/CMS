@@ -7,10 +7,9 @@
     {% if not_published_documents %}
 
         <h3>Nieopublikowane:</h3>
-        <ul>
+
             {% for object in not_published_documents %}
-                <li>
-                    {{ forloop.counter }}.
+        <div class="container-list">
                     <a href="{% url 'document-detail' pk=object.id %}">
                         <span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a><br>
                     <a href="{% url 'update-document' pk=object.id %}">
@@ -18,18 +17,17 @@
                     <a href="{% url 'delete-document' pk=object.id %}">
                         <span class="glyphicon glyphicon-remove"></span>USUŃ </a> |
                     Wydanie: {{ object.edition.date }} | <br>
-                </li>
+        </div>
             {% endfor %}
-        </ul>
+
 
     {% endif %}
 
         <h3>Opublikowane:</h3>
-            <ul>
+
 
                 {% for object in documents %}
-                    <li>
-                        {{ forloop.counter }}.
+                    <div class="container-list">
                         <a href="{% url 'document-detail' pk=object.id %}">
                             <span class="glyphicon glyphicon-book"></span> {{ object.topic }} </a><br>
                         <a href="{% url 'update-document' pk=object.id %}">
@@ -37,21 +35,21 @@
                         <a href="{% url 'delete-document' pk=object.id %}">
                             <span class="glyphicon glyphicon-remove"></span>USUŃ </a> |
                         Wydanie: <a href="{% url 'edition-detail' pk=object.edition.id %}"> {{ object.edition.date }} </a> | <br>
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+
 
     {% if editions %}
         <h3>Moje wydania:</h3>
-         <ul>
+
             {% for object in editions %}
-                <li>
+                <div class="container-list">
                     {{ forloop.counter }}.
                     <a href="{% url 'edition-detail' pk=object.id %}"> {{ object }} </a><br>
 
-                </li>
+                </div>
             {% endfor %}
-        </ul>
+
 
     {% endif %}
 

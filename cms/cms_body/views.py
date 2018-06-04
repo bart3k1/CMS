@@ -279,19 +279,19 @@ class DocumentListView(View):
                 topic = Document.objects.filter(topic__icontains=slowo).order_by('-id').filter(published=True)
                 lead = Document.objects.filter(lead__icontains=slowo).order_by('-id').filter(published=True)
                 content = Document.objects.filter(content__icontains=slowo).order_by('-id').filter(published=True)
-                guest = Guest.objects.filter(Q(name__icontains=slowo) | Q(surname__icontains=slowo)).order_by('-id')
+
             else:
                 topic = None
                 lead = None
                 content = None
-                guest = None
+
 
             try:
                 edition = Edition.objects.get(date=data)
             except:
                 edition = None
             ctx = {
-                'guest': guest,
+
                 'form': form,
                 'edition': edition,
                 'content': content,
@@ -303,7 +303,7 @@ class DocumentListView(View):
             return render(request, 'document_list.html', ctx)
 
         ctx = {
-            'guests': Document.objects.all().order_by('-id')[0:20],
+
             'form': form,
         }
         return render(request, 'document_list.html', ctx)
