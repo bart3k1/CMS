@@ -36,7 +36,7 @@ class DocumentSearchForm(forms.Form):
 
 class DocumentForm(forms.ModelForm):
     guests = ModelMultipleChoiceField(queryset=Guest.objects.all(), widget=Select2MultipleWidget(), label="Goście")
-    edition = forms.ModelChoiceField(Edition.objects.filter(date__range=[date_month_minus, date_month_plus]))
+    edition = forms.ModelChoiceField(Edition.objects.filter(date__range=[date_month_minus, date_month_plus]).order_by('-date'))
     class Meta:
         model = Document
         fields = ['edition', 'published', 'guests', 'notes', 'topic', 'lead', 'content']

@@ -2,16 +2,19 @@
 
 {% block content %}
 
-    <h2>Autorzy:</h2>
-    <ul>
-        {% for object in object_list %}
-            <li>
-                <a href="{% url 'user-detail' pk=object.id %}"> <span
-                        class="glyphicon glyphicon-user"></span>  {{ object.first_name }} {{ object.last_name }} <span
-                        class="glyphicon glyphicon-earphone"></span> {{ object.phone }}  </a>
-                <br>Ostatnie logowanie: {{ object.last_login }}
-            </li>
-        {% endfor %}
-    </ul>
+     <h2>Autorzy:</h2>
+    {% for object in object_list %}
+
+
+
+
+                    <div class="container-list">
+                    <a href="{% url 'host-detail' pk=object.id %}"> <span
+                        class="glyphicon glyphicon-user"></span> {{ object.first_name }} {{ object.last_name }} {{ object.phone }} </a>
+                    </div>
+
+            {% endfor %}
+
+
 
 {% endblock %}
