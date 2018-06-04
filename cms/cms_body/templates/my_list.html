@@ -16,7 +16,7 @@
                         <span class="glyphicon glyphicon-chevron-right"></span> Edytuj </a> |
                     <a href="{% url 'delete-document' pk=object.id %}">
                         <span class="glyphicon glyphicon-remove"></span>USUŃ </a> |
-                    Wydanie: {{ object.edition.date }} | <br>
+                    Wydanie:  <a href="{% url 'edition-detail' pk=object.edition.id %}"> {{ object.edition.date }} </a> |<br>
         </div>
             {% endfor %}
 
