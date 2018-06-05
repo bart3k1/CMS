@@ -1,10 +1,14 @@
 {% extends 'base_form.html' %}
 
 {% block beforeform %}
+    <div class="container-list-outer">
     <h2>Znajdź wydanie:</h2>
+    </div>
 {% endblock %}
 
-{% block buttontext %}Szukaj{% endblock %}
+{% block buttontext %}{{ button }}{% endblock %}
+
+</div>
 
 {% block afterform %}
 

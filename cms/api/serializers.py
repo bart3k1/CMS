@@ -48,4 +48,4 @@ class GuestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Guest
-        fields = ["id", "name", "surname", "phone", "alt_phone", "notes", "ocena"]
+        fields = ["id", "name", "surname"]

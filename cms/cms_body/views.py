@@ -153,6 +153,7 @@ class EditionListView(View):
         ctx = {
             'editions': Edition.objects.all().order_by('-id')[0:20],
             'form': EditionSearchForm,
+            'button': "Szukaj",
         }
         return render(request, 'edition_list.html', ctx)
 
@@ -168,6 +169,7 @@ class EditionListView(View):
                 'form': form,
                 'edition': edition,
                 'editions': Edition.objects.all().order_by('-id')[0:20],
+                'button': "Szukaj",
 
             }
             return render(request, 'edition_list.html', ctx)
@@ -175,6 +177,7 @@ class EditionListView(View):
         ctx = {
             'editions': Edition.objects.all().order_by('-id')[0:20],
             'form': form,
+            'button': "Szukaj",
         }
         return render(request, 'edition_list.html', ctx)
 
