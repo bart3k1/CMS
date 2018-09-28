@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'cms_test',
         'ENGINE': 'mysql.connector.django',
         'USER': 'root',
-        'PASSWORD': 'coderslab',
+        'PASSWORD': 'pass01',
         'OPTIONS': {
             'autocommit': True,
         },

@@ -2,8 +2,6 @@ from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -13,7 +11,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 from cms_body.forms import (AddUserForm, DocumentForm, DocumentSearchForm,
                             EditionSearchForm, GuestSearchForm, LoginForm)
 from cms_body.models import Document, Edition, Guest, Host
-from django.db.models import Q
+
 
 User = get_user_model()
 
