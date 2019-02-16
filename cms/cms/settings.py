@@ -85,16 +85,28 @@ WSGI_APPLICATION = 'cms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'HOST': '127.0.0.1',
+#         'NAME': 'cms_test',
+#         'ENGINE': 'mysql.connector.django',
+#         'USER': 'root',
+#         'PASSWORD': 'pass01',
+#         'OPTIONS': {
+#             'autocommit': True,
+#         },
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'HOST': '127.0.0.1',
-        'NAME': 'cms_test',
-        'ENGINE': 'mysql.connector.django',
-        'USER': 'root',
-        'PASSWORD': 'pass01',
-        'OPTIONS': {
-            'autocommit': True,
-        },
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cms',
+        'USER': 'postgres',
+        'PASSWORD': 'xxx',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
