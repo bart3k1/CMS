@@ -6,7 +6,7 @@ django-select2==6.0.2
 djangorestframework==3.8.2
 isort==4.3.4
 Markdown==2.6.11
-mysql-connector-python==8.0.6
+mysql-connector-python==8.0.14
 pyenchant==2.0.0
 pytz==2018.4
 six==1.11.0
